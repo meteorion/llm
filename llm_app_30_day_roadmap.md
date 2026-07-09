@@ -8,6 +8,29 @@
 
 ---
 
+## 📍 配套资料与当前进度
+
+**与总路线的关系**：本文件是 [`plan.md`](plan.md)（四阶段战略路线）中**第一~三阶段**的每日执行版。先用这 30 天跑通"基础 → RAG → Agent"的最小闭环，再回到 `plan.md` 按阶段往深里做。
+
+| 本路线 | 对应 `plan.md` 阶段 | 核心目标 |
+| --- | --- | --- |
+| 第 1–2 周（Day 1–14） | 第一阶段 · 基础与提示词工程 | 调通 API、稳定的 Prompt 与结构化输出 |
+| 第 3 周（Day 15–21） | 第二阶段 · RAG 核心应用架构 | 最小可用的文档问答系统 |
+| 第 4 周（Day 22–30） | 第三阶段 · 智能体与工程化 | Tool Calling / Agent + 完整作品 |
+| 30 天之后 | 第四阶段 · 部署与模型定制（按需） | 私有化部署、量化、微调、多模态 |
+
+**当前进度**（已沉淀的学习笔记）
+
+- [x] Day 1 · 理解大模型应用开发的全景 → [`day01_llm_app_overview.md`](day01_llm_app_overview.md)
+- [x] Day 2 · 补 Python 最小基础 → [`day02_python_basics.md`](day02_python_basics.md)
+- [x] Day 3 · 第一次调用模型 API → [`day03_first_api_call.md`](day03_first_api_call.md)
+- [x] Day 4 · 做一个命令行聊天 Demo → [`day04_cli_chat_demo.md`](day04_cli_chat_demo.md)
+- [ ] Day 5 起 · 待完成（继续按下方每日任务清单推进）
+
+> 📌 笔记命名约定：`dayNN_<主题>.md`（两位数字便于排序）。新增笔记时沿用此格式，例如 `day05_text_summarizer.md`、`day15_rag_from_scratch.md`。
+
+---
+
 ## 一、先明确你要学什么
 
 这 30 天的重点不是训练模型，而是学习如何把大模型接入真实应用。
@@ -650,11 +673,11 @@
 3. 学习框架：`LangChain`、`LangGraph`、`LlamaIndex`
 4. 再回头补模型原理、微调和部署
 
-如果你当前仓库准备继续沉淀学习笔记，可以把后续文档拆成这些主题：
+如果你当前仓库准备继续沉淀学习笔记，建议沿用 `dayNN_<主题>.md` 命名（与已有的 Day 1–4 笔记保持一致），后续主题可以是：
 
-- `0.3_python_environment_and_api_setup.md`
-- `0.4_first_llm_api_demo.md`
-- `3.1_rag_from_scratch.md`
-- `4.1_tool_calling_basics.md`
-- `4.2_first_agent_demo.md`
+- `day05_text_summarizer.md`（文章摘要器）
+- `day08_structured_output.md`（结构化输出）
+- `day15_rag_from_scratch.md`（RAG 从零实现）
+- `day22_tool_calling_basics.md`（工具调用基础）
+- `day24_first_agent_demo.md`（第一个 Agent Demo）
 

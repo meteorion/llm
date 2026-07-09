@@ -1,6 +1,10 @@
 # Day 3：第一次调用模型 API
 
 > 学习目标：成功调用大模型 API，理解 HTTP 请求、API Key 管理和 JSON 数据格式
+>
+> 📚 所属阶段：**第一阶段 · 基础与提示词工程**（见 [`plan.md`](plan.md)）｜ 配套：[30 天路线](llm_app_30_day_roadmap.md) · Day 3
+>
+> 🧭 导航：[← Day 2 · Python 最小基础](day02_python_basics.md) → [Day 4 · 命令行聊天 Demo →](day04_cli_chat_demo.md)
 
 ---
 
@@ -1125,3 +1129,5 @@ Day 4 将学习：
 > 完成 Day 3 后，你已经成功调用了大模型 API！
 >
 > 明天我们将深入学习消息结构，实现完整的聊天程序。
+>
+> ⬅️ 上一天：[Day 2 · 补 Python 最小基础](day02_python_basics.md)　｜　➡️ 下一天：[Day 4 · 做一个命令行聊天 Demo](day04_cli_chat_demo.md)

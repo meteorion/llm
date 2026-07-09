@@ -1,6 +1,10 @@
 # Day 2：补 Python 最小基础
 
 > 学习目标：搭建 Python 开发环境，掌握大模型应用开发所需的 Python 最小知识集
+>
+> 📚 所属阶段：**第一阶段 · 基础与提示词工程**（见 [`plan.md`](plan.md)）｜ 配套：[30 天路线](llm_app_30_day_roadmap.md) · Day 2
+>
+> 🧭 导航：[← Day 1 · 全景认知](day01_llm_app_overview.md) → [Day 3 · 第一次调用 API →](day03_first_api_call.md)
 
 ---
 
@@ -966,7 +970,7 @@ finally:
 | `FileNotFoundError` | 文件不存在 | `open("nofile.txt")` |
 | `PermissionError` | 权限错误 | 写入只读文件 |
 | `ZeroDivisionError` | 除零错误 | `1 / 0` |
-| `AttributeError` | 属性不存在 | `"str".nonexistent() |
+| `AttributeError` | 属性不存在 | `"str".nonexistent()` |
 | `ImportError` | 导入失败 | `import nonexistent` |
 
 ### 5.4 主动抛出异常
@@ -1387,3 +1391,5 @@ Day 3 将学习：
 > 完成 Day 2 的学习后，你已经具备了 Python 开发的基础能力。
 >
 > 明天我们将正式开始调用大模型 API，实现第一个 LLM 应用！
+>
+> ⬅️ 上一天：[Day 1 · 全景认知](day01_llm_app_overview.md)　｜　➡️ 下一天：[Day 3 · 第一次调用模型 API](day03_first_api_call.md)
