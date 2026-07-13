@@ -21,10 +21,10 @@
 
 **当前进度**（已沉淀的学习笔记）
 
-- [x] Day 1 · 理解大模型应用开发的全景 → [`day01_llm_app_overview.md`](day01_llm_app_overview.md)
-- [x] Day 2 · 补 Python 最小基础 → [`day02_python_basics.md`](day02_python_basics.md)
-- [x] Day 3 · 第一次调用模型 API → [`day03_first_api_call.md`](day03_first_api_call.md)
-- [x] Day 4 · 做一个命令行聊天 Demo → [`day04_cli_chat_demo.md`](day04_cli_chat_demo.md)
+- [x] Day 1 · 理解大模型应用开发的全景 → [`day01_llm_app_overview.md`](../学习笔记/day01_llm_app_overview.md)
+- [x] Day 2 · 补 Python 最小基础 → [`day02_python_basics.md`](../学习笔记/day02_python_basics.md)
+- [x] Day 3 · 第一次调用模型 API → [`day03_first_api_call.md`](../学习笔记/day03_first_api_call.md)
+- [x] Day 4 · 做一个命令行聊天 Demo → [`day04_cli_chat_demo.md`](../学习笔记/day04_cli_chat_demo.md)
 - [ ] Day 5 起 · 待完成（继续按下方每日任务清单推进）
 
 > 📌 笔记命名约定：`dayNN_<主题>.md`（两位数字便于排序）。新增笔记时沿用此格式，例如 `day05_text_summarizer.md`、`day15_rag_from_scratch.md`。
