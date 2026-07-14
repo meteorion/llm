@@ -21,6 +21,7 @@
 | [`day02_python_basics.md`](学习笔记/day02_python_basics.md) | Python 最小基础 | 环境搭建、列表/字典/函数/类、文件操作、异常处理 |
 | [`day03_first_api_call.md`](学习笔记/day03_first_api_call.md) | 第一次调用模型 API | HTTP 请求、API Key 管理、SDK 调用、LLM 客户端封装 |
 | [`day04_cli_chat_demo.md`](学习笔记/day04_cli_chat_demo.md) | 命令行聊天 Demo | 消息角色、多轮对话、上下文管理、CLI 聊天程序 |
+| [`day05_text_summarizer.md`](学习笔记/day05_text_summarizer.md) | 文章摘要器 | Prompt 任务约束、输出长度控制、多风格摘要器、Prompt 版本对比 |
 
 ---
 
@@ -224,6 +225,28 @@
 
 ---
 
+### [day05_text_summarizer.md](学习笔记/day05_text_summarizer.md) — Day 5：文章摘要器
+
+- **一、Prompt 任务约束**
+  - 1.1 为什么需要任务约束（无约束 vs 有约束效果对比）
+  - 1.2 约束的四个维度（内容范围 / 输出格式 / 长度限制 / 语气风格）
+  - 1.3 摘要任务的典型约束（V0～V4 五个递进 Prompt 示例）
+- **二、输出长度控制**
+  - 2.1 Prompt 层的长度控制（字数 / 句数 / 比例 / 结构 四种写法）
+  - 2.2 API 参数层的长度控制（max_tokens 对照表）
+  - 2.3 两种方式的区别（软约束 vs 硬截断对比、最佳实践）
+- **三、文章摘要器实现**
+  - 3.1 两个版本的摘要 Prompt（新闻要点版 / 深度结构化版）
+  - 3.2 基础摘要器（4 种风格：brief / bullets / structured / audience）
+  - 3.3 多风格交互版（支持文件输入、命令行参数、`--all` 全风格对比）
+- **四、Prompt 版本对比实验**
+  - 4.1 对比框架（run_prompt / compare_prompts 工具函数）
+  - 4.2 实验示例（V1～V4 四版 Prompt 横向对比，含结论）
+- **五、Day 5 知识速查**（约束要素表、temperature 对照、代码模板）
+- **六、实践任务**（理解约束 / 实现摘要器 / 写 2 个版本 Prompt / 对比 temperature）
+
+---
+
 ## 🗺️ 学习路线（四阶段）
 
 | 阶段 | 主题 | 预估周期 | 对应 30 天路线 |
@@ -241,9 +264,10 @@
 - [x] [Day 2 · 补 Python 最小基础](学习笔记/day02_python_basics.md)
 - [x] [Day 3 · 第一次调用模型 API](学习笔记/day03_first_api_call.md)
 - [x] [Day 4 · 做一个命令行聊天 Demo](学习笔记/day04_cli_chat_demo.md)
-- [ ] Day 5 起 · 待更新
+- [x] [Day 5 · 做一个文章摘要器](学习笔记/day05_text_summarizer.md)
+- [ ] Day 6 起 · 待更新
 
-新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day05_text_summarizer.md`。
+新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
 ## 🚀 如何开始
 
