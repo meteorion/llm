@@ -27,7 +27,12 @@
 - [x] Day 4 · 做一个命令行聊天 Demo → [`day04_cli_chat_demo.md`](../学习笔记/day04_cli_chat_demo.md)
 - [x] Day 5 · 文章摘要器 → [`day05_text_summarizer.md`](../学习笔记/day05_text_summarizer.md)
 - [x] Day 6 · 信息抽取工具 → [`day06_info_extractor.md`](../学习笔记/day06_info_extractor.md)
-- [ ] Day 7 起 · 待完成（继续按下方每日任务清单推进）
+- [x] Day 7 · 第 1 周复盘 → [`day07_week1_review.md`](../学习笔记/day07_week1_review.md)
+- [x] Day 8 · 学习结构化输出 → [`day08_structured_output.md`](../学习笔记/day08_structured_output.md)
+- [x] Day 9 · 增加输出校验与异常处理 → [`day09_error_handling.md`](../学习笔记/day09_error_handling.md)
+- [x] Day 10 · 做一个文本分类器 → [`day10_text_classifier.md`](../学习笔记/day10_text_classifier.md)
+- [x] Day 11 · 练 Prompt 优化 → [`day11_prompt_optimization.md`](../学习笔记/day11_prompt_optimization.md)
+- [ ] Day 12 起 · 待完成（继续按下方每日任务清单推进）
 
 > 📌 笔记命名约定：`dayNN_<主题>.md`（两位数字便于排序）。新增笔记时沿用此格式，例如 `day05_text_summarizer.md`、`day15_rag_from_scratch.md`。
 

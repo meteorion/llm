@@ -23,6 +23,11 @@
 | [`day04_cli_chat_demo.md`](学习笔记/day04_cli_chat_demo.md) | 命令行聊天 Demo | 消息角色、多轮对话、上下文管理、CLI 聊天程序 |
 | [`day05_text_summarizer.md`](学习笔记/day05_text_summarizer.md) | 文章摘要器 | Prompt 任务约束、输出长度控制、多风格摘要器、Prompt 版本对比 |
 | [`day06_info_extractor.md`](学习笔记/day06_info_extractor.md) | 信息抽取工具 | 结构化抽取原理、JSON 输出约束、简历/客服/商品多场景抽取、抽取稳定性提升 |
+| [`day07_week1_review.md`](学习笔记/day07_week1_review.md) | 第 1 周复盘 | Token/成本关系、Temperature 数学原理、多轮对话无状态机制、三个 Demo 横向对比 |
+| [`day08_structured_output.md`](学习笔记/day08_structured_output.md) | 结构化输出 | JSON Schema 字段约束、Pydantic 模型集成、类型校验与重试、批量抽取稳定性 |
+| [`day09_error_handling.md`](学习笔记/day09_error_handling.md) | 输出校验与异常处理 | 异常分类与分层处理、指数退避重试、可重试与不可重试错误、字段分级兜底、结果三态设计 |
+| [`day10_text_classifier.md`](学习笔记/day10_text_classifier.md) | 文本分类器 | 分类与抽取/摘要的区别、enum 标签约束、单/多标签分类、Self-Consistency 置信度评估、Prompt 对比实验 |
+| [`day11_prompt_optimization.md`](学习笔记/day11_prompt_optimization.md) | Prompt 优化 | 角色设定/目标声明/Few-shot/输出限制四类手段、稳定性与准确率双维度评估、开发集与留出集验证、过拟合测试集辨别 |
 
 ---
 
@@ -271,6 +276,95 @@
 
 ---
 
+### [day07_week1_review.md](学习笔记/day07_week1_review.md) — Day 7：第 1 周复盘
+
+- **一、本周全景回顾**
+  - 1.1 Day 1–6 知识地图（完整 ASCII 流程图）
+  - 1.2 本周三个 Demo 概览（聊天 / 摘要 / 抽取对比表）
+- **二、深度复盘三大问题**
+  - 2.1 Token 为什么和成本有关（Tokenizer 原理、计费公式、Token 消耗四来源及优化）
+  - 2.2 Temperature 为什么会影响输出（Softmax 数学原理、场景选择速查表）
+  - 2.3 为什么多轮对话必须传历史消息（无状态本质、ConversationManager 实现）
+- **三、三个 Demo 整理与横向对比**
+  - 3.1 CLI 聊天 Demo（流式输出 + /clear 命令）
+  - 3.2 文章摘要器（多风格 Prompt 字典管理）
+  - 3.3 信息抽取工具（字段参数化 + 双重 JSON 约束）
+  - 3.4 三个 Demo 设计差异对比表
+- **四、第 1 周完整代码骨架**（week1_toolkit.py 汇总）
+- **五、Day 7 知识速查**（核心公式、三参数速查、三 Demo 最小模板）
+- **六、实践任务**（任务清单 + 产出标准）
+- **七、下一步预告**（Day 8 结构化输出方向）
+
+---
+
+### [day08_structured_output.md](学习笔记/day08_structured_output.md) — Day 8：结构化输出
+
+- **一、结构化输出的核心概念**
+  - 1.1 为什么"大概像 JSON"不够用 / 1.2 三种约束强度：Prompt / API 参数 / Schema / 1.3 结构化输出的完整链路
+- **二、JSON Schema 精确约束字段**
+  - 2.1 JSON Schema 基本语法 / 2.2 类型、必填项与枚举约束 / 2.3 嵌套结构与数组约束
+- **三、Pydantic 模型与 LLM 输出集成**
+  - 3.1 为什么用 Pydantic / 3.2 定义抽取模型 / 3.3 自动生成 Prompt 约束
+- **四、改造信息抽取脚本**
+  - 4.1 Day 6 版本的局限 / 4.2 Schema + Pydantic 双重校验增强版 / 4.3 批量抽取与失败重试
+- **五、大规模场景下的格式一致性**
+  - 5.1 常见规模化痛点 / 5.2 稳定性工程手段
+- **六、Day 8 知识速查**（三层约束表、Pydantic 写法速查、最小模板）
+- **七、实践任务**（任务清单 + 产出标准）
+
+---
+
+### [day09_error_handling.md](学习笔记/day09_error_handling.md) — Day 9：输出校验与异常处理
+
+- **一、异常处理的核心概念**
+  - 1.1 为什么"能跑通"不等于"能上线" / 1.2 大模型调用链路中的异常分类 / 1.3 异常处理的分层设计
+- **二、JSON 解析失败与校验失败的分层处理**
+  - 2.1 json.JSONDecodeError / 2.2 pydantic.ValidationError / 2.3 统一异常处理包装函数
+- **三、重试机制设计**
+  - 3.1 立即重试 vs 指数退避 / 3.2 通用退避重试装饰器 / 3.3 可重试 vs 不可重试异常
+- **四、空字段与部分缺失的业务兜底策略**
+  - 4.1 三种兜底策略对比 / 4.2 按字段重要性分级处理 / 4.3 结果三态：success / needs_review / failed
+- **五、完整实现：健壮的信息抽取器**（整合分类异常、指数退避、字段分级、结果三态）
+- **六、Day 9 知识速查**（异常分类表、退避公式、结果三态表、最小模板）
+- **七、实践任务**（任务清单 + 产出标准）
+- **八、下一步预告**（Day 10 文本分类器方向）
+
+---
+
+### [day10_text_classifier.md](学习笔记/day10_text_classifier.md) — Day 10：文本分类器
+
+- **一、分类任务的核心概念**
+  - 1.1 分类 vs 抽取 vs 摘要的本质区别 / 1.2 分类任务的输入输出形态 / 1.3 标签集合的设计原则
+- **二、标签集合约束的实现**
+  - 2.1 用 enum 锁定标签范围 / 2.2 单标签 vs 多标签分类 / 2.3 "无法归类"的兜底标签设计
+- **三、文本分类器实现**
+  - 3.1 基础版单标签分类器 / 3.2 Pydantic + enum 强类型分类器 / 3.3 批量分类与结果统计
+- **四、分类结果的置信度与验证**
+  - 4.1 为什么模型给的标签不完全可信 / 4.2 Self-Consistency 多次采样估计置信度 / 4.3 小样本人工标注评估准确率
+- **五、对比实验：Prompt 设计对分类准确率的影响**
+- **六、Day 10 知识速查**（任务对比表、标签设计四原则、置信度评估速查、最小模板）
+- **七、实践任务**（任务清单 + 产出标准）
+- **八、下一步预告**（Day 11 Prompt 优化方向）
+
+---
+
+### [day11_prompt_optimization.md](学习笔记/day11_prompt_optimization.md) — Day 11：练 Prompt 优化
+
+- **一、Prompt 优化的核心框架**
+  - 1.1 四类优化手段总览 / 1.2 为什么"写清楚"比"写聪明"更重要 / 1.3 真优化 vs 假优化：辨别过拟合测试集
+- **二、四类优化手段逐个拆解**
+  - 2.1 角色设定 / 2.2 目标声明 / 2.3 Few-shot 示例 / 2.4 输出限制
+- **三、写出并对比三版 Prompt**
+  - 3.1 选定任务：客服工单紧急程度打分 / 3.2 V1/V2/V3 设计思路 / 3.3 对比实验框架实现
+- **四、稳定性与准确率的关系与权衡**
+  - 4.1 两个独立的评估维度 / 4.2 四象限：稳定性 × 准确率 / 4.3 留出集验证避免过拟合
+- **五、完整对比实验与结果分析**
+- **六、Day 11 知识速查**（四类手段速查、评估维度速查、最小模板）
+- **七、实践任务**（任务清单 + 产出标准）
+- **八、下一步预告**（Day 12 成本意识方向）
+
+---
+
 ## 🗺️ 学习路线（四阶段）
 
 | 阶段 | 主题 | 预估周期 | 对应 30 天路线 |
@@ -290,7 +384,12 @@
 - [x] [Day 4 · 做一个命令行聊天 Demo](学习笔记/day04_cli_chat_demo.md)
 - [x] [Day 5 · 做一个文章摘要器](学习笔记/day05_text_summarizer.md)
 - [x] [Day 6 · 做一个信息抽取工具](学习笔记/day06_info_extractor.md)
-- [ ] Day 7 起 · 待更新
+- [x] [Day 7 · 第 1 周复盘](学习笔记/day07_week1_review.md)
+- [x] [Day 8 · 学习结构化输出](学习笔记/day08_structured_output.md)
+- [x] [Day 9 · 增加输出校验与异常处理](学习笔记/day09_error_handling.md)
+- [x] [Day 10 · 做一个文本分类器](学习笔记/day10_text_classifier.md)
+- [x] [Day 11 · 练 Prompt 优化](学习笔记/day11_prompt_optimization.md)
+- [ ] Day 12 起 · 待更新
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
