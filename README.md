@@ -28,6 +28,7 @@
 | [`day09_error_handling.md`](学习笔记/day09_error_handling.md) | 输出校验与异常处理 | 异常分类与分层处理、指数退避重试、可重试与不可重试错误、字段分级兜底、结果三态设计 |
 | [`day10_text_classifier.md`](学习笔记/day10_text_classifier.md) | 文本分类器 | 分类与抽取/摘要的区别、enum 标签约束、单/多标签分类、Self-Consistency 置信度评估、Prompt 对比实验 |
 | [`day11_prompt_optimization.md`](学习笔记/day11_prompt_optimization.md) | Prompt 优化 | 角色设定/目标声明/Few-shot/输出限制四类手段、稳定性与准确率双维度评估、开发集与留出集验证、过拟合测试集辨别 |
+| [`day12_cost_awareness.md`](学习笔记/day12_cost_awareness.md) | 建立成本意识 | 输入/输出 Token 计价差异、多轮对话成本平方级增长、成本记录表与实测、Prompt 优化的成本权衡、模型分级路由 |
 
 ---
 
@@ -365,6 +366,22 @@
 
 ---
 
+### [day12_cost_awareness.md](学习笔记/day12_cost_awareness.md) — Day 12：建立成本意识
+
+- **一、Token 与成本的关系回顾与深化**
+  - 1.1 计费公式回顾 / 1.2 输入与输出 Token 的价格差异 / 1.3 Token 消耗的常见来源
+- **二、上下文长度对成本的放大效应**
+  - 2.1 多轮对话的 Token 累积增长模型 / 2.2 长输入 vs 长输出成本结构对比 / 2.3 RAG 场景下的成本放大效应
+- **三、成本记录与估算实践**
+  - 3.1 设计一张成本记录表 / 3.2 用代码统计 Token 用量与成本 / 3.3 三个常见请求的实测记录
+- **四、成本优化策略**
+  - 4.1 精简 system prompt / 4.2 历史截断与摘要压缩 / 4.3 Prompt 优化的成本权衡：重新审视 Day 11 / 4.4 模型分级路由
+- **五、Day 12 知识速查**（成本构成速查、优化手段速查、最小模板）
+- **六、实践任务**（任务清单 + 产出标准）
+- **七、下一步预告**（Day 13 配置管理和日志方向）
+
+---
+
 ## 🗺️ 学习路线（四阶段）
 
 | 阶段 | 主题 | 预估周期 | 对应 30 天路线 |
@@ -389,7 +406,8 @@
 - [x] [Day 9 · 增加输出校验与异常处理](学习笔记/day09_error_handling.md)
 - [x] [Day 10 · 做一个文本分类器](学习笔记/day10_text_classifier.md)
 - [x] [Day 11 · 练 Prompt 优化](学习笔记/day11_prompt_optimization.md)
-- [ ] Day 12 起 · 待更新
+- [x] [Day 12 · 建立成本意识](学习笔记/day12_cost_awareness.md)
+- [ ] Day 13 起 · 待更新
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

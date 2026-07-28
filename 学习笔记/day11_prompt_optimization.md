@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**第一阶段 · 基础与提示词工程**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 11
 >
-> 🧭 导航：[← Day 10 · 文本分类器](day10_text_classifier.md) → Day 12 · 建立成本意识（待更新）
+> 🧭 导航：[← Day 10 · 文本分类器](day10_text_classifier.md) → [Day 12 · 建立成本意识](day12_cost_awareness.md)
 
 ---
 
