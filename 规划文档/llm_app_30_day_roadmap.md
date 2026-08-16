@@ -33,7 +33,25 @@
 - [x] Day 10 · 做一个文本分类器 → [`day10_text_classifier.md`](../学习笔记/day10_text_classifier.md)
 - [x] Day 11 · 练 Prompt 优化 → [`day11_prompt_optimization.md`](../学习笔记/day11_prompt_optimization.md)
 - [x] Day 12 · 建立成本意识 → [`day12_cost_awareness.md`](../学习笔记/day12_cost_awareness.md)
-- [ ] Day 13 起 · 待完成（继续按下方每日任务清单推进）
+- [x] Day 13 · 补配置管理和日志 → [`day13_config_and_logging.md`](../学习笔记/day13_config_and_logging.md)
+- [x] Day 14 · 第 2 周复盘 → [`day14_week2_review.md`](../学习笔记/day14_week2_review.md)
+- [x] Day 15 · 理解 RAG 基本原理 → [`day15_rag_from_scratch.md`](../学习笔记/day15_rag_from_scratch.md)
+- [x] Day 16 · 读取本地文档 → [`day16_document_loader.md`](../学习笔记/day16_document_loader.md)
+- [x] Day 17 · 做文本切分 → [`day17_text_chunking.md`](../学习笔记/day17_text_chunking.md)
+- [x] Day 18 · 接入 Embedding 和向量检索 → [`day18_embedding_and_retrieval.md`](../学习笔记/day18_embedding_and_retrieval.md)
+- [x] Day 19 · 把检索结果喂给模型回答 → [`day19_rag_generation.md`](../学习笔记/day19_rag_generation.md)
+- [x] Day 20 · 给回答加引用 → [`day20_answer_citation.md`](../学习笔记/day20_answer_citation.md)
+- [x] Day 21 · 第 3 周复盘 → [`day21_week3_review.md`](../学习笔记/day21_week3_review.md)
+- [x] Day 22 · 理解 Tool Calling → [`day22_tool_calling_basics.md`](../学习笔记/day22_tool_calling_basics.md)
+- [x] Day 23 · 定义第一个工具 → [`day23_define_first_tool.md`](../学习笔记/day23_define_first_tool.md)
+- [x] Day 24 · 完成单工具调用 Demo → [`day24_single_tool_demo.md`](../学习笔记/day24_single_tool_demo.md)
+- [x] Day 25 · 做多步工作流 → [`day25_multi_step_workflow.md`](../学习笔记/day25_multi_step_workflow.md)
+- [x] Day 26 · 给项目加一个简单界面 → [`day26_simple_ui.md`](../学习笔记/day26_simple_ui.md)
+- [x] Day 27 · 整合成一个完整作品 → [`day27_complete_project.md`](../学习笔记/day27_complete_project.md)
+- [x] Day 28 · 补工程细节 → [`day28_engineering_details.md`](../学习笔记/day28_engineering_details.md)
+- [x] Day 29 · 测试和优化 → [`day29_testing_and_optimization.md`](../学习笔记/day29_testing_and_optimization.md)
+- [x] Day 30 · 整理作品与总结 → [`day30_project_summary.md`](../学习笔记/day30_project_summary.md)
+- 🎉 **30 天学习全部完成！**
 
 > 📌 笔记命名约定：`dayNN_<主题>.md`（两位数字便于排序）。新增笔记时沿用此格式，例如 `day05_text_summarizer.md`、`day15_rag_from_scratch.md`。
 
