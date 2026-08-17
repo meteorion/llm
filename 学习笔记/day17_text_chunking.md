@@ -1,10 +1,10 @@
-# Day 17：文本切分
+﻿# Day 17：文本切分
 
 > 学习目标：掌握文本切分（Chunking）的多种策略及其适用场景——理解固定大小切分的局限，学会按段落/句子边界切分，实现递归切分器，并通过对比实验找到不同文档类型的最优参数
 >
 > 📚 所属阶段：**第二阶段 · RAG 核心应用架构**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 17
 >
-> 🧭 导航：[← Day 16 · 读取本地文档](day16_document_loader.md) → Day 18 · Embedding 与向量检索（待更新）
+> 🧭 导航：[← Day 16 · 读取本地文档](day16_document_loader.md) [→ Day 18 · Embedding 与向量检索](day18_embedding_and_retrieval.md)
 
 ---
 

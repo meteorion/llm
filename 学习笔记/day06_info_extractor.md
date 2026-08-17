@@ -1,10 +1,10 @@
-# Day 6：做一个信息抽取工具
+﻿# Day 6：做一个信息抽取工具
 
 > 学习目标：掌握结构化信息抽取技巧，学会通过 Prompt 约束模型输出稳定的 JSON 字段，完成可在多个场景复用的抽取工具
 >
 > 📚 所属阶段：**第一阶段 · 基础与提示词工程**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 6
 >
-> 🧭 导航：[← Day 5 · 文章摘要器](day05_text_summarizer.md) → Day 7 · 第 1 周复盘（待更新）
+> 🧭 导航：[← Day 5 · 文章摘要器](day05_text_summarizer.md) [→ Day 7 · 第 1 周复盘](day07_week1_review.md)
 
 ---
 
@@ -730,4 +730,4 @@ Day 7 将进行**第 1 周复盘**：
 >
 > 下一步将在 Day 7 进行第 1 周复盘，回顾 API 调用、多轮对话、摘要和抽取这几大核心能力。
 >
-> ⬅️ 上一天：[Day 5 · 文章摘要器](day05_text_summarizer.md)　｜　➡️ 下一天：Day 7 · 第 1 周复盘（待更新）
+> ⬅️ 上一天：[Day 5 · 文章摘要器](day05_text_summarizer.md)　｜　➡️ 下一天：[Day 7 · 第 1 周复盘](day07_week1_review.md)

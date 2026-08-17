@@ -1,10 +1,10 @@
-# Day 16：读取本地文档
+﻿# Day 16：读取本地文档
 
 > 学习目标：掌握从本地文件读取文本内容的完整方案——支持 `txt`、`md`、`pdf` 三种格式，处理编码问题，并封装成一个统一的文档加载器接口，直接对接 Day 15 的切分 + 向量化流程
 >
 > 📚 所属阶段：**第二阶段 · RAG 核心应用架构**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 16
 >
-> 🧭 导航：[← Day 15 · RAG 基本原理](day15_rag_from_scratch.md) → Day 17 · 文本切分（待更新）
+> 🧭 导航：[← Day 15 · RAG 基本原理](day15_rag_from_scratch.md) [→ Day 17 · 文本切分](day17_text_chunking.md)
 
 ---
 

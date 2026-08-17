@@ -1,10 +1,10 @@
-# Day 12：建立成本意识
+﻿# Day 12：建立成本意识
 
 > 学习目标：把 Token 消耗从"抽象概念"变成"可以拿数字说话的工程指标"——理解输入/输出 Token 的计费差异、上下文长度增长对成本的放大效应，学会给真实请求记录 Token 用量并估算成本，并能在"效果提升"和"成本增加"之间做量化权衡（呼应 Day 11 的 Prompt 优化实验）
 >
 > 📚 所属阶段：**第一阶段 · 基础与提示词工程**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 12
 >
-> 🧭 导航：[← Day 11 · Prompt 优化](day11_prompt_optimization.md) → Day 13 · 配置管理和日志（待更新）
+> 🧭 导航：[← Day 11 · Prompt 优化](day11_prompt_optimization.md) [→ Day 13 · 配置管理和日志](day13_config_and_logging.md)
 
 ---
 

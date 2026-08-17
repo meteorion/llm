@@ -1,10 +1,10 @@
-# Day 20：给回答加引用
+﻿# Day 20：给回答加引用
 
 > 学习目标：掌握 RAG 引用机制的核心技术——学会用结构化 JSON 输出让模型标注答案来源，实现引用溯源展示，检测"虚构引用"确保引用可信，完成一个带引用功能的完整 RAG 问答系统
 >
 > 📚 所属阶段：**第二阶段 · RAG 核心应用架构**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 20
 >
-> 🧭 导航：[← Day 19 · RAG 问答生成](day19_rag_generation.md) → Day 21 · 第 3 周复盘（待更新）
+> 🧭 导航：[← Day 19 · RAG 问答生成](day19_rag_generation.md) [→ Day 21 · 第 3 周复盘](day21_week3_review.md)
 
 ---
 

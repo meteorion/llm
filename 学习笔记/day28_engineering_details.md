@@ -1,10 +1,10 @@
-# Day 28：补工程细节
+﻿# Day 28：补工程细节
 
 > 学习目标：在 Day 27 完整项目的基础上，补全四项基础工程能力——异常处理、日志、配置验证、输出校验，让项目从"能跑"升级到"稳定跑"，具备基础可维护性
 >
 > 📚 所属阶段：**第三阶段 · 智能体与工程化**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 28
 >
-> 🧭 导航：[← Day 27 · 整合成完整作品](day27_complete_project.md) → Day 29 · 测试和优化（待更新）
+> 🧭 导航：[← Day 27 · 整合成完整作品](day27_complete_project.md) [→ Day 29 · 测试和优化](day29_testing_and_optimization.md)
 
 ---
 

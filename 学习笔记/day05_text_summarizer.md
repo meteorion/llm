@@ -1,10 +1,10 @@
-# Day 5：做一个文章摘要器
+﻿# Day 5：做一个文章摘要器
 
 > 学习目标：掌握 Prompt 任务约束技巧，理解输出长度控制，完成一个可用的文章摘要工具
 >
 > 📚 所属阶段：**第一阶段 · 基础与提示词工程**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 5
 >
-> 🧭 导航：[← Day 4 · 命令行聊天 Demo](day04_cli_chat_demo.md) → Day 6 · 信息抽取工具（待更新）
+> 🧭 导航：[← Day 4 · 命令行聊天 Demo](day04_cli_chat_demo.md) [→ Day 6 · 信息抽取工具](day06_info_extractor.md)
 
 ---
 
@@ -846,4 +846,4 @@ Day 6 将学习：
 >
 > 下一步将进入信息抽取场景，学习如何让模型输出结构化数据。
 >
-> ⬅️ 上一天：[Day 4 · 命令行聊天 Demo](day04_cli_chat_demo.md)　｜　➡️ 下一天：Day 6 · 信息抽取工具（待更新）
+> ⬅️ 上一天：[Day 4 · 命令行聊天 Demo](day04_cli_chat_demo.md)　｜　➡️ 下一天：[Day 6 · 信息抽取工具](day06_info_extractor.md)

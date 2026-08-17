@@ -1,10 +1,10 @@
-# Day 22：理解 Tool Calling
+﻿# Day 22：理解 Tool Calling
 
 > 学习目标：理解 Tool Calling 的完整交互流程，搞清楚"回答问题"和"调用工具做事"的本质区别，实现一个从工具定义到结果反馈的最小可运行 Demo
 >
 > 📚 所属阶段：**第三阶段 · 智能体与工程化**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 22
 >
-> 🧭 导航：[← Day 21 · 第 3 周复盘](day21_week3_review.md) → Day 23 · 定义第一个工具（待更新）
+> 🧭 导航：[← Day 21 · 第 3 周复盘](day21_week3_review.md) [→ Day 23 · 定义第一个工具](day23_define_first_tool.md)
 
 ---
 

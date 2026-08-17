@@ -1,10 +1,10 @@
-# Day 4：做一个命令行聊天 Demo
+﻿# Day 4：做一个命令行聊天 Demo
 
 > 学习目标：理解消息角色，实现多轮对话，完成一个可交互的命令行聊天程序
 >
 > 📚 所属阶段：**第一阶段 · 基础与提示词工程**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 4
 >
-> 🧭 导航：[← Day 3 · 第一次调用 API](day03_first_api_call.md) → Day 5 · 文章摘要器（待更新）
+> 🧭 导航：[← Day 3 · 第一次调用 API](day03_first_api_call.md) [→ Day 5 · 文章摘要器](day05_text_summarizer.md)
 
 ---
 
@@ -1266,4 +1266,4 @@ Day 5 将学习：
 >
 > 明天我们将学习如何用 Prompt 约束模型输出，实现摘要功能。
 >
-> ⬅️ 上一天：[Day 3 · 第一次调用模型 API](day03_first_api_call.md)　｜　➡️ 下一天：Day 5 · 文章摘要器（待更新）
+> ⬅️ 上一天：[Day 3 · 第一次调用模型 API](day03_first_api_call.md)　｜　➡️ 下一天：[Day 5 · 文章摘要器](day05_text_summarizer.md)

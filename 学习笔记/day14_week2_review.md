@@ -1,10 +1,10 @@
-# Day 14：第 2 周复盘
+﻿# Day 14：第 2 周复盘
 
 > 学习目标：系统梳理 Day 8–13 的工程基本功闭环，深度回答三个复盘问题（稳定 Prompt 的标准、输出校验的工程本质、日志与配置的必要性），整理出一份第 2 周可复用的 Prompt 模板库
 >
 > 📚 所属阶段：**第一阶段 · 基础与提示词工程**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 14
 >
-> 🧭 导航：[← Day 13 · 配置管理和日志](day13_config_and_logging.md) → Day 15 · RAG 基本原理（待更新）
+> 🧭 导航：[← Day 13 · 配置管理和日志](day13_config_and_logging.md) [→ Day 15 · RAG 基本原理](day15_rag_from_scratch.md)
 
 ---
 

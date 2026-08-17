@@ -1,10 +1,10 @@
-# Day 26：添加简单界面
+﻿# Day 26：添加简单界面
 
 > 学习目标：用最小成本给 LLM Demo 添加可交互的 Web 界面，掌握 Gradio 的核心用法，把 Day 25 的多步工作流接入 UI，实现可在浏览器里访问并展示工具调用链路的完整 Demo
 >
 > 📚 所属阶段：**第三阶段 · 智能体与工程化**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 26
 >
-> 🧭 导航：[← Day 25 · 多步工作流](day25_multi_step_workflow.md) → Day 27 · 整合成完整作品（待更新）
+> 🧭 导航：[← Day 25 · 多步工作流](day25_multi_step_workflow.md) [→ Day 27 · 整合成完整作品](day27_complete_project.md)
 
 ---
 
@@ -230,6 +230,9 @@ def chat_with_tools(message, history, state):
     else:
         full_answer = result.final_answer
     
+    # 注意：此处 return 返回完整字符串，最终答案为非流式输出。
+    # 多步工作流的中间调用（工具选择、工具执行）无法流式推送，
+    # 只有最后一次生成可以改为 yield 逐字推送——见实践任务第 3 条。
     return full_answer, wf_history
 ```
 

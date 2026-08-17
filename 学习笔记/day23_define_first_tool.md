@@ -1,10 +1,10 @@
-# Day 23：定义第一个工具
+﻿# Day 23：定义第一个工具
 
 > 学习目标：掌握工具参数设计原则和输入输出定义规范，实现三个可独立运行的真实场景工具，理解如何让工具对 LLM 调用"友好"
 >
 > 📚 所属阶段：**第三阶段 · 智能体与工程化**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 23
 >
-> 🧭 导航：[← Day 22 · 理解 Tool Calling](day22_tool_calling_basics.md) → Day 24 · 单工具调用 Demo（待更新）
+> 🧭 导航：[← Day 22 · 理解 Tool Calling](day22_tool_calling_basics.md) [→ Day 24 · 单工具调用 Demo](day24_single_tool_demo.md)
 
 ---
 

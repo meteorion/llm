@@ -1,10 +1,10 @@
-# Day 21：第 3 周复盘
+﻿# Day 21：第 3 周复盘
 
 > 学习目标：系统梳理 Day 15–20 的 RAG 完整闭环，深度回答三个复盘问题（RAG 准确率的影响链、Chunk 切分对质量的传导路径、引用来源的业务必要性），整理出一个可运行的完整最小 RAG Demo
 >
 > 📚 所属阶段：**第二阶段 · RAG 核心应用架构**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 21
 >
-> 🧭 导航：[← Day 20 · 给回答加引用](day20_answer_citation.md) → Day 22 · 理解 Tool Calling（待更新）
+> 🧭 导航：[← Day 20 · 给回答加引用](day20_answer_citation.md) [→ Day 22 · 理解 Tool Calling](day22_tool_calling_basics.md)
 
 ---
 

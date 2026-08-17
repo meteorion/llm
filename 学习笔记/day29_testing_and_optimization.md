@@ -1,10 +1,10 @@
-# Day 29：测试和优化
+﻿# Day 29：测试和优化
 
 > 学习目标：用 10 组测试问题系统地跑一遍 Day 27–28 项目，从输出稳定性、工具触发准确率、检索准确率、成本合理性四个维度发现问题并记录改进点，产出一份可复用的测试记录表
 >
 > 📚 所属阶段：**第三阶段 · 智能体与工程化**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 29
 >
-> 🧭 导航：[← Day 28 · 补工程细节](day28_engineering_details.md) → Day 30 · 整理作品与总结（待更新）
+> 🧭 导航：[← Day 28 · 补工程细节](day28_engineering_details.md) [→ Day 30 · 整理作品与总结](day30_project_summary.md)
 
 ---
 
@@ -495,14 +495,18 @@ class CostRecord:
 SYSTEM_MSG = {"role": "system", "content": "你是一个智能个人助理，可以查天气和汇率。"}
 
 def cost_test(questions: list) -> list:
+    # 前置条件：需要先在 Day 28 的 WorkflowResult 中补充这两个字段：
+    #   total_input_tokens: int = 0
+    #   total_output_tokens: int = 0
+    # 并在 run_workflow 每次调用 client.chat.completions.create 后累加：
+    #   wf.total_input_tokens  += response.usage.prompt_tokens
+    #   wf.total_output_tokens += response.usage.completion_tokens
+    # 完成上述改动后，下面的 getattr 就能取到真实值，否则始终为 0。
     records = []
     for q in questions:
         t = time.monotonic()
         wf, _ = run(q, [SYSTEM_MSG])
         elapsed = time.monotonic() - t
-        
-        # 从日志或 WorkflowResult 获取 token 数
-        # 这里用估算（实际应从 response.usage 读取并存入 WorkflowResult）
         records.append(CostRecord(
             question=q,
             input_tokens=getattr(wf, "total_input_tokens", 0),

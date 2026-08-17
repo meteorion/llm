@@ -1,10 +1,10 @@
-# Day 24：单工具调用 Demo
+﻿# Day 24：单工具调用 Demo
 
 > 学习目标：把 Day 22–23 的工具定义接入真实 LLM 对话，完成完整的"用户提问 → 模型决策 → 工具执行 → 自然语言回答"闭环，理解如何控制触发时机并处理各种边界情况
 >
 > 📚 所属阶段：**第三阶段 · 智能体与工程化**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 24
 >
-> 🧭 导航：[← Day 23 · 定义第一个工具](day23_define_first_tool.md) → Day 25 · 多步工作流（待更新）
+> 🧭 导航：[← Day 23 · 定义第一个工具](day23_define_first_tool.md) [→ Day 25 · 多步工作流](day25_multi_step_workflow.md)
 
 ---
 

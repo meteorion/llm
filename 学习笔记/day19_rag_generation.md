@@ -1,10 +1,10 @@
-# Day 19：把检索结果喂给模型回答
+﻿# Day 19：把检索结果喂给模型回答
 
 > 学习目标：掌握 RAG 问答生成阶段的核心技术——学会将检索到的 Chunk 拼接成有效的上下文 Prompt，用"只根据资料回答"约束防止模型脑补，实现无相关文档时的诚实拒答逻辑，完成 RAG 流程的"最后一公里"
 >
 > 📚 所属阶段：**第二阶段 · RAG 核心应用架构**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 19
 >
-> 🧭 导航：[← Day 18 · Embedding 与向量检索](day18_embedding_and_retrieval.md) → Day 20 · 给回答加引用（待更新）
+> 🧭 导航：[← Day 18 · Embedding 与向量检索](day18_embedding_and_retrieval.md) [→ Day 20 · 给回答加引用](day20_answer_citation.md)
 
 ---
 

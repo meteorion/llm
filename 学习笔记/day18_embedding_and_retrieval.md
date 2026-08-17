@@ -1,10 +1,10 @@
-# Day 18：Embedding 与向量检索
+﻿# Day 18：Embedding 与向量检索
 
 > 学习目标：掌握文本向量化的原理与实现——理解为什么语义相近的文本向量距离更近，学会调用 Embedding API 和本地模型，实现余弦相似度检索，并将向量索引升级到 FAISS / Chroma，完成 RAG 流程中的核心检索组件
 >
 > 📚 所属阶段：**第二阶段 · RAG 核心应用架构**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[30 天路线](../规划文档/llm_app_30_day_roadmap.md) · Day 18
 >
-> 🧭 导航：[← Day 17 · 文本切分](day17_text_chunking.md) → Day 19 · 把检索结果喂给模型（待更新）
+> 🧭 导航：[← Day 17 · 文本切分](day17_text_chunking.md) [→ Day 19 · 把检索结果喂给模型](day19_rag_generation.md)
 
 ---
 
