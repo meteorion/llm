@@ -385,6 +385,8 @@ MIT
 
 这三条路线已经具体化为可执行的日常任务清单：见 [`day31_67_deepening_roadmap.md`](../规划文档/day31_67_deepening_roadmap.md)（Day 31–67，先补 LangChain/LangGraph 框架基础，再按 A→C→B 顺序系统覆盖）。
 
+深化阶段已启动：[Day 31 · LangChain 基础：LCEL 与核心抽象](day31_langchain_lcel_basics.md)。
+
 ---
 
 ## 七、Day 30 知识速查

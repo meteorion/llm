@@ -48,6 +48,7 @@
 | [`day28_engineering_details.md`](学习笔记/day28_engineering_details.md) | 补工程细节 | 异常处理分层设计、日志三类信息（启动/请求/错误）、fail-fast 配置验证、输出校验与脏数据防护 |
 | [`day29_testing_and_optimization.md`](学习笔记/day29_testing_and_optimization.md) | 测试和优化 | 输出稳定性测试、工具调用精确率/召回率、Hit Rate 检索准确率、Token 成本分析、完整测试记录表 |
 | [`day30_project_summary.md`](学习笔记/day30_project_summary.md) | 整理作品与总结 | README 5 分钟测试标准、项目介绍/运行步骤/示例写法、完整 README 模板、30 天认知总结与下一步路线 |
+| [`day31_langchain_lcel_basics.md`](学习笔记/day31_langchain_lcel_basics.md) | LangChain 基础：LCEL 与核心抽象 | 为何引入框架、Runnable 接口与 LCEL 管道语法、ChatPromptTemplate 收益与代价、手写版 vs LangChain 版对比 |
 
 ---
 
@@ -591,6 +592,30 @@
 
 ---
 
+### [day31_langchain_lcel_basics.md](学习笔记/day31_langchain_lcel_basics.md) — Day 31：LangChain 基础：LCEL 与核心抽象
+
+- **一、为什么要在原生 API 之上套一层框架**
+  - Provider 绑定、链路重复、输出解析散落三个痛点（对应 Day 3–29 的实际经历）
+  - 框架解决了什么：统一 Provider 接口 + LCEL 标准化链路
+  - 框架的代价：调试难度增加 / 版本迭代快 / 隐藏 API 细节 / 依赖重
+- **二、核心抽象：Runnable 接口**
+  - Runnable 是什么（invoke / stream / batch 三个统一方法）
+  - LCEL 管道语法：`prompt | model | parser` 创建 `RunnableSequence`
+  - 管道的执行过程与类型转换（dict → ChatPromptValue → AIMessage → str）
+- **三、PromptTemplate 与 ChatPromptTemplate**
+  - 相比手拼字符串多做了什么（变量校验、角色验证、MessagesPlaceholder）
+  - 隐藏了什么：实际 messages 内容、token 计数位置、内部重试逻辑
+  - 两种模板类型的使用场景（ChatPromptTemplate 是当前主流）
+- **四、实战：重写 Day 4 命令行聊天 Demo**
+  - 手写版本回顾（显式 messages 列表，直接取 response.choices[0].message.content）
+  - LangChain 版本（MessagesPlaceholder + chain.invoke）
+  - 两版本对比表：框架省掉了什么、隐藏了什么、调试透明度差异
+- **五、Day 31 知识速查**（LCEL 核心组件表、Runnable 方法表、手写 vs LangChain 决策表）
+- **六、实践任务**（安装 / 重写 Demo / 打印中间状态调试 / 流式输出实验）
+- **七、下一步预告**（Day 32：PydanticOutputParser + Retriever + RAG 链）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -856,6 +881,7 @@
 - [x] [Day 29 · 测试和优化](学习笔记/day29_testing_and_optimization.md)
 - [x] [Day 30 · 整理作品与总结](学习笔记/day30_project_summary.md)
 - 🎉 **30 天学习完成！**
+- [x] [Day 31 · LangChain 基础：LCEL 与核心抽象](学习笔记/day31_langchain_lcel_basics.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

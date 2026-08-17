@@ -20,7 +20,7 @@
 
 **当前进度**
 
-- [ ] Day 31 · LangChain 基础：LCEL 与核心抽象
+- [x] Day 31 · LangChain 基础：LCEL 与核心抽象 → [笔记](../学习笔记/day31_langchain_lcel_basics.md)
 - [ ] Day 32 · 用 LangChain 重新实现结构化输出与 RAG 链
 - [ ] Day 33 · LangGraph 基础：用状态图重写 ReAct
 - [ ] Day 34 · 条件边与分支路由
