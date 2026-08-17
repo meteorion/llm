@@ -383,6 +383,8 @@ MIT
 
 **判断选哪条路线**：做完 30 天后，回顾 Day 27–29 的项目，看**哪个部分让你最不满意**——那就是下一阶段的重点。
 
+这三条路线已经具体化为可执行的日常任务清单：见 [`day31_67_deepening_roadmap.md`](../规划文档/day31_67_deepening_roadmap.md)（Day 31–67，先补 LangChain/LangGraph 框架基础，再按 A→C→B 顺序系统覆盖）。
+
 ---
 
 ## 七、Day 30 知识速查

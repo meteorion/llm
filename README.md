@@ -11,7 +11,8 @@
 | 文档 | 定位 | 何时看 |
 | --- | --- | --- |
 | [`plan.md`](规划文档/plan.md) | **战略地图**：四阶段全景、每阶段目标 / 项目 / 通关标准 | 把握方向、判断"学到哪、下一步学什么" |
-| [`llm_app_30_day_roadmap.md`](规划文档/llm_app_30_day_roadmap.md) | **执行清单**：第一~三阶段的每日任务与产出标准 | 落地到每天做什么 |
+| [`llm_app_30_day_roadmap.md`](规划文档/llm_app_30_day_roadmap.md) | **执行清单**：第一~三阶段的每日任务与产出标准（Day 1–30，已完成） | 落地到每天做什么 |
+| [`day31_67_deepening_roadmap.md`](规划文档/day31_67_deepening_roadmap.md) | **深化阶段执行清单**：Day 31–67，先补 LangChain/LangGraph 框架基础，再按 A 深化 Agent → C 走向生产部署 → B 提升 RAG 质量 覆盖第三阶段剩余内容（含工程化架构、可观测性、成本性能含批处理、安全） | 30 天路线跑完后继续往深里做 |
 
 ### 学习笔记
 

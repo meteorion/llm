@@ -692,18 +692,7 @@
 
 ## 十、下一步建议
 
-完成这份 30 天路线后，建议继续走下面这条线：
+30 天路线已全部完成。下一步已经具体化为可执行路线图：见 [`day31_67_deepening_roadmap.md`](day31_67_deepening_roadmap.md)（Day 31–67，先补 LangChain/LangGraph 框架基础，再按 A 深化 Agent → C 走向生产部署 → B 提升 RAG 质量 顺序系统覆盖 `plan.md` 第三阶段剩余内容）。
 
-1. 深入做一个完整业务项目
-2. 补工程化能力：评测、监控、缓存、限流、权限
-3. 学习框架：`LangChain`、`LangGraph`、`LlamaIndex`
-4. 再回头补模型原理、微调和部署
-
-如果你当前仓库准备继续沉淀学习笔记，建议沿用 `dayNN_<主题>.md` 命名（与已有的 Day 1–4 笔记保持一致），后续主题可以是：
-
-- `day05_text_summarizer.md`（文章摘要器）
-- `day08_structured_output.md`（结构化输出）
-- `day15_rag_from_scratch.md`（RAG 从零实现）
-- `day22_tool_calling_basics.md`（工具调用基础）
-- `day24_first_agent_demo.md`（第一个 Agent Demo）
+新增学习笔记继续沿用 `dayNN_<主题>.md` 命名；用 [`day-note-sync`](../.claude/skills/day-note-sync/SKILL.md) skill 可以一次性生成笔记并同步更新面试题、进度清单和 README。
 
