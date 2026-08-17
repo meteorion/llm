@@ -349,15 +349,30 @@ class RecursiveCharacterSplitter:
 
 
 # ─── Embedding（Day 18）────────────────────────────────────────────────────
+# 与 Day 18 保持一致：默认使用本地 sentence-transformers，避免与 DeepSeek
+# Embedding 端点的模型名称混淆（text-embedding-3-small 是 OpenAI 专有名称）。
 
 class EmbeddingModel:
-    def __init__(self, client: OpenAI, model: str = "text-embedding-3-small"):
-        self.client = client
-        self.model = model
+    def __init__(self, mode: str = "local"):
+        self.mode = mode
+        if mode == "api":
+            self._client = OpenAI(
+                api_key=os.getenv("DEEPSEEK_API_KEY"),
+                base_url="https://api.deepseek.com/v1",
+            )
+            self._api_model = "deepseek-embedding"
+        else:
+            from sentence_transformers import SentenceTransformer
+            self._local_model = SentenceTransformer(
+                "paraphrase-multilingual-MiniLM-L12-v2"
+            )
 
     def embed(self, texts: list[str]) -> list[list[float]]:
-        resp = self.client.embeddings.create(input=texts, model=self.model)
-        return [item.embedding for item in resp.data]
+        if self.mode == "api":
+            resp = self._client.embeddings.create(input=texts, model=self._api_model)
+            return [item.embedding for item in resp.data]
+        vecs = self._local_model.encode(texts, show_progress_bar=False)
+        return vecs.tolist()
 
 
 # ─── 向量库（Day 18）───────────────────────────────────────────────────────
@@ -429,7 +444,7 @@ class RAGPipeline:
             base_url="https://api.deepseek.com/v1",
         )
         self.llm = client
-        self.embedder = EmbeddingModel(client, model="text-embedding-3-small")
+        self.embedder = EmbeddingModel(mode="local")  # 与 Day 18 一致，默认用本地模型
         self.splitter = RecursiveCharacterSplitter(size=300, overlap=50)
         self.store = VectorStore()
 

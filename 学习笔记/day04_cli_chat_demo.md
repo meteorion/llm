@@ -410,6 +410,9 @@ if __name__ == "__main__":
 
 from typing import List, Dict
 import tiktoken  # pip install tiktoken
+# ⚠️  tiktoken 是 OpenAI 专用分词库，用于 DeepSeek / Qwen 等非 OpenAI 模型时
+# 计量结果存在系统性偏差（中文和特殊字符尤为明显，偏差可达 15–30%）。
+# 此处仅用于数量级估算；生产环境请以 API 返回的 response.usage.total_tokens 为准。
 
 
 class ContextManager:
