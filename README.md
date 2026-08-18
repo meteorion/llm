@@ -49,6 +49,7 @@
 | [`day29_testing_and_optimization.md`](学习笔记/day29_testing_and_optimization.md) | 测试和优化 | 输出稳定性测试、工具调用精确率/召回率、Hit Rate 检索准确率、Token 成本分析、完整测试记录表 |
 | [`day30_project_summary.md`](学习笔记/day30_project_summary.md) | 整理作品与总结 | README 5 分钟测试标准、项目介绍/运行步骤/示例写法、完整 README 模板、30 天认知总结与下一步路线 |
 | [`day31_langchain_lcel_basics.md`](学习笔记/day31_langchain_lcel_basics.md) | LangChain 基础：LCEL 与核心抽象 | 为何引入框架、Runnable 接口与 LCEL 管道语法、ChatPromptTemplate 收益与代价、手写版 vs LangChain 版对比 |
+| [`day32_langchain_structured_output_and_rag.md`](学习笔记/day32_langchain_structured_output_and_rag.md) | 用 LangChain 重新实现结构化输出与 RAG 链 | PydanticOutputParser 与 format_instructions、with_structured_output 对比、Retriever 接口与 Document 类型、RunnableParallel + RunnablePassthrough 拼 RAG 链 |
 
 ---
 
@@ -616,6 +617,30 @@
 
 ---
 
+### [day32_langchain_structured_output_and_rag.md](学习笔记/day32_langchain_structured_output_and_rag.md) — Day 32：用 LangChain 重新实现结构化输出与 RAG 链
+
+- **一、OutputParser 体系：从手写解析到框架标准化**
+  - Day 8 手写解析的三个步骤与各自的问题（取文本 / JSON 解析 / Pydantic 校验）
+  - 三种 OutputParser 对比（StrOutputParser / JsonOutputParser / PydanticOutputParser）
+  - `with_structured_output()`：API 层约束 vs Prompt 层约束的区别
+- **二、实战：用 PydanticOutputParser 重做 Day 8 结构化抽取**
+  - 手写版回顾（json.loads + Pydantic 校验 + markdown 清理）
+  - LangChain 版（`format_instructions` 自动生成约束，`.partial()` 预填模板）
+  - 两版本对比表 + OutputFixingParser 自动修复解析失败
+- **三、Retriever 接口：把向量检索包装进 LangChain**
+  - Retriever 封装了什么（embedding + 检索 + 结果包装为 Document）
+  - 用 Chroma 创建 Retriever（`as_retriever` + `search_kwargs`）
+  - 手写 `list[str]` vs `List[Document]` 的本质区别（metadata 随检索结果传递）
+- **四、实战：用 LCEL 拼出最小 RAG 链**
+  - `RunnableParallel` 与 `RunnablePassthrough` 解决"单输入喂给多变量 Prompt"问题
+  - 完整 RAG 链代码（retriever | format_docs + RunnablePassthrough | prompt | llm | parser）
+  - 手写 RAG vs LangChain RAG 对比（流式 / 批量 / 切换向量库 / 调试透明度）
+- **五、Day 32 知识速查**（OutputParser 选型表、LCEL RAG 链组件表、框架 vs 手写判断标准）
+- **六、实践任务**（重写 Day 8 抽取 / 故意出错验证 OutputFixingParser / 完整 RAG 链运行）
+- **七、下一步预告**（Day 33：LangGraph StateGraph + Node 重写 ReAct 循环）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -882,6 +907,7 @@
 - [x] [Day 30 · 整理作品与总结](学习笔记/day30_project_summary.md)
 - 🎉 **30 天学习完成！**
 - [x] [Day 31 · LangChain 基础：LCEL 与核心抽象](学习笔记/day31_langchain_lcel_basics.md)
+- [x] [Day 32 · 用 LangChain 重新实现结构化输出与 RAG 链](学习笔记/day32_langchain_structured_output_and_rag.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
