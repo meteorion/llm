@@ -1,0 +1,22 @@
+[
+  {
+    "role": "system",
+    "content": "你是一个有帮助的助手"
+  },
+  {
+    "role": "user",
+    "content": "你好"
+  },
+  {
+    "role": "assistant",
+    "content": "你好！有什么我可以帮助你的吗？"
+  },
+  {
+    "role": "user",
+    "content": "介绍一下 Python"
+  },
+  {
+    "role": "assistant",
+    "content": "Python 是一种简洁、易学的编程语言..."
+  }
+]
