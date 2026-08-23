@@ -53,6 +53,7 @@
 | [`day33_langgraph_basics_react_rewrite.md`](学习笔记/day33_langgraph_basics_react_rewrite.md) | LangGraph 基础：用状态图重写 ReAct | StateGraph / Node / Edge 三核心概念、TypedDict State 设计、add_messages Reducer、条件边路由、用 StateGraph 完整重写 Day 25 while 循环 ReAct |
 | [`day34_conditional_edges_routing.md`](学习笔记/day34_conditional_edges_routing.md) | 条件边与分支路由 | add_conditional_edges 三参数、路由函数三条约束、条件边 vs 固定边判断标准、给 ReAct 图加"失败走重试/成功走汇总"分支、构造失败案例验证走重试分支不崩溃 |
 | [`day35_checkpoint_and_loop_termination.md`](学习笔记/day35_checkpoint_and_loop_termination.md) | 循环终止与 Checkpoint 持久化 | recursion_limit 双层终止保护、MemorySaver 接入与 thread_id 会话隔离、interrupt_before 暂停与 invoke(None) 恢复、get_state / get_state_history 查询快照、SqliteSaver 跨进程持久化 |
+| [`day36_human_in_the_loop.md`](学习笔记/day36_human_in_the_loop.md) | Human-in-the-loop 人工审核节点 | 批准/修改参数/拒绝三条审核路径、update_state 的 as_node 参数原理、AIMessage 同 id 替换修改工具参数、高风险操作判断标准、按工具名过滤精细化审核 |
 
 ---
 
@@ -721,6 +722,30 @@
 
 ---
 
+### [day36_human_in_the_loop.md](学习笔记/day36_human_in_the_loop.md) — Day 36：Human-in-the-loop 人工审核节点
+
+- **一、从"暂停"到"审核"：Day 35 还差什么**
+  - Day 35 只有暂停和直接继续，缺少人工决策逻辑
+  - 高风险操作的判断标准（不可逆/外部副作用/资金/隐私/高影响范围）
+  - 三条审核路径的设计目标（批准/修改参数/拒绝）
+- **二、三条审核路径的实现原理**
+  - 路径 1 批准：invoke(None) 直接继续
+  - 路径 2 修改参数：update_state 替换 AIMessage（同 id 覆盖），再 invoke(None)
+  - 路径 3 拒绝：update_state 注入假 ToolMessage + as_node="call_tools" 跳过工具执行
+- **三、实战：给"发送邮件"工具加人工审核**
+  - 场景（不可逆+外部副作用，典型高风险操作）与图结构（interrupt_before call_tools）
+  - 完整代码（审核辅助函数：show_pending / approve / modify_and_approve / reject）
+  - 演示三条路径（拒绝时 📧 模拟发送不打印，验证工具未执行）
+- **四、高风险操作的判断标准与设计原则**
+  - 必须审核 vs 无需审核对比表
+  - 精细化粒度：按工具名过滤，低风险工具自动执行
+  - update_state 的 as_node 行为对比表（不传/call_tools/call_model）
+- **五、Day 36 知识速查**（三路径速查代码、as_node 行为表、同 id 替换原理、高风险判断标准）
+- **六、实践任务**（三条路径验证 / get_state_history 看快照 / 去掉 as_node 观察异常）
+- **七、下一步预告**（Day 37：第 5 周复盘，LangChain vs LangGraph 适用边界横向对比）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -991,6 +1016,7 @@
 - [x] [Day 33 · LangGraph 基础：用状态图重写 ReAct](学习笔记/day33_langgraph_basics_react_rewrite.md)
 - [x] [Day 34 · 条件边与分支路由](学习笔记/day34_conditional_edges_routing.md)
 - [x] [Day 35 · 循环终止与 Checkpoint 持久化](学习笔记/day35_checkpoint_and_loop_termination.md)
+- [x] [Day 36 · Human-in-the-loop 人工审核节点](学习笔记/day36_human_in_the_loop.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

@@ -25,7 +25,7 @@
 - [x] Day 33 · LangGraph 基础：用状态图重写 ReAct → [笔记](../学习笔记/day33_langgraph_basics_react_rewrite.md)
 - [x] Day 34 · 条件边与分支路由 → [笔记](../学习笔记/day34_conditional_edges_routing.md)
 - [x] Day 35 · 循环终止与 Checkpoint 持久化 → [笔记](../学习笔记/day35_checkpoint_and_loop_termination.md)
-- [ ] Day 36 · Human-in-the-loop 人工审核节点
+- [x] Day 36 · Human-in-the-loop 人工审核节点 → [笔记](../学习笔记/day36_human_in_the_loop.md)
 - [ ] Day 37 · 第 5 周复盘：LangChain/LangGraph 解决了什么问题
 - [ ] Day 38 · 理解 MCP（Model Context Protocol）
 - [ ] Day 39 · 开发一个最小 MCP Server
