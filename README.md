@@ -55,6 +55,7 @@
 | [`day35_checkpoint_and_loop_termination.md`](学习笔记/day35_checkpoint_and_loop_termination.md) | 循环终止与 Checkpoint 持久化 | recursion_limit 双层终止保护、MemorySaver 接入与 thread_id 会话隔离、interrupt_before 暂停与 invoke(None) 恢复、get_state / get_state_history 查询快照、SqliteSaver 跨进程持久化 |
 | [`day36_human_in_the_loop.md`](学习笔记/day36_human_in_the_loop.md) | Human-in-the-loop 人工审核节点 | 批准/修改参数/拒绝三条审核路径、update_state 的 as_node 参数原理、AIMessage 同 id 替换修改工具参数、高风险操作判断标准、按工具名过滤精细化审核 |
 | [`day37_week5_review.md`](学习笔记/day37_week5_review.md) | 第 5 周复盘：LangChain / LangGraph 解决了什么问题 | 原生 API vs LangChain vs LangGraph 适用边界对比表、引入各框架的 checklist、LangGraph 四项能力与手写 while 的结构性缺陷、本周知识地图 |
+| [`day38_understanding_mcp.md`](学习笔记/day38_understanding_mcp.md) | 理解 MCP（Model Context Protocol） | MCP 三种核心能力（Tools / Resources / Prompts）、Server / Client 架构与交互流程图、MCP vs Function Calling 定位差异（互补非替代）、MCP vs A2A 各解决哪层连接问题 |
 
 ---
 
@@ -766,6 +767,30 @@
 
 ---
 
+### [day38_understanding_mcp.md](学习笔记/day38_understanding_mcp.md) — Day 38：理解 MCP（Model Context Protocol）
+
+- **一、为什么需要 MCP：工具集成的碎片化问题**
+  - 现有工具集成模式（同进程函数注册）的三个局限
+  - MCP 的核心主张：标准化工具服务器，USB-C 类比
+- **二、MCP 的三种核心能力**
+  - Tools（可执行操作，模型触发）、Resources（数据拉取，Client 主动）、Prompts（提示词模板）
+  - 三者副作用对比：Tools 可能有副作用，Resources 通常只读，Prompts 纯只读
+- **三、Server / Client 架构与交互流程**
+  - MCP Client ↔ Server 交互流程图（list_tools → 注册给模型 → call_tool 转发 → 结果返回）
+  - 独立进程架构的三个收益（语言无关 / 可复用 / 进程隔离）
+- **四、MCP vs Function Calling：不同层的协议**
+  - Function Calling 是"模型层"约定（模型如何表达工具调用意图）
+  - MCP 是"连接层"协议（工具服务如何被标准化、跨应用复用）
+  - 两者关系：MCP Server 通过 Function Calling 把工具暴露给模型
+- **五、MCP vs A2A：两个协议解决不同层的问题**
+  - MCP 管"模型与工具/数据的连接"、A2A 管"Agent 与 Agent 的任务委派"
+  - 两层协议对比图（多 Agent 系统里共存）
+- **六、为什么 MCP 成为 2026 年的事实标准**（开放协议 / 生态积累 / 真实痛点 / 主流采纳）
+- **七、知识速查表**（三种能力对比、MCP vs Function Calling vs A2A 三协议对比）
+- **八、实践任务**（读 MCP 官方文档 / 浏览 filesystem Server 源码 / 用自己话解释 MCP 定位）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1038,6 +1063,7 @@
 - [x] [Day 35 · 循环终止与 Checkpoint 持久化](学习笔记/day35_checkpoint_and_loop_termination.md)
 - [x] [Day 36 · Human-in-the-loop 人工审核节点](学习笔记/day36_human_in_the_loop.md)
 - [x] [Day 37 · 第 5 周复盘：LangChain/LangGraph 解决了什么问题](学习笔记/day37_week5_review.md)
+- [x] [Day 38 · 理解 MCP（Model Context Protocol）](学习笔记/day38_understanding_mcp.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

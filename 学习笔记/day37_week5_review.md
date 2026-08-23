@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 A：LangChain / LangGraph / MCP 与多 Agent**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 37
 >
-> 🧭 导航：[← Day 36 · Human-in-the-loop 人工审核节点](day36_human_in_the_loop.md) → Day 38 · 理解 MCP（待更新）
+> 🧭 导航：[← Day 36 · Human-in-the-loop 人工审核节点](day36_human_in_the_loop.md) → [Day 38 · 理解 MCP（Model Context Protocol）](day38_understanding_mcp.md)
 
 ---
 
