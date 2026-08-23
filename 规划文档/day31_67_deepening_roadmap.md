@@ -23,7 +23,7 @@
 - [x] Day 31 · LangChain 基础：LCEL 与核心抽象 → [笔记](../学习笔记/day31_langchain_lcel_basics.md)
 - [x] Day 32 · 用 LangChain 重新实现结构化输出与 RAG 链 → [笔记](../学习笔记/day32_langchain_structured_output_and_rag.md)
 - [x] Day 33 · LangGraph 基础：用状态图重写 ReAct → [笔记](../学习笔记/day33_langgraph_basics_react_rewrite.md)
-- [ ] Day 34 · 条件边与分支路由
+- [x] Day 34 · 条件边与分支路由 → [笔记](../学习笔记/day34_conditional_edges_routing.md)
 - [ ] Day 35 · 循环终止与 Checkpoint 持久化
 - [ ] Day 36 · Human-in-the-loop 人工审核节点
 - [ ] Day 37 · 第 5 周复盘：LangChain/LangGraph 解决了什么问题

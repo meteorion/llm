@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 A：LangChain / LangGraph / MCP 与多 Agent**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 33
 >
-> 🧭 导航：[← Day 32 · 用 LangChain 重新实现结构化输出与 RAG 链](day32_langchain_structured_output_and_rag.md) → Day 34 · 条件边与分支路由（待更新）
+> 🧭 导航：[← Day 32 · 用 LangChain 重新实现结构化输出与 RAG 链](day32_langchain_structured_output_and_rag.md) → [Day 34 · 条件边与分支路由](day34_conditional_edges_routing.md)
 
 ---
 

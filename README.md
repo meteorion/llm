@@ -51,6 +51,7 @@
 | [`day31_langchain_lcel_basics.md`](学习笔记/day31_langchain_lcel_basics.md) | LangChain 基础：LCEL 与核心抽象 | 为何引入框架、Runnable 接口与 LCEL 管道语法、ChatPromptTemplate 收益与代价、手写版 vs LangChain 版对比 |
 | [`day32_langchain_structured_output_and_rag.md`](学习笔记/day32_langchain_structured_output_and_rag.md) | 用 LangChain 重新实现结构化输出与 RAG 链 | PydanticOutputParser 与 format_instructions、with_structured_output 对比、Retriever 接口与 Document 类型、RunnableParallel + RunnablePassthrough 拼 RAG 链 |
 | [`day33_langgraph_basics_react_rewrite.md`](学习笔记/day33_langgraph_basics_react_rewrite.md) | LangGraph 基础：用状态图重写 ReAct | StateGraph / Node / Edge 三核心概念、TypedDict State 设计、add_messages Reducer、条件边路由、用 StateGraph 完整重写 Day 25 while 循环 ReAct |
+| [`day34_conditional_edges_routing.md`](学习笔记/day34_conditional_edges_routing.md) | 条件边与分支路由 | add_conditional_edges 三参数、路由函数三条约束、条件边 vs 固定边判断标准、给 ReAct 图加"失败走重试/成功走汇总"分支、构造失败案例验证走重试分支不崩溃 |
 
 ---
 
@@ -667,6 +668,30 @@
 
 ---
 
+### [day34_conditional_edges_routing.md](学习笔记/day34_conditional_edges_routing.md) — Day 34：条件边与分支路由
+
+- **一、从二路到多路：条件边解决什么问题**
+  - Day 33 的 should_continue 只是最简单的二路条件边
+  - 手写 while 里的 if/elif/else 散落且没有名字、无法可视化
+  - 条件边把每个分支变成有名字、可画出来的边（一等公民）
+- **二、add_conditional_edges 的完整用法**
+  - 三个参数：源节点 / 路由函数 / 映射表（key → 目标节点）
+  - 路由函数的三条约束（只读 State、返回字符串 key、不是 Node）
+  - 映射表写法 vs 直接返回节点名（前者把业务语义与节点名解耦）
+- **三、条件边 vs 固定边：什么时候用哪个**
+  - 判断标准：下一步去向是否由 State 运行时内容决定
+  - 常见误区：路由函数只返回一个值时该用固定边（假分支的误导性）
+- **四、实战：给 ReAct 图加错误处理分支**
+  - 需求与图结构（失败走 retry_node、成功走 summarize）
+  - State 新增 tool_ok / retry_count，retry_count 为何不复用 iteration
+  - 新增节点与路由函数（call_tools 记录 tool_ok、retry_node 记账、summarize 降级汇总）
+  - 完整代码 + 构造失败案例（查询不支持城市观察走 retry 分支）
+- **五、Day 34 知识速查**（条件边 API 速查、条件边 vs 固定边判断表、路由函数三约束）
+- **六、实践任务**（成功/失败两路验证 / stream 逐节点观察 / 改 MAX_RETRIES 验证降级）
+- **七、下一步预告**（Day 35：循环终止与 Checkpoint 持久化，MemorySaver 中断恢复）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -935,6 +960,7 @@
 - [x] [Day 31 · LangChain 基础：LCEL 与核心抽象](学习笔记/day31_langchain_lcel_basics.md)
 - [x] [Day 32 · 用 LangChain 重新实现结构化输出与 RAG 链](学习笔记/day32_langchain_structured_output_and_rag.md)
 - [x] [Day 33 · LangGraph 基础：用状态图重写 ReAct](学习笔记/day33_langgraph_basics_react_rewrite.md)
+- [x] [Day 34 · 条件边与分支路由](学习笔记/day34_conditional_edges_routing.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
