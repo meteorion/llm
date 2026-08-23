@@ -54,6 +54,7 @@
 | [`day34_conditional_edges_routing.md`](学习笔记/day34_conditional_edges_routing.md) | 条件边与分支路由 | add_conditional_edges 三参数、路由函数三条约束、条件边 vs 固定边判断标准、给 ReAct 图加"失败走重试/成功走汇总"分支、构造失败案例验证走重试分支不崩溃 |
 | [`day35_checkpoint_and_loop_termination.md`](学习笔记/day35_checkpoint_and_loop_termination.md) | 循环终止与 Checkpoint 持久化 | recursion_limit 双层终止保护、MemorySaver 接入与 thread_id 会话隔离、interrupt_before 暂停与 invoke(None) 恢复、get_state / get_state_history 查询快照、SqliteSaver 跨进程持久化 |
 | [`day36_human_in_the_loop.md`](学习笔记/day36_human_in_the_loop.md) | Human-in-the-loop 人工审核节点 | 批准/修改参数/拒绝三条审核路径、update_state 的 as_node 参数原理、AIMessage 同 id 替换修改工具参数、高风险操作判断标准、按工具名过滤精细化审核 |
+| [`day37_week5_review.md`](学习笔记/day37_week5_review.md) | 第 5 周复盘：LangChain / LangGraph 解决了什么问题 | 原生 API vs LangChain vs LangGraph 适用边界对比表、引入各框架的 checklist、LangGraph 四项能力与手写 while 的结构性缺陷、本周知识地图 |
 
 ---
 
@@ -746,6 +747,25 @@
 
 ---
 
+### [day37_week5_review.md](学习笔记/day37_week5_review.md) — Day 37：第 5 周复盘：LangChain / LangGraph 解决了什么问题
+
+- **一、第 5 周产出回顾**（Day 31–36 升级路径：链路标准化 → 状态显式 → 可中断审核）
+- **二、复盘问题 1：LangChain LCEL 解决了什么问题**
+  - 原生 API 的三个重复劳动（Provider 绑定 / 链路组装 / 输出解析）
+  - LCEL 标准化了什么、隐藏了什么（透明度权衡）
+  - 什么场景不值得引入 LangChain
+- **三、复盘问题 2：LangGraph 解决了什么问题**
+  - 手写 while 循环的三个结构性缺陷（状态隐式 / 不可中断 / 不可持久化）
+  - LangGraph 的四项能力（状态显式 / 可视化 / 持久化 / 可中断恢复）
+  - LangChain 和 LangGraph 是互补关系：LCEL 管单步链路，LangGraph 管多步编排
+- **四、复盘问题 3：什么场景手写仍然够用**
+  - 三个框架各自引入的成本对比
+  - 引入 LangChain / LangGraph / 手写 while 的判断 checklist
+- **五、适用边界对比表**（原生 API vs LangChain vs LangGraph，10 个维度横向对比）
+- **六、本周知识地图**（Day 31–36 各天核心产出与解决问题一览表）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1017,6 +1037,7 @@
 - [x] [Day 34 · 条件边与分支路由](学习笔记/day34_conditional_edges_routing.md)
 - [x] [Day 35 · 循环终止与 Checkpoint 持久化](学习笔记/day35_checkpoint_and_loop_termination.md)
 - [x] [Day 36 · Human-in-the-loop 人工审核节点](学习笔记/day36_human_in_the_loop.md)
+- [x] [Day 37 · 第 5 周复盘：LangChain/LangGraph 解决了什么问题](学习笔记/day37_week5_review.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
