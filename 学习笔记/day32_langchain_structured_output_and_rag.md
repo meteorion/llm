@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 A：LangChain / LangGraph / MCP 与多 Agent**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 32
 >
-> 🧭 导航：[← Day 31 · LangChain 基础：LCEL 与核心抽象](day31_langchain_lcel_basics.md) → Day 33 · LangGraph 基础：用状态图重写 ReAct（待更新）
+> 🧭 导航：[← Day 31 · LangChain 基础：LCEL 与核心抽象](day31_langchain_lcel_basics.md) → [Day 33 · LangGraph 基础：用状态图重写 ReAct](day33_langgraph_basics_react_rewrite.md)
 
 ---
 

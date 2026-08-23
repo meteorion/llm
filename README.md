@@ -50,6 +50,7 @@
 | [`day30_project_summary.md`](学习笔记/day30_project_summary.md) | 整理作品与总结 | README 5 分钟测试标准、项目介绍/运行步骤/示例写法、完整 README 模板、30 天认知总结与下一步路线 |
 | [`day31_langchain_lcel_basics.md`](学习笔记/day31_langchain_lcel_basics.md) | LangChain 基础：LCEL 与核心抽象 | 为何引入框架、Runnable 接口与 LCEL 管道语法、ChatPromptTemplate 收益与代价、手写版 vs LangChain 版对比 |
 | [`day32_langchain_structured_output_and_rag.md`](学习笔记/day32_langchain_structured_output_and_rag.md) | 用 LangChain 重新实现结构化输出与 RAG 链 | PydanticOutputParser 与 format_instructions、with_structured_output 对比、Retriever 接口与 Document 类型、RunnableParallel + RunnablePassthrough 拼 RAG 链 |
+| [`day33_langgraph_basics_react_rewrite.md`](学习笔记/day33_langgraph_basics_react_rewrite.md) | LangGraph 基础：用状态图重写 ReAct | StateGraph / Node / Edge 三核心概念、TypedDict State 设计、add_messages Reducer、条件边路由、用 StateGraph 完整重写 Day 25 while 循环 ReAct |
 
 ---
 
@@ -641,6 +642,31 @@
 
 ---
 
+### [day33_langgraph_basics_react_rewrite.md](学习笔记/day33_langgraph_basics_react_rewrite.md) — Day 33：LangGraph 基础：用状态图重写 ReAct
+
+- **一、为什么需要 LangGraph：while 循环的三个隐性问题**
+  - Day 25 手写 ReAct 的状态在哪里（隐式 messages 列表）
+  - 隐式状态带来的三个问题（不可中断 / 不可观测 / 不可持久化）
+  - LangGraph 的核心主张：把状态显式化
+- **二、三个核心概念：StateGraph / Node / Edge**
+  - State：显式的 Agent 状态快照
+  - Node：处理状态的 Runnable（接收 State，返回更新字典）
+  - Edge：固定边 / 条件边 / 入口边 / 结束边
+- **三、State 的设计：TypedDict 与 Reducer**
+  - 用 TypedDict 定义 State
+  - Reducer：直接覆盖 vs add_messages 追加
+  - ReAct 场景下 State 需要哪些字段
+- **四、实战：用 StateGraph 重写 Day 25 的 ReAct 工作流**
+  - Day 25 手写版核心逻辑回顾（while 循环结构）
+  - Node 拆分：call_model / call_tools / should_continue 路由函数
+  - 完整 LangGraph ReAct Demo（含工具定义、图构建、运行）
+  - 两版本对比：手写 while vs StateGraph（6 个维度）
+- **五、Day 33 知识速查**（核心 API 速查、Node 签名规范、使用场景判断表）
+- **六、实践任务**（跑通 Demo / 打印每步状态 / 可视化图结构）
+- **七、下一步预告**（Day 34：条件边与分支路由，工具失败走重试的三路路由）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -908,6 +934,7 @@
 - 🎉 **30 天学习完成！**
 - [x] [Day 31 · LangChain 基础：LCEL 与核心抽象](学习笔记/day31_langchain_lcel_basics.md)
 - [x] [Day 32 · 用 LangChain 重新实现结构化输出与 RAG 链](学习笔记/day32_langchain_structured_output_and_rag.md)
+- [x] [Day 33 · LangGraph 基础：用状态图重写 ReAct](学习笔记/day33_langgraph_basics_react_rewrite.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
