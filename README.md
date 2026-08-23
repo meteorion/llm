@@ -52,6 +52,7 @@
 | [`day32_langchain_structured_output_and_rag.md`](学习笔记/day32_langchain_structured_output_and_rag.md) | 用 LangChain 重新实现结构化输出与 RAG 链 | PydanticOutputParser 与 format_instructions、with_structured_output 对比、Retriever 接口与 Document 类型、RunnableParallel + RunnablePassthrough 拼 RAG 链 |
 | [`day33_langgraph_basics_react_rewrite.md`](学习笔记/day33_langgraph_basics_react_rewrite.md) | LangGraph 基础：用状态图重写 ReAct | StateGraph / Node / Edge 三核心概念、TypedDict State 设计、add_messages Reducer、条件边路由、用 StateGraph 完整重写 Day 25 while 循环 ReAct |
 | [`day34_conditional_edges_routing.md`](学习笔记/day34_conditional_edges_routing.md) | 条件边与分支路由 | add_conditional_edges 三参数、路由函数三条约束、条件边 vs 固定边判断标准、给 ReAct 图加"失败走重试/成功走汇总"分支、构造失败案例验证走重试分支不崩溃 |
+| [`day35_checkpoint_and_loop_termination.md`](学习笔记/day35_checkpoint_and_loop_termination.md) | 循环终止与 Checkpoint 持久化 | recursion_limit 双层终止保护、MemorySaver 接入与 thread_id 会话隔离、interrupt_before 暂停与 invoke(None) 恢复、get_state / get_state_history 查询快照、SqliteSaver 跨进程持久化 |
 
 ---
 
@@ -692,6 +693,34 @@
 
 ---
 
+### [day35_checkpoint_and_loop_termination.md](学习笔记/day35_checkpoint_and_loop_termination.md) — Day 35：循环终止与 Checkpoint 持久化
+
+- **一、循环终止：LangGraph 里的终止条件设计**
+  - 回顾 Day 33/34 的终止方式（路由函数里的常量比较）
+  - LangGraph 内置 recursion_limit：最后一道防线（Node 执行次数之和，超限抛 GraphRecursionError）
+  - 终止条件双保险设计原则（业务层管语义终止、框架层管系统兜底）
+- **二、Checkpoint 是什么：持久化执行快照**
+  - 为什么需要 Checkpoint（进程崩溃/长任务/Human-in-the-loop 三场景）
+  - Checkpoint vs State：每个 Node 后的历史快照 vs 当前运行时状态
+  - thread_id：区分不同会话，相同 thread_id 共享快照序列
+- **三、MemorySaver：内存级 Checkpoint 接入**
+  - 接入方式：compile 时传 checkpointer（节点/边代码零改动）
+  - invoke 时必须传 config（含 thread_id），原因与 Checkpointer 读写机制
+  - get_state / get_state_history 查询快照（next 字段判断是否暂停）
+- **四、实战：中断 → 查看暂停状态 → 从原状态恢复**
+  - interrupt_before 指定暂停节点（compile 时配置）
+  - 查看暂停位置与工具调用参数（为 Day 36 Human-in-the-loop 做铺垫）
+  - invoke(None) 恢复执行原理 + update_state 恢复前修改 State
+  - 完整演示代码（含历史快照序列打印）
+- **五、SqliteSaver：Checkpoint 跨进程重启存活**
+  - MemorySaver vs SqliteSaver 对比（存储位置、进程重启、适用场景）
+  - SqliteSaver 接入方式（只改初始化，其余零改动）
+- **六、Day 35 知识速查**（Checkpoint 核心 API 表、StateSnapshot 字段、终止条件双保险表）
+- **七、实践任务**（验证中断恢复 / 历史快照 / update_state / SqliteSaver）
+- **八、下一步预告**（Day 36：Human-in-the-loop，interrupt + update_state 实现审核/拒绝/修改三路径）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -961,6 +990,7 @@
 - [x] [Day 32 · 用 LangChain 重新实现结构化输出与 RAG 链](学习笔记/day32_langchain_structured_output_and_rag.md)
 - [x] [Day 33 · LangGraph 基础：用状态图重写 ReAct](学习笔记/day33_langgraph_basics_react_rewrite.md)
 - [x] [Day 34 · 条件边与分支路由](学习笔记/day34_conditional_edges_routing.md)
+- [x] [Day 35 · 循环终止与 Checkpoint 持久化](学习笔记/day35_checkpoint_and_loop_termination.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

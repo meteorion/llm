@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 A：LangChain / LangGraph / MCP 与多 Agent**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 34
 >
-> 🧭 导航：[← Day 33 · LangGraph 基础：用状态图重写 ReAct](day33_langgraph_basics_react_rewrite.md) → Day 35 · 循环终止与 Checkpoint 持久化（待更新）
+> 🧭 导航：[← Day 33 · LangGraph 基础：用状态图重写 ReAct](day33_langgraph_basics_react_rewrite.md) → [Day 35 · 循环终止与 Checkpoint 持久化](day35_checkpoint_and_loop_termination.md)
 
 ---
 
