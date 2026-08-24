@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 C：走向生产部署**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 48
 >
-> 🧭 导航：[← Day 47 · 模型分级路由](day47_model_routing.md) → Day 49 · 限流与配额（待更新）
+> 🧭 导航：[← Day 47 · 模型分级路由](day47_model_routing.md) → [Day 49 · 限流与配额：应用层实现](day49_rate_limiting.md)
 
 ---
 

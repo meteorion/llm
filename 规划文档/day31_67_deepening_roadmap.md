@@ -38,7 +38,7 @@
 - [x] Day 46 · 批处理（Batching） → [笔记](../学习笔记/day46_batching.md)
 - [x] Day 47 · 模型分级路由 → [笔记](../学习笔记/day47_model_routing.md)
 - [x] Day 48 · 模型网关：统一接口层与多 Provider 适配 → [笔记](../学习笔记/day48_model_gateway.md)
-- [ ] Day 49 · 限流与配额（应用层实现）
+- [x] Day 49 · 限流与配额（应用层实现）→ [笔记](../学习笔记/day49_rate_limiting.md)
 - [ ] Day 50 · 上下文工程（Context Engineering）
 - [ ] Day 51 · 状态管理：会话/任务状态的持久化与恢复设计
 - [ ] Day 52 · 第 7–8 周复盘：工程化架构小结
