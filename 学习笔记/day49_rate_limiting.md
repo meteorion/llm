@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 C：走向生产部署**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 49
 >
-> 🧭 导航：[← Day 48 · 模型网关：统一接口层与多 Provider 适配](day48_model_gateway.md) → Day 50 · 上下文工程（待更新）
+> 🧭 导航：[← Day 48 · 模型网关：统一接口层与多 Provider 适配](day48_model_gateway.md) → [Day 50 · 上下文工程（Context Engineering）](day50_context_engineering.md)
 
 ---
 

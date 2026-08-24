@@ -67,6 +67,7 @@
 | [`day47_model_routing.md`](学习笔记/day47_model_routing.md) | 模型分级路由 | 分级路由 vs 缓存 vs 批处理分工、四维路由信号（长度/工具/关键词/历史失败率）综合评分、模型档位定义与路由决策函数、带回退的路由封装、路由决策日志与成本对比报告、"宁高勿低"阈值原则 |
 | [`day48_model_gateway.md`](学习笔记/day48_model_gateway.md) | 模型网关：统一接口层与多 Provider 适配 | 没有网关的痛点、网关职责边界（统一接口/鉴权/日志/路由/重试）、手写最小网关（ProviderConfig/GatewayRequest/GatewayResponse/ModelGateway）、换 Provider 零改动验证、LiteLLM 核心用法、自研网关 vs LiteLLM 选型指南 |
 | [`day49_rate_limiting.md`](学习笔记/day49_rate_limiting.md) | 限流与配额：应用层实现 | 不限流的四类风险（成本失控/滥用/Bug死循环/流量突刺）、Provider限流 vs 应用层限流对比、固定窗口/滑动窗口/令牌桶三算法原理与实现、滑动窗口集成到 Day 48 网关中间件、超限响应规范（rate_limited/retry_after/cost=0）、多层限流叠加策略（按用户/功能/IP） |
+| [`day50_context_engineering.md`](学习笔记/day50_context_engineering.md) | 上下文工程（Context Engineering） | 上下文工程 vs Prompt工程本质区别、五类上下文分区及固定顺序设计（System/RAG/工具/历史/当前消息）、Token预算分配（分区最大值+滚动预算）、对话历史裁剪（成对删除/摘要替换）、RAG文档裁剪（按相关度过滤）、ContextBuilder实现与网关层集成、上下文质量常见问题排查 |
 
 ---
 
@@ -1005,6 +1006,22 @@
 
 ---
 
+### [day50_context_engineering.md](学习笔记/day50_context_engineering.md) — Day 50：上下文工程（Context Engineering）
+
+- **一、上下文工程 ≠ Prompt 工程**（动静对比 / 上下文窗口的稀缺性 / Lost in the Middle 效应）
+- **二、上下文的五类组成部分**（各分区内容与可裁剪性 / 固定顺序的原因）
+- **三、分区 Token 预算设计**（Token 估算方法 / 128k 窗口参考分配比例 / ContextBudget 数据类）
+- **四、超限时的裁剪规则**
+  - 裁剪优先级（历史 → RAG → 工具 → 摘要替换）
+  - 历史消息裁剪（成对删除 / 摘要替换实现）
+  - RAG 结果裁剪（按相关度分数过滤）
+- **五、ContextBuilder 实现**（ContextInput/BuiltContext 数据结构 / build() 组装逻辑 / 与网关层集成 / Day 43–50 完整处理链）
+- **六、上下文质量的常见问题**（上下文爆炸 / Lost in Middle / 历史泄露 / RAG 噪音等 6 类）
+- **七、Day 50 知识速查**（五分区顺序口诀 / 裁剪优先级 / Token 预算配比参考）
+- **八、实践任务**（trim_history 验证 / ContextBuilder 超限测试 / 与网关集成打真实请求）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1289,6 +1306,7 @@
 - [x] [Day 47 · 模型分级路由](学习笔记/day47_model_routing.md)
 - [x] [Day 48 · 模型网关：统一接口层与多 Provider 适配](学习笔记/day48_model_gateway.md)
 - [x] [Day 49 · 限流与配额：应用层实现](学习笔记/day49_rate_limiting.md)
+- [x] [Day 50 · 上下文工程（Context Engineering）](学习笔记/day50_context_engineering.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
