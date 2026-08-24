@@ -65,6 +65,7 @@
 | [`day45_prompt_result_cache.md`](学习笔记/day45_prompt_result_cache.md) | Prompt / 结果缓存 | 精确匹配 vs 语义缓存区别与选型、缓存键必备字段（model/temperature/system_prompt/messages）、内存+磁盘两级缓存实现、语义缓存（embedding + 相似度阈值）、TTL/内容特征/主动失效三种失效策略、命中率统计与成本节省量化 |
 | [`day46_batching.md`](学习笔记/day46_batching.md) | 批处理（Batching） | 批处理 vs 缓存 vs 路由三者分工、asyncio 并发 + Semaphore 限速实现、指数退避重试、Batch API 原理与取舍（50% 折扣 vs 高延迟）、MAX_CONCURRENCY 调参策略、串行 vs 批处理性能对比量化 |
 | [`day47_model_routing.md`](学习笔记/day47_model_routing.md) | 模型分级路由 | 分级路由 vs 缓存 vs 批处理分工、四维路由信号（长度/工具/关键词/历史失败率）综合评分、模型档位定义与路由决策函数、带回退的路由封装、路由决策日志与成本对比报告、"宁高勿低"阈值原则 |
+| [`day48_model_gateway.md`](学习笔记/day48_model_gateway.md) | 模型网关：统一接口层与多 Provider 适配 | 没有网关的痛点、网关职责边界（统一接口/鉴权/日志/路由/重试）、手写最小网关（ProviderConfig/GatewayRequest/GatewayResponse/ModelGateway）、换 Provider 零改动验证、LiteLLM 核心用法、自研网关 vs LiteLLM 选型指南 |
 
 ---
 
@@ -972,6 +973,21 @@
 
 ---
 
+### [day48_model_gateway.md](学习笔记/day48_model_gateway.md) — Day 48：模型网关：统一接口层与多 Provider 适配
+
+- **一、为什么需要模型网关**（没有网关的痛点 / 网关的职责边界）
+- **二、手写最小模型网关**
+  - Provider 配置设计（集中到 config.py）
+  - 统一请求 / 响应结构（GatewayRequest / GatewayResponse）
+  - 网关核心实现（ModelGateway 类）
+  - 验证：换 Provider 只改一行配置
+- **三、网关层承载的横切关注点**（统一日志对接 Day 44 / 统一路由对接 Day 47 / 统一重试）
+- **四、LiteLLM：开源模型网关**（核心价值 / 核心用法 / 自研 vs LiteLLM 选型指南）
+- **五、Day 48 知识速查**（网关职责清单 / Provider 切换对比 / LiteLLM 核心模式）
+- **六、实践任务**（搭建 gateway 目录 / 零改动切换验证 / 日志集成 / LiteLLM 体验）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1254,6 +1270,7 @@
 - [x] [Day 45 · Prompt / 结果缓存](学习笔记/day45_prompt_result_cache.md)
 - [x] [Day 46 · 批处理（Batching）](学习笔记/day46_batching.md)
 - [x] [Day 47 · 模型分级路由](学习笔记/day47_model_routing.md)
+- [x] [Day 48 · 模型网关：统一接口层与多 Provider 适配](学习笔记/day48_model_gateway.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
