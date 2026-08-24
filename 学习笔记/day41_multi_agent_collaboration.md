@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 A：LangChain / LangGraph / MCP 与多 Agent**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 41
 >
-> 🧭 导航：[← Day 40 · 跨对话长期记忆](day40_cross_session_memory.md) → Day 42 · 阶段项目整合 + 第 6 周复盘（待更新）
+> 🧭 导航：[← Day 40 · 跨对话长期记忆](day40_cross_session_memory.md) → [Day 42 · 阶段项目整合 + 第 6 周复盘](day42_week6_review_and_integration.md)
 
 ---
 

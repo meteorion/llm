@@ -59,6 +59,7 @@
 | [`day39_minimal_mcp_server.md`](学习笔记/day39_minimal_mcp_server.md) | 开发一个最小 MCP Server | FastMCP 与 @mcp.tool() 装饰器、类型提示自动生成 JSON Schema、把 Day 23 天气/汇率工具包装成 MCP Server、stdio transport 原理、.mcp.json 配置连接 Claude Code |
 | [`day40_cross_session_memory.md`](学习笔记/day40_cross_session_memory.md) | 跨对话长期记忆 | 短期/长期记忆分层设计、JSON KV 存储用户偏好、记忆注入 System Prompt、向量存储记忆与语义检索、摘要压缩防止记忆膨胀、mem0 三核心接口与分层思路 |
 | [`day41_multi_agent_collaboration.md`](学习笔记/day41_multi_agent_collaboration.md) | 多 Agent 协作模式 | Planner/Executor/Critic 三角色职责边界、Agent 间消息传递协议（SubTask/TaskResult/CriticVerdict）、协作 Demo 实现与可观察协作日志、A2A 协议设计动机（Task 状态机/流式 Push/Agent Card）、MCP+A2A 两层连接完整图景 |
+| [`day42_week6_review_and_integration.md`](学习笔记/day42_week6_review_and_integration.md) | 阶段项目整合 + 第 6 周复盘 | Day 27 原项目四短板与升级架构图、四项能力各自解决的短板、Agent 行为评估三元组框架、15 条测试 case 示例报告（single_tool/multi_step/boundary 三类通过率）、本周知识地图 |
 
 ---
 
@@ -869,6 +870,26 @@
 
 ---
 
+### [day42_week6_review_and_integration.md](学习笔记/day42_week6_review_and_integration.md) — Day 42：阶段项目整合 + 第 6 周复盘
+
+- **一、第 6 周产出回顾**（Day 38–41 升级路径：工具标准化 → 用户体验 → 任务复杂度）
+- **二、Day 27 原项目的短板与升级方案**
+  - 原项目四个短板（工具耦合 / 无跨会话记忆 / 规划瓶颈 / 不可观测）
+  - 升级版 Agent 架构图（LangGraph + MCP + 记忆 + 多 Agent 分层）
+  - 四项能力各自解决了哪个短板
+- **三、复盘问题 1：MCP 的收益边界**（何时值得引入 MCP，何时手写更合适）
+- **四、复盘问题 2：长期记忆与工具调用的职责划分**（用户明确指定时以当前输入为准）
+- **五、复盘问题 3：多 Agent 何时值得引入**（判断标准：可分解性 + 容错需求）
+- **六、Agent 行为评估框架**
+  - 测试 Case 三元组结构（输入 / 预期工具调用序列 / 预期回答要点）
+  - 三类任务（single_tool / multi_step / boundary）评估维度对比
+  - 15 条 Case 示例评估报告（含通过率表格和根因分析）
+  - 通过率低时的根因定位流程
+- **七、本周知识地图**（Day 38–41 横向对比：主题 / 产出 / 解决的问题 / 核心 API）
+- **八、实践任务**（升级版项目整合 / 跑 15 条评估 case / 修 Planner Prompt 回归测试）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1145,6 +1166,7 @@
 - [x] [Day 39 · 开发一个最小 MCP Server](学习笔记/day39_minimal_mcp_server.md)
 - [x] [Day 40 · 跨对话长期记忆](学习笔记/day40_cross_session_memory.md)
 - [x] [Day 41 · 多 Agent 协作模式（Planner/Executor/Critic）](学习笔记/day41_multi_agent_collaboration.md)
+- [x] [Day 42 · 阶段项目整合 + 第 6 周复盘](学习笔记/day42_week6_review_and_integration.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
