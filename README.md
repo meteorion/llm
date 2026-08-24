@@ -60,6 +60,7 @@
 | [`day40_cross_session_memory.md`](学习笔记/day40_cross_session_memory.md) | 跨对话长期记忆 | 短期/长期记忆分层设计、JSON KV 存储用户偏好、记忆注入 System Prompt、向量存储记忆与语义检索、摘要压缩防止记忆膨胀、mem0 三核心接口与分层思路 |
 | [`day41_multi_agent_collaboration.md`](学习笔记/day41_multi_agent_collaboration.md) | 多 Agent 协作模式 | Planner/Executor/Critic 三角色职责边界、Agent 间消息传递协议（SubTask/TaskResult/CriticVerdict）、协作 Demo 实现与可观察协作日志、A2A 协议设计动机（Task 状态机/流式 Push/Agent Card）、MCP+A2A 两层连接完整图景 |
 | [`day42_week6_review_and_integration.md`](学习笔记/day42_week6_review_and_integration.md) | 阶段项目整合 + 第 6 周复盘 | Day 27 原项目四短板与升级架构图、四项能力各自解决的短板、Agent 行为评估三元组框架、15 条测试 case 示例报告（single_tool/multi_step/boundary 三类通过率）、本周知识地图 |
+| [`day43_observability_langfuse.md`](学习笔记/day43_observability_langfuse.md) | 可观测性基础：接入 LangFuse/LangSmith | "能跑"vs"能被观测"本质区别、Trace/Span 核心概念与 LLM 映射关系、LangFuse 三种接入方式（OpenAI 拦截/@observe 装饰器/手动 SDK/LangChain 回调）、Dashboard 瀑布图解读、LangGraph Agent 可观测性实现、LangFuse vs LangSmith 选型指南 |
 
 ---
 
@@ -890,6 +891,22 @@
 
 ---
 
+### [day43_observability_langfuse.md](学习笔记/day43_observability_langfuse.md) — Day 43：可观测性基础：接入 LangFuse/LangSmith
+
+- **一、为什么"能跑"不等于"能被观测"**（logging 的局限 / LLM 应用的三项额外可观测性需求）
+- **二、Trace 和 Span：调用链的两个核心概念**（Trace = 一次请求完整故事 / Span = 故事里每一章 / LLM 操作对应关系）
+- **三、LangFuse vs LangSmith：选哪个**（开源性 / SDK 覆盖 / 国内访问 / 选型标准）
+- **四、接入 LangFuse：三种方式**
+  - 方式一：OpenAI SDK 拦截（最少改动）
+  - 方式二：手动 SDK 埋点（最灵活）
+  - 方式三：LangChain 回调（已有 LCEL 链）
+- **五、在 Dashboard 里能看到什么**（Trace 列表 / 瀑布图详情 / 用 Dashboard 定位 multi_step 失败）
+- **六、给 LangGraph Agent 加可观测性**（`@observe` 装饰每个 Node，整图执行成为 Trace）
+- **七、Day 43 知识速查**（Trace/Span 概念 / 三种接入方式速查 / LangFuse vs logging 对比）
+- **八、实践任务**（注册 LangFuse / 跑 3 类请求验证 / 瀑布图解读 / 加业务语义）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1167,6 +1184,7 @@
 - [x] [Day 40 · 跨对话长期记忆](学习笔记/day40_cross_session_memory.md)
 - [x] [Day 41 · 多 Agent 协作模式（Planner/Executor/Critic）](学习笔记/day41_multi_agent_collaboration.md)
 - [x] [Day 42 · 阶段项目整合 + 第 6 周复盘](学习笔记/day42_week6_review_and_integration.md)
+- [x] [Day 43 · 可观测性基础：接入 LangFuse/LangSmith](学习笔记/day43_observability_langfuse.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

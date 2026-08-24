@@ -32,7 +32,7 @@
 - [x] Day 40 · 跨对话长期记忆 → [笔记](../学习笔记/day40_cross_session_memory.md)
 - [x] Day 41 · 多 Agent 协作模式（Planner/Executor/Critic）→ [笔记](../学习笔记/day41_multi_agent_collaboration.md)
 - [x] Day 42 · 阶段项目整合 + 第 6 周复盘 → [笔记](../学习笔记/day42_week6_review_and_integration.md)（深化版 Agent 项目）
-- [ ] Day 43 · 可观测性基础：接入 LangFuse/LangSmith
+- [x] Day 43 · 可观测性基础：接入 LangFuse/LangSmith → [笔记](../学习笔记/day43_observability_langfuse.md)
 - [ ] Day 44 · 结构化日志与成本监控面板
 - [ ] Day 45 · Prompt / 结果缓存
 - [ ] Day 46 · 批处理（Batching）
