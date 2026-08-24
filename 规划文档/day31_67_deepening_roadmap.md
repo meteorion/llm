@@ -34,7 +34,7 @@
 - [x] Day 42 · 阶段项目整合 + 第 6 周复盘 → [笔记](../学习笔记/day42_week6_review_and_integration.md)（深化版 Agent 项目）
 - [x] Day 43 · 可观测性基础：接入 LangFuse/LangSmith → [笔记](../学习笔记/day43_observability_langfuse.md)
 - [x] Day 44 · 结构化日志与成本监控面板 → [笔记](../学习笔记/day44_structured_logging_cost_dashboard.md)
-- [ ] Day 45 · Prompt / 结果缓存
+- [x] Day 45 · Prompt / 结果缓存 → [笔记](../学习笔记/day45_prompt_result_cache.md)
 - [ ] Day 46 · 批处理（Batching）
 - [ ] Day 47 · 模型分级路由
 - [ ] Day 48 · 模型网关：统一接口层与多 Provider 适配

@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 C：走向生产部署**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 44
 >
-> 🧭 导航：[← Day 43 · 可观测性基础：接入 LangFuse/LangSmith](day43_observability_langfuse.md) → Day 45 · Prompt / 结果缓存（待更新）
+> 🧭 导航：[← Day 43 · 可观测性基础：接入 LangFuse/LangSmith](day43_observability_langfuse.md) → [Day 45 · Prompt / 结果缓存](day45_prompt_result_cache.md)
 
 ---
 

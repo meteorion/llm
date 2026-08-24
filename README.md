@@ -62,6 +62,7 @@
 | [`day42_week6_review_and_integration.md`](学习笔记/day42_week6_review_and_integration.md) | 阶段项目整合 + 第 6 周复盘 | Day 27 原项目四短板与升级架构图、四项能力各自解决的短板、Agent 行为评估三元组框架、15 条测试 case 示例报告（single_tool/multi_step/boundary 三类通过率）、本周知识地图 |
 | [`day43_observability_langfuse.md`](学习笔记/day43_observability_langfuse.md) | 可观测性基础：接入 LangFuse/LangSmith | "能跑"vs"能被观测"本质区别、Trace/Span 核心概念与 LLM 映射关系、LangFuse 三种接入方式（OpenAI 拦截/@observe 装饰器/手动 SDK/LangChain 回调）、Dashboard 瀑布图解读、LangGraph Agent 可观测性实现、LangFuse vs LangSmith 选型指南 |
 | [`day44_structured_logging_cost_dashboard.md`](学习笔记/day44_structured_logging_cost_dashboard.md) | 结构化日志与成本监控面板 | 纯文本 vs 结构化日志本质区别、四大核心字段（trace_id/tokens/cost/latency）设计详解、升级 Day 28 日志模块、成本聚合脚本（按天/按功能报表）、LangFuse 与本地 JSONL 日志分工 |
+| [`day45_prompt_result_cache.md`](学习笔记/day45_prompt_result_cache.md) | Prompt / 结果缓存 | 精确匹配 vs 语义缓存区别与选型、缓存键必备字段（model/temperature/system_prompt/messages）、内存+磁盘两级缓存实现、语义缓存（embedding + 相似度阈值）、TTL/内容特征/主动失效三种失效策略、命中率统计与成本节省量化 |
 
 ---
 
@@ -924,6 +925,19 @@
 
 ---
 
+### [day45_prompt_result_cache.md](学习笔记/day45_prompt_result_cache.md) — Day 45：Prompt / 结果缓存
+
+- **一、为什么需要缓存**（LLM 双重代价 / 哪类请求适合缓存的判断标准）
+- **二、精确匹配缓存**（原理 / 缓存键设计 / 内存+磁盘两级缓存实现）
+- **三、语义缓存**（精确匹配的局限 / embedding + 相似度阈值工作原理 / Python 实现）
+- **四、缓存失效策略**（TTL / 基于内容特征 / 主动失效；时效性词语检测）
+- **五、缓存效果量化**（命中率统计 / 响应时间对比 / 成本节省估算）
+- **六、精确匹配 vs 语义缓存选型指南**（复杂度 / 命中率 / 误命中风险 / 推荐路径）
+- **七、Day 45 知识速查**（两种缓存核心对比 / 缓存键必备字段 / 失效策略速查）
+- **八、实践任务**（精确匹配命中验证 / 命中率统计 / 响应时间对比 / 时效词绕过测试）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1203,6 +1217,7 @@
 - [x] [Day 42 · 阶段项目整合 + 第 6 周复盘](学习笔记/day42_week6_review_and_integration.md)
 - [x] [Day 43 · 可观测性基础：接入 LangFuse/LangSmith](学习笔记/day43_observability_langfuse.md)
 - [x] [Day 44 · 结构化日志与成本监控面板](学习笔记/day44_structured_logging_cost_dashboard.md)
+- [x] [Day 45 · Prompt / 结果缓存](学习笔记/day45_prompt_result_cache.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
