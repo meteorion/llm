@@ -58,6 +58,7 @@
 | [`day38_understanding_mcp.md`](学习笔记/day38_understanding_mcp.md) | 理解 MCP（Model Context Protocol） | MCP 三种核心能力（Tools / Resources / Prompts）、Server / Client 架构与交互流程图、MCP vs Function Calling 定位差异（互补非替代）、MCP vs A2A 各解决哪层连接问题 |
 | [`day39_minimal_mcp_server.md`](学习笔记/day39_minimal_mcp_server.md) | 开发一个最小 MCP Server | FastMCP 与 @mcp.tool() 装饰器、类型提示自动生成 JSON Schema、把 Day 23 天气/汇率工具包装成 MCP Server、stdio transport 原理、.mcp.json 配置连接 Claude Code |
 | [`day40_cross_session_memory.md`](学习笔记/day40_cross_session_memory.md) | 跨对话长期记忆 | 短期/长期记忆分层设计、JSON KV 存储用户偏好、记忆注入 System Prompt、向量存储记忆与语义检索、摘要压缩防止记忆膨胀、mem0 三核心接口与分层思路 |
+| [`day41_multi_agent_collaboration.md`](学习笔记/day41_multi_agent_collaboration.md) | 多 Agent 协作模式 | Planner/Executor/Critic 三角色职责边界、Agent 间消息传递协议（SubTask/TaskResult/CriticVerdict）、协作 Demo 实现与可观察协作日志、A2A 协议设计动机（Task 状态机/流式 Push/Agent Card）、MCP+A2A 两层连接完整图景 |
 
 ---
 
@@ -844,6 +845,30 @@
 
 ---
 
+### [day41_multi_agent_collaboration.md](学习笔记/day41_multi_agent_collaboration.md) — Day 41：多 Agent 协作模式
+
+- **一、为什么需要多 Agent 协作**（单 Agent 的规划弱、容错差、不可替换三个局限）
+- **二、Planner / Executor / Critic 三角色设计**
+  - 各角色职责边界与 System Prompt 设计原则
+  - 能做什么、不做什么的边界约束
+- **三、Agent 间的消息传递协议**
+  - SubTask（task_id / description / tool_name / tool_args / depends_on）
+  - TaskResult（task_id / status / result / error）
+  - CriticVerdict（passed / missing[] / reason / retry_hint）
+- **四、协作 Demo 实现**
+  - Planner 实现（structured output 拆子任务）
+  - Executor 实现（依赖检查 + 工具注册表 + 错误处理）
+  - Critic 实现（对照原始问题判断完整性）
+  - 主流程与可观察协作日志（Planner/Executor/Critic 三节打印）
+- **五、思考题：A2A 协议解决了哪些工程问题**
+  - Demo 的三个短板（状态无持久化 / 同步阻塞 / 工具表硬编码）
+  - Task 状态机 / 流式 Push / Agent Card 各自解决的短板
+- **六、MCP + A2A：两层连接的完整图景**（三层协议对比表）
+- **七、知识速查**（三角色边界、数据结构、A2A 三项设计速查）
+- **八、实践任务**（Demo 跑通 / 故意失败验证 / 复杂问题拆解 / 重试机制思考）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1119,6 +1144,7 @@
 - [x] [Day 38 · 理解 MCP（Model Context Protocol）](学习笔记/day38_understanding_mcp.md)
 - [x] [Day 39 · 开发一个最小 MCP Server](学习笔记/day39_minimal_mcp_server.md)
 - [x] [Day 40 · 跨对话长期记忆](学习笔记/day40_cross_session_memory.md)
+- [x] [Day 41 · 多 Agent 协作模式（Planner/Executor/Critic）](学习笔记/day41_multi_agent_collaboration.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

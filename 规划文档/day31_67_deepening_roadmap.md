@@ -30,7 +30,7 @@
 - [x] Day 38 · 理解 MCP（Model Context Protocol）→ [笔记](../学习笔记/day38_understanding_mcp.md)
 - [x] Day 39 · 开发一个最小 MCP Server → [笔记](../学习笔记/day39_minimal_mcp_server.md)
 - [x] Day 40 · 跨对话长期记忆 → [笔记](../学习笔记/day40_cross_session_memory.md)
-- [ ] Day 41 · 多 Agent 协作模式（Planner/Executor/Critic）
+- [x] Day 41 · 多 Agent 协作模式（Planner/Executor/Critic）→ [笔记](../学习笔记/day41_multi_agent_collaboration.md)
 - [ ] Day 42 · 阶段项目整合 + 第 6 周复盘（深化版 Agent 项目）
 - [ ] Day 43 · 可观测性基础：接入 LangFuse/LangSmith
 - [ ] Day 44 · 结构化日志与成本监控面板
