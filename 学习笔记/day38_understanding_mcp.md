@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 A：LangChain / LangGraph / MCP 与多 Agent**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 38
 >
-> 🧭 导航：[← Day 37 · 第 5 周复盘](day37_week5_review.md) → Day 39 · 开发一个最小 MCP Server（待更新）
+> 🧭 导航：[← Day 37 · 第 5 周复盘](day37_week5_review.md) → [Day 39 · 开发一个最小 MCP Server](day39_minimal_mcp_server.md)
 
 ---
 

@@ -56,6 +56,7 @@
 | [`day36_human_in_the_loop.md`](学习笔记/day36_human_in_the_loop.md) | Human-in-the-loop 人工审核节点 | 批准/修改参数/拒绝三条审核路径、update_state 的 as_node 参数原理、AIMessage 同 id 替换修改工具参数、高风险操作判断标准、按工具名过滤精细化审核 |
 | [`day37_week5_review.md`](学习笔记/day37_week5_review.md) | 第 5 周复盘：LangChain / LangGraph 解决了什么问题 | 原生 API vs LangChain vs LangGraph 适用边界对比表、引入各框架的 checklist、LangGraph 四项能力与手写 while 的结构性缺陷、本周知识地图 |
 | [`day38_understanding_mcp.md`](学习笔记/day38_understanding_mcp.md) | 理解 MCP（Model Context Protocol） | MCP 三种核心能力（Tools / Resources / Prompts）、Server / Client 架构与交互流程图、MCP vs Function Calling 定位差异（互补非替代）、MCP vs A2A 各解决哪层连接问题 |
+| [`day39_minimal_mcp_server.md`](学习笔记/day39_minimal_mcp_server.md) | 开发一个最小 MCP Server | FastMCP 与 @mcp.tool() 装饰器、类型提示自动生成 JSON Schema、把 Day 23 天气/汇率工具包装成 MCP Server、stdio transport 原理、.mcp.json 配置连接 Claude Code |
 
 ---
 
@@ -791,6 +792,31 @@
 
 ---
 
+### [day39_minimal_mcp_server.md](学习笔记/day39_minimal_mcp_server.md) — Day 39：开发一个最小 MCP Server
+
+- **一、从理论到代码：今天要做什么**（Day 23 同进程工具 → Day 39 独立进程 MCP Server）
+- **二、MCP Python SDK 安装与 API 选型**
+  - `pip install mcp`；FastMCP（高级装饰器）vs 低级 Server API
+- **三、最小 MCP Server 实现**
+  - `FastMCP("server-name")` 创建实例
+  - `@mcp.tool()` 装饰器：自动从类型提示生成 Schema、从 docstring 读描述
+  - Python 类型提示 → JSON Schema 映射表
+  - `mcp.run()` 启动（默认 stdio transport）
+- **四、把 Day 23 工具包装进来**
+  - 天气查询工具（`get_weather`）、汇率查询工具（`get_exchange_rate`）
+  - 完整 Server 文件（~40 行有效代码）
+- **五、stdio Transport：Server 怎么运行**
+  - stdio vs HTTP transport 的适用场景对比
+  - Client spawn Server 子进程的通信机制
+- **六、连接 Claude Code：配置 .mcp.json**
+  - 项目级 `.mcp.json` 格式（command / args / env）
+  - 验证 Server 已连接的方法
+- **七、手动验证：list_tools 与 call_tool 的原始报文**（MCP Client SDK 测试脚本）
+- **八、知识速查**（FastMCP 核心 API、配置格式、Day 23 vs Day 39 对比表）
+- **九、实践任务**（安装验证 / 测试脚本 / 接入 Claude Code / 扩展新工具）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1064,6 +1090,7 @@
 - [x] [Day 36 · Human-in-the-loop 人工审核节点](学习笔记/day36_human_in_the_loop.md)
 - [x] [Day 37 · 第 5 周复盘：LangChain/LangGraph 解决了什么问题](学习笔记/day37_week5_review.md)
 - [x] [Day 38 · 理解 MCP（Model Context Protocol）](学习笔记/day38_understanding_mcp.md)
+- [x] [Day 39 · 开发一个最小 MCP Server](学习笔记/day39_minimal_mcp_server.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

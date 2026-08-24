@@ -28,7 +28,7 @@
 - [x] Day 36 · Human-in-the-loop 人工审核节点 → [笔记](../学习笔记/day36_human_in_the_loop.md)
 - [x] Day 37 · 第 5 周复盘：LangChain/LangGraph 解决了什么问题 → [笔记](../学习笔记/day37_week5_review.md)
 - [x] Day 38 · 理解 MCP（Model Context Protocol）→ [笔记](../学习笔记/day38_understanding_mcp.md)
-- [ ] Day 39 · 开发一个最小 MCP Server
+- [x] Day 39 · 开发一个最小 MCP Server → [笔记](../学习笔记/day39_minimal_mcp_server.md)
 - [ ] Day 40 · 跨对话长期记忆
 - [ ] Day 41 · 多 Agent 协作模式（Planner/Executor/Critic）
 - [ ] Day 42 · 阶段项目整合 + 第 6 周复盘（深化版 Agent 项目）
