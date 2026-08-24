@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 C：走向生产部署**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 45
 >
-> 🧭 导航：[← Day 44 · 结构化日志与成本监控面板](day44_structured_logging_cost_dashboard.md) → Day 46 · 批处理（Batching）（待更新）
+> 🧭 导航：[← Day 44 · 结构化日志与成本监控面板](day44_structured_logging_cost_dashboard.md) → [Day 46 · 批处理（Batching）](day46_batching.md)
 
 ---
 

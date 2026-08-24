@@ -63,6 +63,7 @@
 | [`day43_observability_langfuse.md`](学习笔记/day43_observability_langfuse.md) | 可观测性基础：接入 LangFuse/LangSmith | "能跑"vs"能被观测"本质区别、Trace/Span 核心概念与 LLM 映射关系、LangFuse 三种接入方式（OpenAI 拦截/@observe 装饰器/手动 SDK/LangChain 回调）、Dashboard 瀑布图解读、LangGraph Agent 可观测性实现、LangFuse vs LangSmith 选型指南 |
 | [`day44_structured_logging_cost_dashboard.md`](学习笔记/day44_structured_logging_cost_dashboard.md) | 结构化日志与成本监控面板 | 纯文本 vs 结构化日志本质区别、四大核心字段（trace_id/tokens/cost/latency）设计详解、升级 Day 28 日志模块、成本聚合脚本（按天/按功能报表）、LangFuse 与本地 JSONL 日志分工 |
 | [`day45_prompt_result_cache.md`](学习笔记/day45_prompt_result_cache.md) | Prompt / 结果缓存 | 精确匹配 vs 语义缓存区别与选型、缓存键必备字段（model/temperature/system_prompt/messages）、内存+磁盘两级缓存实现、语义缓存（embedding + 相似度阈值）、TTL/内容特征/主动失效三种失效策略、命中率统计与成本节省量化 |
+| [`day46_batching.md`](学习笔记/day46_batching.md) | 批处理（Batching） | 批处理 vs 缓存 vs 路由三者分工、asyncio 并发 + Semaphore 限速实现、指数退避重试、Batch API 原理与取舍（50% 折扣 vs 高延迟）、MAX_CONCURRENCY 调参策略、串行 vs 批处理性能对比量化 |
 
 ---
 
@@ -938,6 +939,21 @@
 
 ---
 
+### [day46_batching.md](学习笔记/day46_batching.md) — Day 46：批处理（Batching）
+
+- **一、批处理解决什么问题**（串行调用代价 / 批处理 vs 缓存 vs 路由分工 / 适合批处理的任务特征）
+- **二、实现方式 A：asyncio 并发 + Semaphore 限速**
+  - 为什么用 asyncio 而非多线程
+  - Semaphore 令牌桶机制
+  - 完整实现：100 条商品描述批量打标签
+  - 错误处理与指数退避重试
+- **三、实现方式 B：Batch API（异步提交）**（原理 / OpenAI 接入思路 / 两种方式对比）
+- **四、性能对比量化**（对比脚本 / 典型数据 / MAX_CONCURRENCY 调参策略）
+- **五、Day 46 知识速查**（三种优化分工 / asyncio 核心模式 / Batch API 选型）
+- **六、实践任务**（串行 vs 批处理耗时对比 / 并发数调参实验 / 失败条目隔离验证）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1218,6 +1234,7 @@
 - [x] [Day 43 · 可观测性基础：接入 LangFuse/LangSmith](学习笔记/day43_observability_langfuse.md)
 - [x] [Day 44 · 结构化日志与成本监控面板](学习笔记/day44_structured_logging_cost_dashboard.md)
 - [x] [Day 45 · Prompt / 结果缓存](学习笔记/day45_prompt_result_cache.md)
+- [x] [Day 46 · 批处理（Batching）](学习笔记/day46_batching.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
