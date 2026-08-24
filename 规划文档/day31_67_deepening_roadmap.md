@@ -36,7 +36,7 @@
 - [x] Day 44 · 结构化日志与成本监控面板 → [笔记](../学习笔记/day44_structured_logging_cost_dashboard.md)
 - [x] Day 45 · Prompt / 结果缓存 → [笔记](../学习笔记/day45_prompt_result_cache.md)
 - [x] Day 46 · 批处理（Batching） → [笔记](../学习笔记/day46_batching.md)
-- [ ] Day 47 · 模型分级路由
+- [x] Day 47 · 模型分级路由 → [笔记](../学习笔记/day47_model_routing.md)
 - [ ] Day 48 · 模型网关：统一接口层与多 Provider 适配
 - [ ] Day 49 · 限流与配额（应用层实现）
 - [ ] Day 50 · 上下文工程（Context Engineering）

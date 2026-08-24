@@ -64,6 +64,7 @@
 | [`day44_structured_logging_cost_dashboard.md`](学习笔记/day44_structured_logging_cost_dashboard.md) | 结构化日志与成本监控面板 | 纯文本 vs 结构化日志本质区别、四大核心字段（trace_id/tokens/cost/latency）设计详解、升级 Day 28 日志模块、成本聚合脚本（按天/按功能报表）、LangFuse 与本地 JSONL 日志分工 |
 | [`day45_prompt_result_cache.md`](学习笔记/day45_prompt_result_cache.md) | Prompt / 结果缓存 | 精确匹配 vs 语义缓存区别与选型、缓存键必备字段（model/temperature/system_prompt/messages）、内存+磁盘两级缓存实现、语义缓存（embedding + 相似度阈值）、TTL/内容特征/主动失效三种失效策略、命中率统计与成本节省量化 |
 | [`day46_batching.md`](学习笔记/day46_batching.md) | 批处理（Batching） | 批处理 vs 缓存 vs 路由三者分工、asyncio 并发 + Semaphore 限速实现、指数退避重试、Batch API 原理与取舍（50% 折扣 vs 高延迟）、MAX_CONCURRENCY 调参策略、串行 vs 批处理性能对比量化 |
+| [`day47_model_routing.md`](学习笔记/day47_model_routing.md) | 模型分级路由 | 分级路由 vs 缓存 vs 批处理分工、四维路由信号（长度/工具/关键词/历史失败率）综合评分、模型档位定义与路由决策函数、带回退的路由封装、路由决策日志与成本对比报告、"宁高勿低"阈值原则 |
 
 ---
 
@@ -954,6 +955,23 @@
 
 ---
 
+### [day47_model_routing.md](学习笔记/day47_model_routing.md) — Day 47：模型分级路由
+
+- **一、为什么需要模型分级路由**（"一模型走天下"的浪费 / 分级路由 vs 缓存 vs 批处理分工）
+- **二、路由判断依据设计**
+  - 问题长度评分
+  - 工具调用关键词评分
+  - 历史失败率评分
+  - 关键词类型评分
+  - 综合评分：多信号加权合并
+- **三、路由器实现**（模型档位定义 / 路由决策函数 / 带路由的 LLM 调用封装）
+- **四、路由决策日志**（字段设计 / 成本对比分析脚本 / 典型成本报告解读）
+- **五、路由器的边界与风险**（降档失败代价 / 小模型失败自动升档回退机制）
+- **六、Day 47 知识速查**（四维信号速查 / 设计原则 / 成本对比正确姿势）
+- **七、实践任务**（评分函数验证 / 路由决策验证 / 日志分析 / 降档风险验证）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1235,6 +1253,7 @@
 - [x] [Day 44 · 结构化日志与成本监控面板](学习笔记/day44_structured_logging_cost_dashboard.md)
 - [x] [Day 45 · Prompt / 结果缓存](学习笔记/day45_prompt_result_cache.md)
 - [x] [Day 46 · 批处理（Batching）](学习笔记/day46_batching.md)
+- [x] [Day 47 · 模型分级路由](学习笔记/day47_model_routing.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
