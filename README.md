@@ -61,6 +61,7 @@
 | [`day41_multi_agent_collaboration.md`](学习笔记/day41_multi_agent_collaboration.md) | 多 Agent 协作模式 | Planner/Executor/Critic 三角色职责边界、Agent 间消息传递协议（SubTask/TaskResult/CriticVerdict）、协作 Demo 实现与可观察协作日志、A2A 协议设计动机（Task 状态机/流式 Push/Agent Card）、MCP+A2A 两层连接完整图景 |
 | [`day42_week6_review_and_integration.md`](学习笔记/day42_week6_review_and_integration.md) | 阶段项目整合 + 第 6 周复盘 | Day 27 原项目四短板与升级架构图、四项能力各自解决的短板、Agent 行为评估三元组框架、15 条测试 case 示例报告（single_tool/multi_step/boundary 三类通过率）、本周知识地图 |
 | [`day43_observability_langfuse.md`](学习笔记/day43_observability_langfuse.md) | 可观测性基础：接入 LangFuse/LangSmith | "能跑"vs"能被观测"本质区别、Trace/Span 核心概念与 LLM 映射关系、LangFuse 三种接入方式（OpenAI 拦截/@observe 装饰器/手动 SDK/LangChain 回调）、Dashboard 瀑布图解读、LangGraph Agent 可观测性实现、LangFuse vs LangSmith 选型指南 |
+| [`day44_structured_logging_cost_dashboard.md`](学习笔记/day44_structured_logging_cost_dashboard.md) | 结构化日志与成本监控面板 | 纯文本 vs 结构化日志本质区别、四大核心字段（trace_id/tokens/cost/latency）设计详解、升级 Day 28 日志模块、成本聚合脚本（按天/按功能报表）、LangFuse 与本地 JSONL 日志分工 |
 
 ---
 
@@ -907,6 +908,22 @@
 
 ---
 
+### [day44_structured_logging_cost_dashboard.md](学习笔记/day44_structured_logging_cost_dashboard.md) — Day 44：结构化日志与成本监控面板
+
+- **一、为什么日志必须结构化**（纯文本日志的四大致命缺陷 / 结构化 JSONL 的核心优势）
+- **二、字段设计详解**
+  - trace_id：关联同一次请求的所有记录
+  - tokens 和 cost：成本的原子单位（input/output 分开、定价公式）
+  - latency：三个维度（total / llm / tool）
+  - function_name：成本归因的关键
+- **三、给 Day 28 日志系统加结构化字段**（`structured_logger.py` 实现 / Agent 调用点埋点）
+- **四、成本聚合脚本**（JSONL 格式约定 / `cost_report.py` 实现 / 按天/按功能报表输出示例）
+- **五、LangFuse 与本地日志的分工**（实时调试 vs 批量分析，两者互补）
+- **六、Day 44 知识速查**（必备字段清单 / 纯文本 vs 结构化对比 / 成本计算公式）
+- **七、实践任务**（建 logger / 埋点 / 跑报表 / 定位高成本功能）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1185,6 +1202,7 @@
 - [x] [Day 41 · 多 Agent 协作模式（Planner/Executor/Critic）](学习笔记/day41_multi_agent_collaboration.md)
 - [x] [Day 42 · 阶段项目整合 + 第 6 周复盘](学习笔记/day42_week6_review_and_integration.md)
 - [x] [Day 43 · 可观测性基础：接入 LangFuse/LangSmith](学习笔记/day43_observability_langfuse.md)
+- [x] [Day 44 · 结构化日志与成本监控面板](学习笔记/day44_structured_logging_cost_dashboard.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

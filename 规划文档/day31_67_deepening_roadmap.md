@@ -33,7 +33,7 @@
 - [x] Day 41 · 多 Agent 协作模式（Planner/Executor/Critic）→ [笔记](../学习笔记/day41_multi_agent_collaboration.md)
 - [x] Day 42 · 阶段项目整合 + 第 6 周复盘 → [笔记](../学习笔记/day42_week6_review_and_integration.md)（深化版 Agent 项目）
 - [x] Day 43 · 可观测性基础：接入 LangFuse/LangSmith → [笔记](../学习笔记/day43_observability_langfuse.md)
-- [ ] Day 44 · 结构化日志与成本监控面板
+- [x] Day 44 · 结构化日志与成本监控面板 → [笔记](../学习笔记/day44_structured_logging_cost_dashboard.md)
 - [ ] Day 45 · Prompt / 结果缓存
 - [ ] Day 46 · 批处理（Batching）
 - [ ] Day 47 · 模型分级路由

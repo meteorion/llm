@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 C：走向生产部署**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 43
 >
-> 🧭 导航：[← Day 42 · 阶段项目整合 + 第 6 周复盘](day42_week6_review_and_integration.md) → Day 44 · 结构化日志与成本监控面板（待更新）
+> 🧭 导航：[← Day 42 · 阶段项目整合 + 第 6 周复盘](day42_week6_review_and_integration.md) → [Day 44 · 结构化日志与成本监控面板](day44_structured_logging_cost_dashboard.md)
 
 ---
 
