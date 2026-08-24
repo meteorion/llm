@@ -57,6 +57,7 @@
 | [`day37_week5_review.md`](学习笔记/day37_week5_review.md) | 第 5 周复盘：LangChain / LangGraph 解决了什么问题 | 原生 API vs LangChain vs LangGraph 适用边界对比表、引入各框架的 checklist、LangGraph 四项能力与手写 while 的结构性缺陷、本周知识地图 |
 | [`day38_understanding_mcp.md`](学习笔记/day38_understanding_mcp.md) | 理解 MCP（Model Context Protocol） | MCP 三种核心能力（Tools / Resources / Prompts）、Server / Client 架构与交互流程图、MCP vs Function Calling 定位差异（互补非替代）、MCP vs A2A 各解决哪层连接问题 |
 | [`day39_minimal_mcp_server.md`](学习笔记/day39_minimal_mcp_server.md) | 开发一个最小 MCP Server | FastMCP 与 @mcp.tool() 装饰器、类型提示自动生成 JSON Schema、把 Day 23 天气/汇率工具包装成 MCP Server、stdio transport 原理、.mcp.json 配置连接 Claude Code |
+| [`day40_cross_session_memory.md`](学习笔记/day40_cross_session_memory.md) | 跨对话长期记忆 | 短期/长期记忆分层设计、JSON KV 存储用户偏好、记忆注入 System Prompt、向量存储记忆与语义检索、摘要压缩防止记忆膨胀、mem0 三核心接口与分层思路 |
 
 ---
 
@@ -817,6 +818,32 @@
 
 ---
 
+### [day40_cross_session_memory.md](学习笔记/day40_cross_session_memory.md) — Day 40：跨对话长期记忆
+
+- **一、为什么需要长期记忆：短期上下文的局限**（session messages 重启即消失的用户体验问题）
+- **二、记忆分层设计**
+  - 三层记忆结构（工作记忆 / 情节记忆 / 语义记忆）
+  - 长期记忆的三类内容（用户偏好 / 事实 / 历史摘要）
+- **三、最简实现：JSON 文件存储用户偏好**
+  - `memory.py` 读写模块（load / save / set_preference / get_preference）
+  - `remember_preference` 工具 + System Prompt 引导模型主动写入
+  - `build_system_prompt()` 把记忆注入 System Prompt
+  - 跨会话验证流程（会话 1 记忆 → 重启 → 会话 2 直接使用）
+- **四、进阶：向量存储记忆**
+  - KV 存储不够的场景（自由文本、需要语义检索）
+  - 向量化记忆的写入与检索伪代码
+- **五、记忆增长控制：防止无限膨胀**
+  - 去重与更新（KV 天然覆盖）、摘要压缩、LRU 淘汰
+- **六、mem0 参考实现**
+  - add / search / update 三个核心接口
+  - 分层设计思路（LLM 提取 → 向量化 → 按需检索）
+  - 手写 vs mem0 的引入决策标准
+- **七、扩展：作为 MCP 工具暴露记忆能力**（给 Day 39 MCP Server 加记忆工具）
+- **八、知识速查**（三层记忆速查、注入模式、两种写入方式对比）
+- **九、实践任务**（跨会话验证 / 注入对比实验 / MCP 记忆工具扩展）
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1091,6 +1118,7 @@
 - [x] [Day 37 · 第 5 周复盘：LangChain/LangGraph 解决了什么问题](学习笔记/day37_week5_review.md)
 - [x] [Day 38 · 理解 MCP（Model Context Protocol）](学习笔记/day38_understanding_mcp.md)
 - [x] [Day 39 · 开发一个最小 MCP Server](学习笔记/day39_minimal_mcp_server.md)
+- [x] [Day 40 · 跨对话长期记忆](学习笔记/day40_cross_session_memory.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 

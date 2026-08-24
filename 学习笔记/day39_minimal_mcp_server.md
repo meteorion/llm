@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 A：LangChain / LangGraph / MCP 与多 Agent**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 39
 >
-> 🧭 导航：[← Day 38 · 理解 MCP（Model Context Protocol）](day38_understanding_mcp.md) → Day 40 · 跨对话长期记忆（待更新）
+> 🧭 导航：[← Day 38 · 理解 MCP（Model Context Protocol）](day38_understanding_mcp.md) → [Day 40 · 跨对话长期记忆](day40_cross_session_memory.md)
 
 ---
 
