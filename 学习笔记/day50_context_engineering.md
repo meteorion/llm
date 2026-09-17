@@ -4,7 +4,7 @@
 >
 > 📚 所属阶段：**深化阶段 · 路线 C：走向生产部署**（见 [`plan.md`](../规划文档/plan.md)）｜ 配套：[深化阶段路线](../规划文档/day31_67_deepening_roadmap.md) · Day 50
 >
-> 🧭 导航：[← Day 49 · 限流与配额：应用层实现](day49_rate_limiting.md) → Day 51（待更新）
+> 🧭 导航：[← Day 49 · 限流与配额：应用层实现](day49_rate_limiting.md) → [Day 51 · 状态管理：会话/任务状态的持久化与恢复设计](day51_state_management.md)
 
 ---
 

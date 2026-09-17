@@ -40,23 +40,28 @@
 - [x] Day 48 · 模型网关：统一接口层与多 Provider 适配 → [笔记](../学习笔记/day48_model_gateway.md)
 - [x] Day 49 · 限流与配额（应用层实现）→ [笔记](../学习笔记/day49_rate_limiting.md)
 - [x] Day 50 · 上下文工程（Context Engineering）→ [笔记](../学习笔记/day50_context_engineering.md)
-- [ ] Day 51 · 状态管理：会话/任务状态的持久化与恢复设计
-- [ ] Day 52 · 第 7–8 周复盘：工程化架构小结
-- [ ] Day 53 · Prompt 注入攻防
-- [ ] Day 54 · 输出护栏与内容过滤
-- [ ] Day 55 · 反馈追踪：用户反馈信号采集与评估回流
-- [ ] Day 56 · Docker 容器化与部署
-- [ ] Day 57 · 阶段项目整合 + 第 9 周复盘（生产就绪版项目）
-- [ ] Day 58 · 混合检索（向量 + BM25）
-- [ ] Day 59 · Reranker 重排序
-- [ ] Day 60 · HyDE（假设文档 Embedding）
-- [ ] Day 61 · 查询改写与多查询检索
-- [ ] Day 62 · 第 10 周复盘
-- [ ] Day 63 · RAGAS 评估框架入门
-- [ ] Day 64 · 构建评估集与持续评估
-- [ ] Day 65 · PDF / 表格 / 扫描件解析进阶
-- [ ] Day 66 · 阶段项目整合（RAG 深化版）
-- [ ] Day 67 · 第 11 周复盘 + 深化阶段总结
+- [x] Day 51 · 状态管理：会话/任务状态的持久化与恢复设计 → [笔记](../学习笔记/day51_state_management.md)
+- [x] Day 52 · 第 7–8 周复盘：工程化架构小结 → [笔记](../学习笔记/day52_engineering_architecture_review.md)
+- [x] Day 53 · Prompt 注入攻防 → [笔记](../学习笔记/day53_prompt_injection_defense.md)
+- [x] Day 54 · 输出护栏与内容过滤 → [笔记](../学习笔记/day54_output_guardrails.md)
+- [x] Day 55 · 反馈追踪：用户反馈信号采集与评估回流 → [笔记](../学习笔记/day55_feedback_tracking.md)
+- [x] Day 56 · Docker 容器化与部署 → [笔记](../学习笔记/day56_docker_deployment.md)
+- [x] Day 57 · 阶段项目整合 + 第 9 周复盘 → [笔记](../学习笔记/day57_route_c_integration_review.md)（路线 C 全部完成）（生产就绪版项目）
+- [x] Day 58 · 混合检索（向量 + BM25）→ [笔记](../学习笔记/day58_hybrid_retrieval.md)
+- [x] Day 59 · Reranker 重排序 → [笔记](../学习笔记/day59_reranker.md)
+- [x] Day 60 · HyDE（假设文档 Embedding）→ [笔记](../学习笔记/day60_hyde.md)
+- [x] Day 61 · 查询改写与多查询检索 → [笔记](../学习笔记/day61_query_rewriting_multi_query.md)
+- [x] Day 62 · 第 10 周复盘 → [笔记](../学习笔记/day62_week10_rag_optimization_review.md)
+- [x] Day 63 · RAGAS 评估框架入门 → [笔记](../学习笔记/day63_ragas_intro.md)
+- [x] Day 64 · 构建评估集与持续评估 → [笔记](../学习笔记/day64_eval_set_and_continuous_evaluation.md)
+- [x] Day 65 · PDF / 表格 / 扫描件解析进阶 → [笔记](../学习笔记/day65_advanced_document_parsing.md)
+- [x] Day 66 · 阶段项目整合（RAG 深化版）→ [笔记](../学习笔记/day66_rag_deepening_integration.md)
+- [x] Day 67 · 第 11 周复盘 + 深化阶段总结 → [笔记](../学习笔记/day67_week11_review_and_deepening_summary.md)（🎉 深化阶段 Day 31–67 全部完成）
+
+**补充篇（技能查缺补漏，不计入 Day 31–67 主线天数）**
+
+- [x] Day 68 · FastAPI 后端工程 → [笔记](../学习笔记/day68_fastapi_backend.md)
+- [x] Day 69 · Claude Code Skills 教程 → [笔记](../学习笔记/day69_claude_code_skills.md)
 
 > 每天完成后用 [`day-note-sync`](../.claude/skills/day-note-sync/SKILL.md) skill 生成学习笔记，会自动同步勾选这份清单、追加面试题、更新 README。
 
@@ -585,3 +590,40 @@
 - 如果某条线明显还是短板 → 继续在这条线上加深，而不是急着往第四阶段扩展
 
 深化阶段的核心不是"学更多新技术"，而是把 Day 1–30 搭好的骨架，用真实项目的反馈来验证和加固。
+
+---
+
+## 七、补充篇：技能查缺补漏（不计入 Day 31–67 主线）
+
+深化阶段的主线（路线 A/C/B）到 Day 67 已经完整收官，但 30 天路线 + 深化阶段全程都没有专门覆盖过"用 FastAPI 搭建独立后端服务"这个工程技能——之前一直是用 Gradio/Streamlit 把界面和推理逻辑写在同一个进程里（Day 26），没有拆分成"前端 + 独立后端 API"的架构。这是求职市场上常被要求的一项具体技能，值得作为补充篇单独补上，不改变深化阶段"Day 31–67 已全部完成"的既有结论。
+
+### Day 68：FastAPI 后端工程
+
+学习重点：
+- FastAPI 核心概念：路径操作（`@app.get`/`@app.post`）、请求/响应模型（复用 Day 8 已经很熟悉的 Pydantic）、依赖注入（`Depends`）
+- 为什么要把 LLM/RAG/Agent 应用包装成独立后端服务：分离前端交互与推理逻辑、支持多种客户端接入（Web/移动端/其他服务调用同一个 API）、原生异步支持、自动生成 OpenAPI 文档（Swagger UI）
+- 流式输出在 FastAPI 里的实现方式：`StreamingResponse`（对应 Day 4/26 已经做过的流式输出，只是从 Gradio 回调换成 HTTP 流式响应）
+
+当天任务：
+- 给已有的 RAG/Agent 项目（如 Day 27/42/66 的项目）包一层 FastAPI 后端：至少两个端点——`/chat`（问答，支持流式）和 `/health`（健康检查）
+- 用 Pydantic 定义请求/响应模型，验证参数校验生效（如问题为空时返回 422）
+- 用 Swagger UI（`/docs`）测试接口，不写额外的前端代码
+- 对比 Day 26 "Gradio 内嵌调用"和"独立 FastAPI 后端"两种架构的适用场景差异
+
+产出标准：
+- 一个可以通过 HTTP 请求调用的 FastAPI 服务，Swagger UI 里能测试通过 `/chat` 和 `/health` 两个端点
+- 一份架构对比笔记，说明"内嵌调用"和"独立后端"分别适合什么场景，不是无脑都要拆成后端服务
+
+### Day 69：Claude Code Skills 教程
+
+学习重点：
+- Claude Code Skills 解决的问题：把重复出现的多步骤任务封装成可复用、可被自动匹配触发的"playbook"，和斜杠命令（显式调用）、CLAUDE.md（全局常驻上下文）三者定位不同
+- SKILL.md 文件结构：frontmatter（`name`/`description`）+ 正文（触发条件+步骤概览）+ `references/` 子目录（详细格式规范，按需加载）
+- `description` 字段的关键作用：决定 Claude 何时会自动匹配触发这个 Skill，覆盖的措辞越具体越不容易漏配
+
+当天任务：
+- 拆解本仓库正在使用的 `day-note-sync` Skill（`.claude/skills/day-note-sync/`），对照五条设计原则逐条找到对应段落
+- 写一个自己项目里真实存在的重复性任务的最小 SKILL.md，覆盖至少 3 种用户说法的 description，测试能否被正确触发
+
+产出标准：
+- 一个能被正确触发（显式命令和自然语言描述都能匹配）的最小 Skill，覆盖一个自己项目里真实存在的重复性任务

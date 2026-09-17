@@ -91,7 +91,7 @@ def build_rag_prompt(query: str, contexts: list[str]) -> str:
   - 放在中间的 Chunk 容易被模型"忽视"
   - Top-3 检索结果中，相关度最高的放末尾效果往往最好
 ```
-
+    
 排列策略对比：
 
 | 策略 | 做法 | 适用场景 |

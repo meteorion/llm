@@ -17,3 +17,7 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Obsidian (personal editor workspace state)
+.obsidian/
+*.base

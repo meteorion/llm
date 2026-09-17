@@ -1,4 +1,4 @@
-﻿# Day 22：理解 Tool Calling
+# Day 22：理解 Tool Calling
 
 > 学习目标：理解 Tool Calling 的完整交互流程，搞清楚"回答问题"和"调用工具做事"的本质区别，实现一个从工具定义到结果反馈的最小可运行 Demo
 >

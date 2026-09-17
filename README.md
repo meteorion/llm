@@ -68,6 +68,25 @@
 | [`day48_model_gateway.md`](学习笔记/day48_model_gateway.md) | 模型网关：统一接口层与多 Provider 适配 | 没有网关的痛点、网关职责边界（统一接口/鉴权/日志/路由/重试）、手写最小网关（ProviderConfig/GatewayRequest/GatewayResponse/ModelGateway）、换 Provider 零改动验证、LiteLLM 核心用法、自研网关 vs LiteLLM 选型指南 |
 | [`day49_rate_limiting.md`](学习笔记/day49_rate_limiting.md) | 限流与配额：应用层实现 | 不限流的四类风险（成本失控/滥用/Bug死循环/流量突刺）、Provider限流 vs 应用层限流对比、固定窗口/滑动窗口/令牌桶三算法原理与实现、滑动窗口集成到 Day 48 网关中间件、超限响应规范（rate_limited/retry_after/cost=0）、多层限流叠加策略（按用户/功能/IP） |
 | [`day50_context_engineering.md`](学习笔记/day50_context_engineering.md) | 上下文工程（Context Engineering） | 上下文工程 vs Prompt工程本质区别、五类上下文分区及固定顺序设计（System/RAG/工具/历史/当前消息）、Token预算分配（分区最大值+滚动预算）、对话历史裁剪（成对删除/摘要替换）、RAG文档裁剪（按相关度过滤）、ContextBuilder实现与网关层集成、上下文质量常见问题排查 |
+| [`day51_state_management.md`](学习笔记/day51_state_management.md) | 状态管理：会话/任务状态的持久化与恢复设计 | 应用层状态管理与Checkpoint边界、会话状态外部化（SessionStore/Redis）、消息历史序列化、任务状态机（pending/running/done/failed）、状态转移合法性校验、TaskStore持久化、重启恢复验证 |
+| [`day52_engineering_architecture_review.md`](学习笔记/day52_engineering_architecture_review.md) | 第 7–8 周复盘：工程化架构小结 | 隐性成本五分类框架、网关/限流/批处理/上下文工程/状态管理逐项拆解、可观测性/缓存/分级路由补充归类、规模信号判断清单、无论规模都值得vs按需引入分级表 |
+| [`day53_prompt_injection_defense.md`](学习笔记/day53_prompt_injection_defense.md) | Prompt 注入攻防 | 直接注入vs间接注入本质区别、工具返回投毒攻击原理、红队测试用例设计（越狱/泄露/角色扮演/间接注入/敏感操作）、System Prompt抗覆盖强化、输出前二次校验、工具结果隔离标记、高风险操作人工确认四层防御纵深 |
+| [`day54_output_guardrails.md`](学习笔记/day54_output_guardrails.md) | 输出护栏与内容过滤 | Guardrails模式核心主张、三类拦截场景（敏感信息泄露/越权操作/格式不合规）、规则匹配vs模型分类选型、GuardrailResult规则链设计（低成本优先短路执行）、按违规类型分级兜底回复 |
+| [`day55_feedback_tracking.md`](学习笔记/day55_feedback_tracking.md) | 反馈追踪：用户反馈信号采集与评估回流 | 反馈追踪与可观测性边界（trace_id关联）、显式反馈/人工标注/隐式信号三种形式对比、FeedbackStore关联trace_id存储、重新提问与抱怨关键词检测、低分回答清单生成、评估集与Prompt迭代回流 |
+| [`day56_docker_deployment.md`](学习笔记/day56_docker_deployment.md) | Docker 容器化与部署 | 多阶段构建Dockerfile、环境变量注入与依赖锁定、Hugging Face Spaces/Fly.io/VPS部署选型、GitHub Actions最小CI workflow、Chroma迁移Qdrant生产向量库、迁移一致性验证 |
+| [`day57_route_c_integration_review.md`](学习笔记/day57_route_c_integration_review.md) | 阶段项目整合 + 第 9 周复盘（路线 C 收官） | Day42项目生产可维护性九大短板、十一项能力整合架构图、生产就绪度检查清单（ReadinessItem）、真实流量缺失项（身份认证/多租户/灰度发布/高可用）、规模信号判断标准 |
+| [`day58_hybrid_retrieval.md`](学习笔记/day58_hybrid_retrieval.md) | 混合检索（向量 + BM25） | 稠密vs稀疏检索擅长场景对比、BM25相比TF-IDF的词频饱和与长度归一化改进、rank_bm25实现、简单加权融合分数量纲问题、RRF倒数排名融合原理、纯向量vs混合检索对比实验 |
+| [`day59_reranker.md`](学习笔记/day59_reranker.md) | Reranker 重排序 | Bi-Encoder vs Cross-Encoder本质区别（可否预计算）、两阶段检索粗召回+精排设计、bge-reranker接入实现、Hit Rate对比实验、Reranker提升排序准确率而非召回覆盖率 |
+| [`day60_hyde.md`](学习笔记/day60_hyde.md) | HyDE（假设文档 Embedding） | query-document mismatch语义鸿沟、HyDE生成假设答案再检索的核心思路、假设答案不需准确只需文体贴近、与混合检索结合的路由策略（向量路用假设文档/BM25路用原始问题）、适用场景与局限性、对比实验 |
+| [`day61_query_rewriting_multi_query.md`](学习笔记/day61_query_rewriting_multi_query.md) | 查询改写与多查询检索 | 模糊问题三类症状（指代不明/信息不全/歧义）、Query Rewriting结合对话历史改写、Multi-query Fusion生成变体+RRF融合、与HyDE三者分工及组合顺序、改写前后召回对比实验 |
+| [`day62_week10_rag_optimization_review.md`](学习笔记/day62_week10_rag_optimization_review.md) | 第 10 周复盘：RAG 优化手段选型 | 召回不到vs排序不准两类问题框架、混合检索/HyDE/查询改写归类为召回类、Reranker归类为排序类、只能加一招的优先级判断（混合检索>Reranker>HyDE/查询改写）、RAG优化手段选型表 |
+| [`day63_ragas_intro.md`](学习笔记/day63_ragas_intro.md) | RAGAS 评估框架入门 | 主观评估三大问题、RAGAS的LLM-as-judge思路、四核心指标详解（忠实度/答案相关性/上下文精度/上下文召回率）、指标对应生成vs检索环节、ground_truth依赖关系、RAGAS代码实现与报表解读定位最弱环节 |
+| [`day64_eval_set_and_continuous_evaluation.md`](学习笔记/day64_eval_set_and_continuous_evaluation.md) | 构建评估集与持续评估 | 评估集三元组结构（问题/标准答案/标准引用来源）、answerable/boundary/out_of_scope三类case覆盖设计、20条评估问题比例、拒答准确率补充指标、基准报表版本管理与回归对比、反馈追踪低分case持续转化为评估用例 |
+| [`day65_advanced_document_parsing.md`](学习笔记/day65_advanced_document_parsing.md) | PDF / 表格 / 扫描件解析进阶 | 三类脏数据（排版混乱/表格错位/扫描件无文字层）、表格拍平vs保留行列结构、OCR基础流程、Docling/marker版面分析工具、与pdfplumber对比实验、Docling处理不了的边界情况（复杂排版/加密文档/手写内容） |
+| [`day66_rag_deepening_integration.md`](学习笔记/day66_rag_deepening_integration.md) | 阶段项目整合（RAG 深化版） | 传统RAG固定流程局限、Agentic RAG核心思路（retrieve→grade_docs→合格generate/不合格rewrite_query循环）、LangGraph节点与State设计、循环终止条件（复用Day35双层保护）、混合检索+Reranker整合进retrieve节点、整合前后RAGAS指标对比 |
+| [`day67_week11_review_and_deepening_summary.md`](学习笔记/day67_week11_review_and_deepening_summary.md) | 第 11 周复盘 + 深化阶段总结（深化阶段收官） | A/C/B三条线提升明显程度判断标准、第四阶段投入决策树、深化阶段三路线核心产出速览、五个认知转变（框架/工程化/安全/检索/评估驱动）、九条常见误区共同本质、下一步去哪里候选路线 |
+| [`day68_fastapi_backend.md`](学习笔记/day68_fastapi_backend.md) | FastAPI 后端工程（补充篇·技能查缺补漏） | Gradio内嵌调用的耦合限制、FastAPI三个核心概念（路径操作/Pydantic请求响应模型/依赖注入Depends）、StreamingResponse流式输出、给已有项目接入FastAPI后端、Swagger UI测试验证、Gradio内嵌vs独立后端架构选型判断 |
+| [`day69_claude_code_skills.md`](学习笔记/day69_claude_code_skills.md) | Claude Code Skills 教程（补充篇·技能查缺补漏） | Skill与斜杠命令/CLAUDE.md的区别、SKILL.md文件结构（frontmatter+正文+references）、description触发匹配机制、day-note-sync真实案例五条设计原则拆解、最小Skill编写示例、Skill vs Subagent vs普通Prompt选型 |
 
 ---
 
@@ -1022,6 +1041,251 @@
 
 ---
 
+### [day51_state_management.md](学习笔记/day51_state_management.md) — Day 51：状态管理：会话/任务状态的持久化与恢复设计
+
+- **一、状态管理要解决什么问题**（与 Day 35 Checkpoint 的边界：图内节点快照 vs 应用层生命周期 / 会话状态与任务状态两类对象）
+- **二、会话状态外部化存储**（gr.State 进程内存的三个局限 / SessionStore + Redis 实现 / 消息对象与大体积记忆的序列化处理）
+- **三、任务状态机建模**（pending/running/done/failed 四态设计 / 转移合法性校验 / TaskStore 持久化到 SQLite）
+- **四、恢复验证：重启不丢状态**（SessionStore + TaskStore 完整集成 / 重启前后行为对比测试）
+- **五、Day 51 知识速查**（Checkpoint vs 状态管理对比 / 存储选型速查 / 重启恢复检查清单）
+- **六、实践任务**（gr.State 迁移 Redis / 非法转移校验 / 模拟进程中断验证恢复）
+- **七、下一步预告**
+
+---
+
+### [day52_engineering_architecture_review.md](学习笔记/day52_engineering_architecture_review.md) — Day 52：第 7–8 周复盘：工程化架构小结
+
+- **一、第 7–8 周产出回顾：Day 43–51 学了什么**（可观测性→成本性能→架构并发→上下文状态四阶段递进）
+- **二、复盘问题一：这几样工程化能力分别解决了什么隐性成本**（隐性成本五分类框架 / 网关限流批处理上下文工程状态管理逐项拆解 / 可观测性缓存分级路由补充归类）
+- **三、复盘问题二：小规模项目还有必要做这些吗，边界在哪**（规模信号判断表 / 无论规模都值得vs按需引入分级清单）
+- **四、本周知识地图：Day 43–51 全景表**
+- **五、工程化架构小结（本周产出物）**（能力-隐性成本-引入阈值对照）
+- **六、下一步预告**
+
+---
+
+### [day53_prompt_injection_defense.md](学习笔记/day53_prompt_injection_defense.md) — Day 53：Prompt 注入攻防
+
+- **一、Prompt 注入是什么，为什么难防**（直接注入vs间接注入对比 / 模型无法区分数据与指令的根本原因）
+- **二、常见攻击手法与样例**（越狱 / System Prompt 泄露 / 借工具结果触发未授权操作）
+- **三、红队测试：对项目做简单渗透测试**（测试用例设计 / 测试脚本与漏洞记录格式）
+- **四、防御方案设计**（System Prompt 抗覆盖强化 / 输出前二次校验 / 工具结果隔离标记 / 权限最小化人工确认）
+- **五、完整实现：漏洞记录 + 修复前后对比**
+- **六、Day 53 知识速查**（两类注入对比 / 四层防御纵深 / 红队测试用例速查）
+- **七、实践任务**（三类基础测试 / 工具返回投毒验证 / System Prompt强化对比 / 输出校验 / 高风险工具确认）
+- **八、下一步预告**
+
+---
+
+### [day54_output_guardrails.md](学习笔记/day54_output_guardrails.md) — Day 54：输出护栏与内容过滤
+
+- **一、Guardrails 模式是什么**（为什么不能完全信任模型输出 / 与Day53输出校验的区别：点状校验→通用护栏层）
+- **二、需要拦截的三类典型场景**（敏感信息泄露 / 越权操作 / 格式不合规）
+- **三、护栏实现方式：规则匹配 vs 模型分类**（正则PII检测 / 小模型语义分类 / 两种方式对比与组合策略）
+- **四、护栏层架构设计**（GuardrailResult与规则链 / 拦截后的兜底回复策略）
+- **五、完整实现：给项目加一层输出护栏**
+- **六、验证：构造违规输出，演示拦截过程**
+- **七、Day 54 知识速查**（三类拦截场景 / 护栏实现方式选型 / 护栏链设计原则）
+- **八、实践任务**（PII检测 / Schema校验 / 越权承诺识别 / 规则链短路验证 / 误报率检查）
+- **九、下一步预告**
+
+---
+
+### [day55_feedback_tracking.md](学习笔记/day55_feedback_tracking.md) — Day 55：反馈追踪：用户反馈信号采集与评估回流
+
+- **一、反馈追踪要解决什么问题**（与Day43可观测性的边界：系统怎么执行的vs用户觉得好不好 / 输出未被护栏拦截≠用户满意）
+- **二、反馈信号的三种形式**（显式反馈thumbs up/down / 人工标注 / 隐式信号：追问与重新提问）
+- **三、反馈采集实现：关联 trace_id 存储**（FeedbackStore数据结构 / Gradio界面反馈入口 / 隐式信号自动检测）
+- **四、反馈回流：从原始信号到低分回答清单**（低分回答清单生成 / 回流到离线评估集与Prompt迭代两条路径）
+- **五、完整实现**
+- **六、Day 55 知识速查**（三种反馈形式对比 / 反馈追踪vs可观测性 / 反馈回流两条路径）
+- **七、实践任务**（反馈入口接入 / 隐式信号检测验证 / 低分清单生成 / 共性分析 / 迭代复测）
+- **八、下一步预告**
+
+---
+
+### [day56_docker_deployment.md](学习笔记/day56_docker_deployment.md) — Day 56：Docker 容器化与部署
+
+- **一、Dockerfile 编写**（多阶段构建原理 / 环境变量注入不写死密钥 / requirements.txt 依赖锁定）
+- **二、部署选项对比**（Hugging Face Spaces / Fly.io类PaaS / 自己的VPS 选型建议）
+- **三、CI/CD 基础：GitHub Actions**（push触发自动测试最小workflow / 质量门控的意义）
+- **四、生产向量数据库迁移：Chroma → Qdrant**（本地文件模式的单点依赖问题 / Qdrant Docker部署与接入 / 迁移一致性验证）
+- **五、完整实现：从本地到公开 URL**
+- **六、Day 56 知识速查**（Dockerfile三原则 / 部署选项速查 / 向量库迁移检查清单）
+- **七、实践任务**（Dockerfile构建 / 密钥检查 / CI workflow / Qdrant迁移验证 / 部署上线）
+- **八、下一步预告**
+
+---
+
+### [day57_route_c_integration_review.md](学习笔记/day57_route_c_integration_review.md) — Day 57：阶段项目整合 + 第 9 周复盘
+
+- **一、第 9 周（路线 C 全程）产出回顾：Day 43–56 学了什么**
+- **二、Day 42 升级版项目的短板与本阶段整合方案**（生产可维护性九大短板 / 整合后完整架构图 / 十一项能力对应短板表）
+- **三、复盘问题：现在这个项目距离"能接真实用户流量"还差什么**（已具备能力盘点 / 仍缺失能力：身份认证/多租户/灰度发布/高可用 / 规模信号判断标准）
+- **四、生产就绪度检查清单**（ReadinessItem结构 / 示例评估报告13/16项）
+- **五、路线 C（Day 43–56）知识地图**
+- **六、实践任务**（就绪度打分 / 架构图核对 / 缺失项方案 / README沉淀）
+- **七、下一步预告**（路线B：RAG优化）
+
+---
+
+### [day58_hybrid_retrieval.md](学习笔记/day58_hybrid_retrieval.md) — Day 58：混合检索（向量 + BM25）
+
+- **一、稠密检索 vs 稀疏检索**（向量检索擅长语义相似 / BM25擅长精确术语 / 两者互补而非二选一）
+- **二、BM25 算法原理与实现**（TF-IDF到BM25的词频饱和与长度归一化改进 / rank_bm25库实现）
+- **三、给 Day 18 向量检索加一路 BM25 检索**（构建BM25索引 / 两路检索并行执行）
+- **四、融合排序：把两路结果合并成一个排名**（简单加权融合的分数量纲问题 / RRF倒数排名融合原理与实现）
+- **五、对比实验：纯向量 vs 混合检索**（精确术语类查询提升明显 / 纯语义类查询提升不明显）
+- **六、Day 58 知识速查**（稠密vs稀疏对比 / BM25两个改进 / 融合排序选型）
+- **七、实践任务**（BM25索引构建 / 双路检索验证 / RRF融合验证 / 对比实验）
+- **八、下一步预告**
+
+---
+
+### [day59_reranker.md](学习笔记/day59_reranker.md) — Day 59：Reranker 重排序
+
+- **一、Cross-Encoder 和 Bi-Encoder 的本质区别**（doc可否预计算 / 交互粒度对比 / 精排更准但更贵的原因）
+- **二、两阶段检索：先粗召回再精排**（全量文档不能直接用Cross-Encoder的原因 / 粗召回Top-N / 精排Top-K）
+- **三、接入开源 Reranker 模型**（bge-reranker/ms-marco-MiniLM选型 / CrossEncoder代码实现）
+- **四、对比实验：加 Reranker 前后的 Top-K 命中率**（Hit Rate指标回顾 / 测试集设计 / 结果分析：提升排序而非召回覆盖）
+- **五、Day 59 知识速查**（Bi-Encoder vs Cross-Encoder / 两阶段检索设计 / Reranker提升本质）
+- **六、实践任务**（Reranker模型加载 / 二次排序实现 / 两阶段流程验证 / Hit Rate对比）
+- **七、下一步预告**
+
+---
+
+### [day60_hyde.md](学习笔记/day60_hyde.md) — Day 60：HyDE（假设文档 Embedding）
+
+- **一、问题与文档之间的语义鸿沟**（query-document mismatch原因 / HyDE核心思路）
+- **二、HyDE 工作流程详解**（生成假设答案 / 对假设答案做Embedding / 用假设答案向量检索 / 为什么更有效）
+- **三、实现 HyDE 检索流程**（Prompt设计 / 完整代码实现 / 与两阶段检索的结合方式）
+- **四、HyDE 的适用场景与局限性**（口语化问题+正式文档场景明显有效 / 额外成本与幻觉风险局限）
+- **五、对比实验：HyDE 检索 vs 直接问题检索**
+- **六、Day 60 知识速查**（HyDE核心流程 / 生效原理 / 适用性判断 / 组合方式）
+- **七、实践任务**（Prompt设计 / HyDERetriever实现 / 对比实验 / 与混合检索结合）
+- **八、下一步预告**
+
+---
+
+### [day61_query_rewriting_multi_query.md](学习笔记/day61_query_rewriting_multi_query.md) — Day 61：查询改写与多查询检索
+
+- **一、Query Rewriting 与 Multi-query Fusion 解决什么问题**（模糊问题三类症状 / 两种技术定义 / 与HyDE的区别）
+- **二、Query Rewriting 实现**（结合对话历史的指代消解 / Prompt设计与代码实现）
+- **三、Multi-query Fusion 实现**（生成查询变体的Prompt设计 / 分别检索+RRF融合）
+- **四、完整实现：给模糊问题做改写 + 多查询扩展**（先改写后多查询的顺序原则）
+- **五、对比实验：改写前后的召回结果**
+- **六、Day 61 知识速查**（两种技术对比 / 与HyDE的分工 / 使用顺序原则 / 融合实现要点）
+- **七、实践任务**（改写验证 / 变体生成 / RRF融合验证 / 对比记录）
+- **八、下一步预告**
+
+---
+
+### [day62_week10_rag_optimization_review.md](学习笔记/day62_week10_rag_optimization_review.md) — Day 62：第 10 周复盘
+
+- **一、第 10 周产出回顾：Day 58–61 学了什么**
+- **二、复盘问题一：四招分别对应"召回不到"还是"排序不准"**（两类问题定义框架 / 四招逐一归类）
+- **三、复盘问题二：如果只能加一招，优先加哪个**（实现成本vs收益覆盖面判断标准 / 推荐优先级：混合检索>Reranker>HyDE/查询改写）
+- **四、RAG 优化手段选型表**（问题类型→对应手段→优先级）
+- **五、本周知识地图：Day 58–61 全景表**
+- **六、实践任务**（case分类练习 / 选型表应用 / 落地理由撰写）
+- **七、下一步预告**
+
+---
+
+### [day63_ragas_intro.md](学习笔记/day63_ragas_intro.md) — Day 63：RAGAS 评估框架入门
+
+- **一、为什么"感觉答得不错"不够用**（主观评估三个问题 / RAGAS的LLM-as-judge思路）
+- **二、四个核心指标详解**（忠实度 / 答案相关性 / 上下文精度 / 上下文召回率）
+- **三、四指标对应 RAG 链路的哪个环节**（生成环节vs检索环节分工）
+- **四、给已有 RAG 系统跑一次 RAGAS 评估**（安装与评估数据集格式 / 完整代码实现）
+- **五、记录指标报表，定位最弱环节**（示例报表与结果解读）
+- **六、Day 63 知识速查**（四指标速查 / ground_truth依赖关系 / 定位问题环节判断逻辑）
+- **七、实践任务**（标注测试用例 / 构建评估数据集 / 跑评估 / 定位最弱环节）
+- **八、下一步预告**
+
+---
+
+### [day64_eval_set_and_continuous_evaluation.md](学习笔记/day64_eval_set_and_continuous_evaluation.md) — Day 64：构建评估集与持续评估
+
+- **一、为什么要把评估集固化成资产**（跑一次vs持续评估区别 / 评估集三个价值）
+- **二、构造"问题 + 标准答案 + 标准引用来源"三元组**（三元组结构设计 / 三类case覆盖 / 反馈追踪低分case持续纳入）
+- **三、20 条评估问题设计示例**（10 answerable + 6 boundary + 4 out_of_scope）
+- **四、离线评估流程化**（评估脚本设计 / 基准报表版本管理 / 拒答类case的特殊评估方式）
+- **五、完整实现**（自动对比上一版本基准）
+- **六、Day 64 知识速查**（三元组结构 / 20条比例 / 评估流程分工 / 持续评估核心机制）
+- **七、实践任务**（20条问题标注 / 评估脚本实现 / 基准报表保存 / 改动后回归对比 / 低分case转化）
+- **八、下一步预告**
+
+---
+
+### [day65_advanced_document_parsing.md](学习笔记/day65_advanced_document_parsing.md) — Day 65：PDF / 表格 / 扫描件解析进阶
+
+- **一、真实文档为什么"很脏"**（pdfplumber坐标提取的局限 / 三类脏数据具体表现）
+- **二、表格转结构化数据的思路**（表格拍平错位问题 / 保留行列结构的Markdown输出）
+- **三、基础 OCR 思路**（扫描件处理完整流程）
+- **四、Docling 与 marker：新一代文档解析工具**（Docling版面分析能力 / marker Layout检测 / 与纯文本提取的核心差异）
+- **五、对比实验：pdfplumber vs Docling**（表格行列对齐/多栏排版/标题层级对比）
+- **六、Docling 处理不了的边界情况**（复杂排版/纯图片/加密文档/手写内容/低分辨率扫描件）
+- **七、Day 65 知识速查**（三类脏数据 / 工具选型 / Docling边界）
+- **八、实践任务**（工具对比实验 / 多栏PDF测试 / 扫描件测试 / 失败根因记录）
+- **九、下一步预告**
+
+---
+
+### [day66_rag_deepening_integration.md](学习笔记/day66_rag_deepening_integration.md) — Day 66：阶段项目整合（RAG 深化版）
+
+- **一、整合目标：Day 20 系统需要补齐什么**（原系统回顾 / 需要整合的能力清单）
+- **二、传统 RAG vs Agentic RAG**（固定流程局限 / 自主判断重试核心思路）
+- **三、Agentic RAG 的 LangGraph 设计**（节点设计 / State设计 / grade_docs判断合格性 / 循环终止条件 / 完整代码实现）
+- **四、把混合检索 + Reranker 整合进 retrieve 节点**
+- **五、整合前后指标对比**（检索指标提升明显大于生成指标）
+- **六、升级版系统完整架构图**
+- **七、Day 66 知识速查**（传统vs Agentic对比 / 节点速查 / 终止条件设计）
+- **八、实践任务**（检索环节替换 / State与节点实现 / 循环验证 / 日志观察 / 指标对比）
+- **九、下一步预告**
+
+---
+
+### [day67_week11_review_and_deepening_summary.md](学习笔记/day67_week11_review_and_deepening_summary.md) — Day 67：第 11 周复盘 + 深化阶段总结
+
+- **一、第 11 周产出回顾：Day 63–66 学了什么**
+- **二、复盘问题一：A/C/B 三条线，哪个提升最明显**（三条线核心产出回顾 / 判断标准 / 自查清单）
+- **三、复盘问题二：要不要进入第四阶段**（plan.md原始提醒 / 判断标准与决策树）
+- **四、深化阶段（Day 31–66）总结**（三条路线核心产出速览 / 五个认知转变）
+- **五、深化阶段常见误区回顾**（九条误区的共同本质）
+- **六、下一步去哪里**（三条候选路线及判断依据）
+- **七、深化阶段学习结束语**
+
+---
+
+### [day68_fastapi_backend.md](学习笔记/day68_fastapi_backend.md) — Day 68：FastAPI 后端工程（补充篇）
+
+- **一、为什么需要独立后端服务**（Gradio内嵌调用耦合问题 / FastAPI解决的三个问题）
+- **二、FastAPI 核心概念速览**（路径操作 / 请求响应模型复用Pydantic / 依赖注入Depends）
+- **三、把 LLM 调用包装成 API 端点**（基础同步端点 / StreamingResponse流式输出 / 健康检查端点）
+- **四、给已有项目接入 FastAPI 后端**（薄层HTTP包装，推理逻辑复用已有模块）
+- **五、用 Swagger UI 测试与验证**
+- **六、架构对比：Gradio 内嵌调用 vs 独立 FastAPI 后端**（适用场景判断标准）
+- **七、Day 68 知识速查**（三核心概念 / 流式输出实现对照 / 架构选型判断）
+- **八、实践任务**（端点实现 / 校验验证 / 流式端点 / 依赖注入 / 架构对比笔记）
+- **九、下一步**
+
+---
+
+### [day69_claude_code_skills.md](学习笔记/day69_claude_code_skills.md) — Day 69：Claude Code Skills 教程
+
+- **一、Claude Code Skills 解决什么问题**（和斜杠命令的区别 / 和CLAUDE.md的区别 / day-note-sync真实例子）
+- **二、Skill 的文件结构**（SKILL.md frontmatter / description触发作用 / references子目录延迟加载）
+- **三、Skill 是怎么被触发的**（显式斜杠命令 / 隐式语义匹配 / 项目级vs个人级）
+- **四、拆解一个真实 Skill：day-note-sync**（五条设计原则逐条对应）
+- **五、动手写一个最小 Skill**（commit-message-helper示例）
+- **六、Skill vs Subagent vs 普通 Prompt 的选型**
+- **七、Day 69 知识速查**（文件结构 / 触发方式 / 设计五原则 / 选型判断）
+- **八、实践任务**（拆解day-note-sync / 编写最小Skill / 多说法触发测试 / references拆分 / 自检清单）
+- **九、下一步**
+
+---
+
 ### [day29_testing_and_optimization.md](学习笔记/day29_testing_and_optimization.md) — Day 29：测试和优化
 
 - **一、为什么 LLM 项目需要系统测试**
@@ -1307,6 +1571,28 @@
 - [x] [Day 48 · 模型网关：统一接口层与多 Provider 适配](学习笔记/day48_model_gateway.md)
 - [x] [Day 49 · 限流与配额：应用层实现](学习笔记/day49_rate_limiting.md)
 - [x] [Day 50 · 上下文工程（Context Engineering）](学习笔记/day50_context_engineering.md)
+- [x] [Day 51 · 状态管理：会话/任务状态的持久化与恢复设计](学习笔记/day51_state_management.md)
+- [x] [Day 52 · 第 7–8 周复盘：工程化架构小结](学习笔记/day52_engineering_architecture_review.md)
+- [x] [Day 53 · Prompt 注入攻防](学习笔记/day53_prompt_injection_defense.md)
+- [x] [Day 54 · 输出护栏与内容过滤](学习笔记/day54_output_guardrails.md)
+- [x] [Day 55 · 反馈追踪：用户反馈信号采集与评估回流](学习笔记/day55_feedback_tracking.md)
+- [x] [Day 56 · Docker 容器化与部署](学习笔记/day56_docker_deployment.md)
+- [x] [Day 57 · 阶段项目整合 + 第 9 周复盘](学习笔记/day57_route_c_integration_review.md)（🎉 路线 C 完成）
+- [x] [Day 58 · 混合检索（向量 + BM25）](学习笔记/day58_hybrid_retrieval.md)
+- [x] [Day 59 · Reranker 重排序](学习笔记/day59_reranker.md)
+- [x] [Day 60 · HyDE（假设文档 Embedding）](学习笔记/day60_hyde.md)
+- [x] [Day 61 · 查询改写与多查询检索](学习笔记/day61_query_rewriting_multi_query.md)
+- [x] [Day 62 · 第 10 周复盘](学习笔记/day62_week10_rag_optimization_review.md)
+- [x] [Day 63 · RAGAS 评估框架入门](学习笔记/day63_ragas_intro.md)
+- [x] [Day 64 · 构建评估集与持续评估](学习笔记/day64_eval_set_and_continuous_evaluation.md)
+- [x] [Day 65 · PDF / 表格 / 扫描件解析进阶](学习笔记/day65_advanced_document_parsing.md)
+- [x] [Day 66 · 阶段项目整合（RAG 深化版）](学习笔记/day66_rag_deepening_integration.md)
+- [x] [Day 67 · 第 11 周复盘 + 深化阶段总结](学习笔记/day67_week11_review_and_deepening_summary.md)（🎉 深化阶段 Day 31–67 全部完成）
+
+**补充篇（技能查缺补漏，不计入主线天数）**
+
+- [x] [Day 68 · FastAPI 后端工程](学习笔记/day68_fastapi_backend.md)
+- [x] [Day 69 · Claude Code Skills 教程](学习笔记/day69_claude_code_skills.md)
 
 新增笔记请沿用 `dayNN_<主题>.md` 命名（两位数字便于排序），例如 `day06_info_extractor.md`。
 
