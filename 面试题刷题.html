@@ -33,9 +33,7 @@
   }
 
   #app {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
+    position: relative;
   }
 
   /* ---------- Top bar ---------- */
@@ -93,14 +91,16 @@
 
   /* ---------- Sidebar ---------- */
   #sidebar {
+    position: fixed;
+    top: var(--topbar-h);
+    left: 0;
     width: var(--sidebar-w);
-    flex-shrink: 0;
-    background: var(--panel-bg);
-    border-right: 1px solid var(--border);
-    margin-top: var(--topbar-h);
     height: calc(100vh - var(--topbar-h));
     overflow-y: auto;
+    background: var(--panel-bg);
+    border-right: 1px solid var(--border);
     padding: 8px 0 24px;
+    z-index: 15;
   }
 
   .group-block { border-bottom: 1px solid #f0f1f4; }
@@ -175,13 +175,13 @@
 
   /* ---------- Main content ---------- */
   #main {
-    flex: 1;
     margin-top: var(--topbar-h);
-    height: calc(100vh - var(--topbar-h));
-    overflow-y: auto;
+    margin-left: var(--sidebar-w);
+    min-height: calc(100vh - var(--topbar-h));
     display: flex;
     justify-content: center;
     padding: 28px 20px 100px;
+    /* padding-bottom is recalculated in JS to exactly clear #bottom-nav + 100px */
   }
 
   #card {
@@ -337,19 +337,11 @@
   .nav-btn.next { background: var(--primary); color: #fff; border-color: var(--primary); }
   .nav-btn.next:not(:disabled):hover { background: #2f4bc4; }
 
-  /* ---------- Desktop layout ---------- */
-  @media (min-width: 769px) {
-    #sidebar { position: relative; }
-  }
-
   /* ---------- Mobile layout ---------- */
   @media (max-width: 768px) {
     :root { --sidebar-w: 82vw; }
     #hamburger { display: flex; }
     #sidebar {
-      position: fixed;
-      top: var(--topbar-h);
-      left: 0;
       z-index: 21;
       max-width: 320px;
       transform: translateX(-100%);
@@ -358,7 +350,7 @@
     }
     #sidebar.open { transform: translateX(0); }
     #sidebar-backdrop.open { display: block; }
-    #main { padding: 18px 14px 100px; }
+    #main { margin-left: 0; padding: 18px 14px 100px; }
     #question-box, #answer-box { padding: 16px 16px; }
     #qtext { font-size: 16px; }
     #bottom-nav { left: 0; padding: 8px 12px; }
@@ -441,6 +433,15 @@ var QUIZ_DATA = {"groups":[{"name":"大模型基础与训练","questions":[{"qnu
   var sidebar = document.getElementById("sidebar");
   var sidebarBackdrop = document.getElementById("sidebar-backdrop");
   var hamburger = document.getElementById("hamburger");
+  var mainEl = document.getElementById("main");
+  var bottomNav = document.getElementById("bottom-nav");
+
+  // Reserve exactly (bottom-nav height + 100px) at the bottom of #main so the
+  // last bit of a long answer never sits underneath the fixed bottom nav.
+  function syncBottomSpace() {
+    var reserve = bottomNav.offsetHeight + 100;
+    mainEl.style.paddingBottom = reserve + "px";
+  }
 
   // ---------- Build sidebar ----------
   var groupEls = []; // {el, questionEls: []}
@@ -529,7 +530,7 @@ var QUIZ_DATA = {"groups":[{"name":"大模型基础与训练","questions":[{"qnu
     var activeEl = sidebar.querySelector(".question-item.active");
     if (activeEl) activeEl.scrollIntoView({ block: "nearest" });
 
-    document.getElementById("main").scrollTop = 0;
+    window.scrollTo(0, 0);
 
     try { localStorage.setItem(STORAGE_KEY, String(index)); } catch (e) {}
   }
@@ -556,6 +557,9 @@ var QUIZ_DATA = {"groups":[{"name":"大模型基础与训练","questions":[{"qnu
     else if (e.key === " ") { e.preventDefault(); revealBtn.click(); }
   });
 
+  window.addEventListener("resize", syncBottomSpace);
+
+  syncBottomSpace();
   render(current);
 })();
 </script>
