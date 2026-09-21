@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0a0f1e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<title>技术栈知识图谱 · 重要程度标注</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  :root{
+    --bg:#0a0f1e;
+    --line:rgba(255,255,255,.075);
+    --card:rgba(255,255,255,.035);
+    --card-hover:rgba(255,255,255,.062);
+    --text:#e4ebf5;
+    --text2:#94a3b8;
+    --text3:#64748b;
+    --dw:400px;
+    --lvm:#F06292;
+    --lvk:#FFB74D;
+    --lvu:#64748b;
+    --sat:env(safe-area-inset-top,0px);
+    --sab:env(safe-area-inset-bottom,0px);
+    --sal:env(safe-area-inset-left,0px);
+    --sar:env(safe-area-inset-right,0px);
+  }
+  html{-webkit-text-size-adjust:100%;}
+  html,body{height:100%;overscroll-behavior:none;}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    padding-left:var(--sal);padding-right:var(--sar);
+  }
+
+  /* ============ 顶栏 ============ */
+  .topbar{
+    flex:none;height:calc(60px + var(--sat));
+    padding:var(--sat) 24px 0;
+    display:flex;align-items:center;gap:16px;
+    border-bottom:1px solid var(--line);
+    background:rgba(10,15,30,.94);backdrop-filter:blur(12px);z-index:20;
+  }
+  .logo{
+    width:32px;height:32px;border-radius:9px;flex:none;
+    background:linear-gradient(135deg,#22d3ee,#8b5cf6);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:13px;color:#fff;letter-spacing:-.5px;
+  }
+  .tabs{display:flex;gap:4px;background:rgba(255,255,255,.04);padding:3px;border-radius:10px;flex:none;}
+  .tab{
+    padding:6px 15px;border-radius:7px;border:none;cursor:pointer;
+    font-family:inherit;font-size:12.5px;font-weight:500;
+    background:transparent;color:var(--text3);transition:.18s;
+    white-space:nowrap;
+  }
+  .tab:hover{color:var(--text2);}
+  .tab.active{
+    background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(139,92,246,.2));
+    color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.06) inset;
+  }
+  .spacer{flex:1;}
+  .search{position:relative;}
+  .search input{
+    width:280px;padding:8px 32px 8px 13px;border-radius:9px;font-size:13px;outline:none;
+    border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);transition:.18s;
+  }
+  .search input::placeholder{color:#5b6a89;}
+  .search input:focus{border-color:#22d3ee;background:rgba(34,211,238,.06);}
+  .search .clr{
+    position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    width:20px;height:20px;border-radius:50%;border:none;cursor:pointer;
+    background:rgba(255,255,255,.1);color:var(--text2);font-size:12px;line-height:1;
+    display:none;align-items:center;justify-content:center;padding:0;
+  }
+  .search.has-val .clr{display:flex;}
+
+  /* ============ 工具栏 ============ */
+  .toolbar{
+    flex:none;display:flex;align-items:center;gap:14px;
+    padding:9px 24px;border-bottom:1px solid var(--line);
+    background:rgba(10,15,30,.6);overflow-x:auto;scrollbar-width:none;
+  }
+  .toolbar::-webkit-scrollbar{display:none;}
+  .lf-group{display:flex;gap:4px;background:rgba(255,255,255,.035);padding:3px;border-radius:8px;flex:none;}
+  .lf{
+    padding:5px 12px;border-radius:6px;border:none;cursor:pointer;
+    font-family:inherit;font-size:12px;background:transparent;color:var(--text3);
+    transition:.16s;white-space:nowrap;
+  }
+  .lf:hover{color:var(--text2);}
+  .lf.active{background:rgba(34,211,238,.14);color:#7dd3fc;}
+  .legend{display:flex;gap:14px;align-items:center;flex:none;}
+  .lg{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--text3);}
+  .lg i{width:7px;height:7px;border-radius:50%;display:inline-block;}
+  .lg b{color:var(--text2);font-weight:600;font-size:11.5px;}
+  .lg.m i{background:var(--lvm);box-shadow:0 0 6px rgba(240,98,146,.5);}
+  .lg.k i{background:var(--lvk);box-shadow:0 0 6px rgba(255,183,77,.4);}
+  .lg.u i{background:var(--lvu);}
+
+  /* ============ 域导航 ============ */
+  nav.chips{
+    flex:none;display:flex;gap:6px;padding:10px 24px;
+    overflow-x:auto;border-bottom:1px solid var(--line);
+    scrollbar-width:none;background:rgba(10,15,30,.4);
+    -webkit-overflow-scrolling:touch;
+  }
+  nav.chips::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:none;display:flex;align-items:center;gap:6px;
+    padding:5px 12px;border-radius:20px;font-size:12px;cursor:pointer;
+    color:var(--text2);border:1px solid var(--line);background:transparent;
+    transition:.18s;white-space:nowrap;font-family:inherit;
+  }
+  .chip .cdot{width:6px;height:6px;border-radius:50%;background:var(--c);}
+  .chip:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
+  .chip.active{color:var(--text);border-color:var(--c);background:var(--ca14);}
+
+  /* ============ 工作区 ============ */
+  .workspace{flex:1;display:flex;min-height:0;}
+  .content{
+    position:relative;flex:1;min-width:0;overflow-y:auto;
+    padding:0 24px 140px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+  }
+  .content::-webkit-scrollbar{width:9px;}
+  .content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:5px;border:3px solid var(--bg);}
+  .content::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.18);}
+
+  .section{padding-top:6px;}
+  .sec-head{
+    position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;
+    padding:18px 0 12px;background:var(--bg);box-shadow:0 14px 18px -12px var(--bg);
+  }
+  .sec-head .sdot{width:9px;height:9px;border-radius:50%;background:var(--c);flex:none;}
+  .sec-head h2{font-size:13.5px;font-weight:600;letter-spacing:.3px;color:#cbd7e8;}
+  .sec-head .scount{font-size:11px;color:var(--text3);background:rgba(255,255,255,.05);padding:1.5px 8px;border-radius:20px;}
+  .sec-head .sline{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);}
+
+  .grid{display:grid;gap:11px;padding-bottom:16px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
+
+  /* ============ 卡片 ============ */
+  .card{
+    position:relative;display:flex;flex-direction:column;
+    padding:13px 15px 12px;border-radius:12px;
+    border:1px solid var(--line);background:var(--card);
+    cursor:pointer;scroll-margin-top:70px;
+    transition:background .18s,border-color .18s,opacity .22s,transform .18s,box-shadow .18s;
+  }
+  .card:hover{background:var(--card-hover);border-color:rgba(255,255,255,.18);transform:translateY(-2px);}
+  .card-top{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+  .card-top .cdot{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none;}
+  .card-top h3{font-size:14px;font-weight:600;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+  /* 重要程度徽章 */
+  .lv-badge{
+    flex:none;font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;
+    letter-spacing:.3px;line-height:1.4;
+  }
+  .lv-badge[data-lv="m"]{color:#F06292;background:rgba(240,98,146,.14);border:1px solid rgba(240,98,146,.3);}
+  .lv-badge[data-lv="k"]{color:#FFB74D;background:rgba(255,183,77,.13);border:1px solid rgba(255,183,77,.28);}
+  .lv-badge[data-lv="u"]{color:#94a3b8;background:rgba(148,163,184,.1);border:1px solid rgba(148,163,184,.2);}
+
+  .card-desc{
+    font-size:11.5px;line-height:1.6;color:var(--text2);
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    margin-bottom:10px;
+  }
+
+  .card-points{
+    display:flex;flex-direction:column;gap:4px;
+    padding-top:9px;margin-bottom:10px;
+    border-top:1px solid rgba(255,255,255,.055);
+  }
+  .pt{
+    position:relative;font-size:11.5px;line-height:1.55;color:#9fb0c9;
+    padding-left:14px;
+    display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .pt::before{
+    content:'';position:absolute;left:2px;top:6.5px;
+    width:5px;height:5px;border-radius:50%;
+  }
+  .pt[data-lv="m"]::before{background:var(--lvm);box-shadow:0 0 5px rgba(240,98,146,.45);}
+  .pt[data-lv="k"]::before{background:var(--lvk);}
+  .pt[data-lv="u"]::before{background:var(--lvu);opacity:.75;}
+  .pt[data-lv="m"]{color:#c9d5e5;}
+  .pt[data-lv="k"]{color:#a8b8d0;}
+  .pt[data-lv="u"]{color:#7c8ba3;}
+  .pt-more{font-size:10.5px;color:var(--text3);padding-left:14px;}
+  .pm-mob{display:none;}
+
+  .card-foot{
+    display:flex;flex-wrap:wrap;gap:5px;align-items:center;
+    margin-top:auto;padding-top:9px;border-top:1px solid rgba(255,255,255,.05);
+  }
+  .rtag{font-size:10.5px;color:var(--text3);padding:1.5px 7px;border-radius:5px;
+    background:rgba(255,255,255,.045);white-space:nowrap;}
+  .rtag.more{color:#5f7194;background:transparent;}
+
+  /* 卡片状态 */
+  .card.is-dim{opacity:.15;}
+  .card.is-selected{border-color:var(--c);background:var(--ca11);
+    box-shadow:0 0 0 1px var(--c),0 10px 28px -12px var(--c);}
+  .card.is-related{border-color:var(--ca32);background:var(--ca05);}
+  .card.is-match{border-color:var(--ca55);}
+
+  /* ============ 详情面板 ============ */
+  aside.detail{
+    flex:none;width:0;overflow:hidden;position:relative;
+    border-left:1px solid transparent;background:#0c1226;
+    transition:width .3s cubic-bezier(.4,0,.2,1),border-color .3s;
+  }
+  aside.detail.open{width:var(--dw);border-left-color:var(--line);}
+  .detail-inner{
+    width:var(--dw);height:100%;overflow-y:auto;padding:22px 24px 60px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .detail-inner::-webkit-scrollbar{width:8px;}
+  .detail-inner::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px;border:2px solid #0c1226;}
+  .sheet-handle{display:none;}
+
+  .close{
+    position:absolute;top:14px;right:16px;width:26px;height:26px;border-radius:7px;
+    border:1px solid var(--line);background:rgba(12,18,38,.9);color:var(--text3);
+    font-size:15px;cursor:pointer;display:none;align-items:center;justify-content:center;
+    transition:.18s;z-index:5;padding:0;
+  }
+  .close:hover{color:var(--text);border-color:rgba(255,255,255,.25);}
+  aside.detail.open .close{display:flex;}
+
+  .d-cat{
+    display:inline-flex;align-items:center;gap:6px;font-size:11px;
+    padding:3px 10px;border-radius:20px;margin-bottom:10px;
+    color:var(--c);border:1px solid var(--ca32);background:var(--ca11);
+  }
+  .d-cat .cdot{width:6px;height:6px;border-radius:50%;background:var(--c);}
+  .d-title{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .detail-inner h2{font-size:19px;font-weight:600;letter-spacing:.2px;}
+  .d-desc{font-size:12.5px;line-height:1.85;color:var(--text2);margin-bottom:20px;}
+
+  .d-label{
+    font-size:11px;color:var(--text3);letter-spacing:.6px;
+    display:flex;align-items:center;gap:8px;margin-bottom:11px;
+  }
+  .d-label::after{content:'';flex:1;height:1px;background:var(--line);}
+  .d-label b{color:var(--c);font-weight:600;font-size:11px;}
+
+  .kp-list{display:flex;flex-direction:column;gap:7px;margin-bottom:22px;}
+  .kp{
+    display:flex;gap:10px;align-items:flex-start;
+    padding:9px 11px;border-radius:9px;
+    background:rgba(255,255,255,.028);
+    border:1px solid rgba(255,255,255,.05);
+    font-size:12.5px;line-height:1.62;color:#b9c7dc;
+    position:relative;
+  }
+  .kp::before{
+    content:'';position:absolute;left:0;top:10px;bottom:10px;width:2px;
+    border-radius:2px;
+  }
+  .kp[data-lv="m"]{background:rgba(240,98,146,.045);border-color:rgba(240,98,146,.13);}
+  .kp[data-lv="m"]::before{background:var(--lvm);}
+  .kp[data-lv="k"]::before{background:var(--lvk);}
+  .kp[data-lv="u"]::before{background:var(--lvu);opacity:.6;}
+  .kp-idx{
+    flex:none;width:17px;height:17px;border-radius:5px;margin-top:1px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:10px;font-weight:700;
+    color:var(--c);background:var(--ca15);
+    border:1px solid var(--ca32);
+  }
+  .kp-text{flex:1;min-width:0;}
+  .kp-lv{
+    flex:none;font-size:9.5px;font-weight:600;padding:1px 6px;border-radius:4px;
+    margin-top:1px;letter-spacing:.3px;
+  }
+  .kp-lv[data-lv="m"]{color:#F06292;background:rgba(240,98,146,.13);}
+  .kp-lv[data-lv="k"]{color:#FFB74D;background:rgba(255,183,77,.12);}
+  .kp-lv[data-lv="u"]{color:#94a3b8;background:rgba(148,163,184,.1);}
+
+  .d-tags{display:flex;flex-wrap:wrap;gap:7px;}
+  .tag{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:5px 11px;border-radius:8px;font-size:12.5px;cursor:pointer;
+    border:1px solid var(--line);background:rgba(255,255,255,.035);color:#b9c7dc;
+    transition:.16s;font-family:inherit;
+  }
+  .tag .cdot{width:6px;height:6px;border-radius:50%;background:var(--c);}
+  .tag:hover{color:#fff;border-color:var(--ca55);background:var(--ca11);}
+
+  .d-empty h3{font-size:13.5px;color:#b9c7dc;margin-bottom:12px;font-weight:600;}
+  .d-empty ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .d-empty li{font-size:12.5px;color:var(--text3);line-height:1.75;padding-left:16px;position:relative;}
+  .d-empty li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:#22d3ee;}
+  .d-empty b{color:#8fa8cf;font-weight:600;}
+
+  .no-result{padding:70px 0;text-align:center;color:var(--text3);font-size:13px;}
+
+  /* ============ 遮罩 / 回顶 ============ */
+  .overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,.55);
+    opacity:0;pointer-events:none;transition:opacity .3s;z-index:85;display:none;
+  }
+  .back-top{
+    position:fixed;right:16px;bottom:calc(22px + var(--sab));
+    width:42px;height:42px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.12);background:rgba(20,28,50,.88);
+    backdrop-filter:blur(10px);color:#b9c7dc;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    opacity:0;transform:translateY(10px) scale(.9);pointer-events:none;
+    transition:opacity .25s,transform .25s;z-index:70;
+    box-shadow:0 6px 20px rgba(0,0,0,.4);padding:0;font-size:16px;
+  }
+  .back-top.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+  .back-top:active{transform:scale(.9);}
+
+  /* ============ 平板 ============ */
+  @media (max-width:1200px){
+    :root{--dw:350px;}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));}
+  }
+  @media (max-width:1024px){ .search input{width:210px;} }
+
+  /* ============ 手机 ============ */
+  @media (max-width:768px){
+    .topbar{
+      height:auto;
+      /* App 内嵌浏览器顶部额外留白，避免内容贴边 */
+      padding:calc(var(--sat) + 14px) 12px 10px;
+      flex-wrap:wrap;gap:8px;align-items:center;
+    }
+    .logo{width:28px;height:28px;border-radius:8px;font-size:12px;}
+    .tabs{order:2;margin-left:0;}
+    .tab{padding:5px 12px;font-size:12px;}
+    .spacer{display:none;}
+    .search{order:3;flex:1 0 100%;min-width:0;}
+    .search input{width:100%;padding:9px 34px 9px 13px;font-size:16px;border-radius:10px;}
+    .search .clr{width:24px;height:24px;font-size:13px;right:6px;}
+
+    .toolbar{padding:8px 12px;gap:10px;}
+    .lf{padding:5px 10px;font-size:11.5px;}
+    .legend{gap:10px;}
+    .lg{font-size:11px;}
+    .lg b{font-size:11px;}
+
+    nav.chips{padding:8px 12px;gap:6px;}
+    .chip{padding:5px 10px;font-size:11.5px;}
+
+    .content{padding:0 12px calc(96px + var(--sab));}
+    .sec-head{padding:14px 0 10px;}
+    .sec-head h2{font-size:13px;}
+    .grid{grid-template-columns:1fr;gap:9px;padding-bottom:10px;}
+
+    .card{padding:13px 14px 12px;border-radius:13px;scroll-margin-top:60px;}
+    .card:hover{transform:none;}
+    .card:active{background:var(--card-hover);transform:scale(.988);}
+    .card-top{margin-bottom:6px;}
+    .card-top h3{font-size:14px;}
+    .lv-badge{font-size:9.5px;padding:1.5px 6px;}
+    .card-desc{font-size:12px;line-height:1.6;margin-bottom:9px;}
+    .card-points{gap:5px;padding-top:9px;margin-bottom:9px;}
+    .pt{font-size:12px;line-height:1.58;}
+    .pt-extra{display:none;}
+    .pm-desk{display:none;}
+    .pm-mob{display:inline;}
+    .card-foot{display:none;}
+
+    aside.detail{
+      position:fixed;left:0;right:0;bottom:0;top:auto;
+      width:100%;height:auto;max-height:86vh;max-height:86dvh;
+      display:flex;flex-direction:column;border-left:none;
+      border-top:1px solid var(--line);border-radius:20px 20px 0 0;
+      box-shadow:0 -22px 60px rgba(0,0,0,.62);
+      transform:translateY(100%);
+      transition:transform .36s cubic-bezier(.32,.72,0,1);
+      z-index:90;padding-bottom:var(--sab);overflow:hidden;will-change:transform;
+    }
+    aside.detail.open{width:100%;transform:translateY(0);}
+
+    .sheet-handle{
+      display:flex;justify-content:center;align-items:center;
+      height:28px;flex:none;touch-action:none;cursor:grab;
+    }
+    .sheet-handle span{
+      width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.2);transition:background .2s;
+    }
+    .sheet-handle:active span{background:rgba(255,255,255,.38);}
+
+    .detail-inner{width:100%;flex:1;padding:2px 20px calc(30px + var(--sab));overscroll-behavior:contain;}
+    .detail-inner h2{font-size:18px;}
+    .d-desc{font-size:12.5px;line-height:1.8;margin-bottom:18px;}
+    .kp{padding:10px 12px;font-size:13px;line-height:1.68;}
+    .d-tags{gap:8px;}
+    .tag{padding:7px 13px;font-size:13px;}
+    .close{top:2px;right:12px;width:30px;height:30px;font-size:16px;}
+    .overlay{display:block;}
+    .overlay.show{opacity:1;pointer-events:auto;}
+    body.sheet-open .content{overflow:hidden;}
+    .back-top{right:14px;bottom:calc(18px + var(--sab));width:44px;height:44px;}
+  }
+
+  @media (max-width:360px){
+    .card{padding:12px;}
+    .pt{font-size:11.5px;}
+    .detail-inner{padding-left:16px;padding-right:16px;}
+  }
+
+  @media (max-width:900px) and (orientation:landscape) and (max-height:500px){
+    aside.detail{max-height:94dvh;}
+    .card-points{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="java">Java 后端</button>
+    <button class="tab" data-tab="agent">Agent 开发</button>
+  </div>
+  <div class="spacer"></div>
+  <div class="search" id="searchWrap">
+    <input id="search" placeholder="搜索技术 / 知识点 / 关键词" autocomplete="off">
+    <button class="clr" id="clearBtn" title="清空">✕</button>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="lf-group" id="levelFilter">
+    <button class="lf active" data-level="all">全部</button>
+    <button class="lf" data-level="m">只看核心</button>
+    <button class="lf" data-level="m,k">核心 + 重点</button>
+  </div>
+  <div class="legend">
+    <span class="lg m"><i></i>核心 <b id="cntM">0</b></span>
+    <span class="lg k"><i></i>重点 <b id="cntK">0</b></span>
+    <span class="lg u"><i></i>了解 <b id="cntU">0</b></span>
+  </div>
+</div>
+
+<nav class="chips" id="chips"></nav>
+
+<div class="workspace">
+  <main class="content" id="content"></main>
+  <aside class="detail" id="detail">
+    <div class="sheet-handle" id="sheetHandle"><span></span></div>
+    <button class="close" id="closeBtn" title="关闭">✕</button>
+    <div class="detail-inner" id="detailInner"></div>
+  </aside>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<button class="back-top" id="backTop" title="回到顶部">↑</button>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ==========================================================
+   * 1. 常量
+   * ========================================================== */
+
+  const LV = {
+    m: { name:'核心', color:'#F06292' },
+    k: { name:'重点', color:'#FFB74D' },
+    u: { name:'了解', color:'#64748b' }
+  };
+
+  /* ==========================================================
+   * 2. Java 数据
+   * ========================================================== */
+
+  const JAVA_CATS = {
+    java:{name:'Java 核心',color:'#4FC3F7'},
+    jvm:{name:'JVM',color:'#FFB74D'},
+    concur:{name:'并发编程',color:'#F06292'},
+    web:{name:'Web 与框架',color:'#7DD87D'},
+    db:{name:'数据存储',color:'#BA68C8'},
+    cache:{name:'缓存',color:'#4DD0E1'},
+    mq:{name:'消息队列',color:'#FF8A65'},
+    micro:{name:'微服务与分布式',color:'#64B5F6'},
+    arch:{name:'架构设计',color:'#FFD54F'},
+    security:{name:'安全',color:'#E57373'},
+    test:{name:'测试',color:'#A1887F'},
+    devops:{name:'构建与 DevOps',color:'#9575CD'},
+    cloud:{name:'云原生',color:'#4DB6AC'}
+  };
+
+  const JAVA_NODES = [
+    {id:'java-basics',name:'Java 语言基础',cat:'java',lv:'m',
+     desc:'OOP、异常体系、反射、注解、泛型、String 体系。整张图谱的根，向上生长出并发、JVM 与 Web 框架。',
+     points:[['面向对象三大特性与设计原则','m'],['异常体系：Checked / Unchecked 与 try-with-resources','k'],['反射机制：Class、Method、Field 与性能代价','k'],['注解原理：元注解、Retention 与运行时解析','k'],['String 不可变性与常量池、StringBuilder 优化','k']]},
+    {id:'collections',name:'集合框架',cat:'java',lv:'m',
+     desc:'List / Map / Set 体系；ArrayList 扩容、HashMap 树化、ConcurrentHashMap 的分段与 CAS 扩容是源码级重点。',
+     points:[['ArrayList 扩容机制：1.5 倍与 Arrays.copyOf','k'],['HashMap 底层：数组 + 链表 + 红黑树，树化阈值 8/6','m'],['HashMap 扰动函数与 hash 定位桶','m'],['ConcurrentHashMap 1.8：CAS + synchronized + 协助扩容','m'],['fail-fast 与 fail-safe 迭代器区别','u']]},
+    {id:'io-nio',name:'IO / NIO / AIO',cat:'java',lv:'k',
+     desc:'BIO、NIO（Channel / Buffer / Selector）、AIO 与零拷贝，是 Netty 等高性能网络组件的底座。',
+     points:[['BIO / NIO / AIO 三种模型差异','k'],['Buffer 的 flip / clear / compact 语义','k'],['Selector 多路复用与 epoll 底层','k'],['零拷贝：mmap、sendfile、DirectBuffer','k'],['Reactor 与 Proactor 事件驱动模型','k']]},
+    {id:'generics',name:'泛型与注解',cat:'java',lv:'k',
+     desc:'类型擦除、通配符 PECS 原则；自定义注解与 APT 处理，是各类框架的元编程入口。',
+     points:[['泛型擦除与编译期类型检查','k'],['通配符 ? extends / ? super 与 PECS 原则','k'],['桥接方法 bridge method 的生成原因','u'],['自定义注解与 Retention / Target','k'],['APT 注解处理器与运行时反射解析','u']]},
+    {id:'functional',name:'函数式编程',cat:'java',lv:'k',
+     desc:'Lambda、Stream、Optional、函数式接口，让集合处理与异步编排更简洁。',
+     points:[['函数式接口：Function、Consumer、Supplier、Predicate','k'],['Lambda 与匿名内部类的字节码差异','u'],['Stream 惰性求值、中间操作与终端操作','m'],['Collectors 分组、分区、聚合与自定义收集器','k'],['Optional 正确用法与反模式','k']]},
+    {id:'new-features',name:'现代 Java 特性',cat:'java',lv:'u',
+     desc:'Record、Sealed Class、模式匹配、模块化，Java 17 / 21 的语言演进主线。',
+     points:[['Record 与不可变数据载体的适用场景','k'],['Sealed Class 与模式匹配组合实现穷举','u'],['switch 模式匹配与 instanceof 解构','k'],['文本块、var、增强 switch','u'],['模块化 JPMS 与迁移策略','u']]},
+    {id:'virtual-thread',name:'虚拟线程',cat:'java',lv:'k',
+     desc:'Java 21 Project Loom：用同步写法获得高并发吞吐，大幅降低线程内存成本，重塑阻塞式编程模型。',
+     points:[['虚拟线程与平台线程的调度差异','m'],['Continuation 与挂起恢复原理','k'],['虚拟线程适合 I/O 密集而非 CPU 密集','m'],['ThreadLocal 在虚拟线程下的内存风险','k'],['与线程池、synchronized 的配合注意点','k']]},
+
+    {id:'jvm-memory',name:'JVM 内存结构',cat:'jvm',lv:'m',
+     desc:'堆、虚拟机栈、方法区 / 元空间、直接内存；对象创建、内存布局与逃逸分析。',
+     points:[['堆分区：新生代 Eden + Survivor、老年代','m'],['虚拟机栈、本地方法栈、程序计数器','k'],['方法区与元空间的演进（永久代 → 元空间）','k'],['对象创建流程与内存分配（TLAB、指针碰撞）','k'],['对象头 Mark Word、Klass Pointer 与对齐填充','k']]},
+    {id:'classloader',name:'类加载机制',cat:'jvm',lv:'k',
+     desc:'加载-验证-准备-解析-初始化；双亲委派模型与打破委派（SPI、Tomcat、热部署）。',
+     points:[['类加载五阶段：加载、验证、准备、解析、初始化','m'],['双亲委派模型与 loadClass 源码','m'],['打破双亲委派的三种场景：SPI、Tomcat、OSGi','k'],['自定义 ClassLoader 与热部署','k'],['类初始化时机与 clinit 线程安全','k']]},
+    {id:'gc',name:'垃圾回收',cat:'jvm',lv:'m',
+     desc:'分代模型、可达性分析、三色标记；G1 / ZGC / Shenandoah 在停顿时间与吞吐之间的权衡。',
+     points:[['可达性分析与 GC Roots 枚举','m'],['分代收集与跨代引用卡表','k'],['三色标记、漏标与读写屏障','m'],['G1 Region、SATB 与 Mixed GC','m'],['ZGC 染色指针与超低停顿','k']]},
+    {id:'jmm',name:'JMM 与可见性',cat:'jvm',lv:'m',
+     desc:'happens-before、volatile 语义、内存屏障，是并发正确性判断的理论地基。',
+     points:[['主内存与工作内存的抽象模型','k'],['happens-before 八大规则','m'],['volatile 可见性与禁止重排序语义','m'],['内存屏障：LoadLoad、StoreStore 等四类','k'],['指令重排序与 as-if-serial 语义','k']]},
+    {id:'jit',name:'JIT 与字节码',cat:'jvm',lv:'u',
+     desc:'解释执行、C1 / C2 分层编译、方法内联与逃逸分析；ASM / ByteBuddy 字节码增强。',
+     points:[['解释器与 JIT 混合执行模式','k'],['C1 / C2 分层编译与热点探测','k'],['方法内联、逃逸分析与标量替换','k'],['字节码指令结构与 Class 文件格式','k'],['ASM / ByteBuddy 动态字节码增强','u']]},
+    {id:'jvm-tuning',name:'JVM 调优',cat:'jvm',lv:'m',
+     desc:'Arthas、MAT、JProfiler、GC 日志分析；OOM、CPU 飙高、内存泄漏的排查方法论。',
+     points:[['常见 GC 参数与堆大小配置','m'],['GC 日志解读与停顿分析','m'],['Arthas 常用命令：dashboard、trace、jad','m'],['MAT 支配树与内存泄漏定位','k'],['CPU 飙高、OOM、频繁 Full GC 排查路径','m']]},
+
+    {id:'thread',name:'线程与线程池',cat:'concur',lv:'m',
+     desc:'线程生命周期、ThreadPoolExecutor 七大参数、拒绝策略、线程池隔离与监控。',
+     points:[['线程六种状态与状态流转','k'],['ThreadPoolExecutor 七大核心参数','m'],['任务提交与执行流程、核心线程复用','m'],['四种拒绝策略与自定义','k'],['线程池大小估算与隔离、监控方案','m']]},
+    {id:'lock',name:'锁机制',cat:'concur',lv:'m',
+     desc:'synchronized 锁升级（偏向/轻量/重量）、ReentrantLock、读写锁、死锁检测与优化。',
+     points:[['synchronized 锁升级：偏向 → 轻量 → 重量','m'],['对象头 Mark Word 与 Monitor 结构','k'],['ReentrantLock 公平锁与非公平锁实现','k'],['读写锁、StampedLock 与锁降级','k'],['死锁四个必要条件与 jstack 排查','m']]},
+    {id:'cas-aqs',name:'CAS 与 AQS',cat:'concur',lv:'m',
+     desc:'自旋、ABA 问题、Unsafe；AQS 的 state + CLH 双向队列是 JUC 全家桶的地基。',
+     points:[['CAS 三大问题：ABA、自旋开销、单变量','m'],['AtomicInteger 与 LongAdder 的取舍','k'],['AQS state + CLH 队列核心结构','m'],['独占模式与共享模式加锁流程','k'],['ReentrantLock、Semaphore、CountDownLatch 都基于 AQS','m']]},
+    {id:'juc',name:'JUC 并发容器',cat:'concur',lv:'m',
+     desc:'ConcurrentHashMap、CopyOnWriteArrayList、BlockingQueue、CountDownLatch、Semaphore。',
+     points:[['ConcurrentHashMap 扩容与 size 统计','k'],['CopyOnWriteArrayList 写时复制适用场景','u'],['BlockingQueue 种类与生产者消费者','k'],['CountDownLatch、CyclicBarrier、Semaphore 区别','k'],['原子类体系：基本、数组、引用、字段更新器','u']]},
+    {id:'completable-future',name:'异步编排',cat:'concur',lv:'k',
+     desc:'CompletableFuture 组合、超时控制、并行聚合与异常处理，是接口性能优化的常用手段。',
+     points:[['supplyAsync / thenApply / thenCompose 语义','k'],['thenCombine、allOf、anyOf 聚合','k'],['异常处理：exceptionally、handle、whenComplete','k'],['超时控制与 orTimeout 组合','k'],['自定义线程池避免共用 ForkJoinPool','k']]},
+
+    {id:'servlet',name:'Servlet / Tomcat',cat:'web',lv:'u',
+     desc:'Servlet 规范、Tomcat 容器结构与线程模型、请求生命周期与连接器调优。',
+     points:[['Servlet 生命周期：init / service / destroy','u'],['Tomcat 容器层级：Engine → Host → Context → Wrapper','u'],['Connector 与 ProtocolHandler 处理流程','k'],['NIO / APR 连接器与线程池配置','k'],['Filter、Listener 执行顺序','k']]},
+    {id:'spring-ioc',name:'Spring IOC',cat:'web',lv:'m',
+     desc:'Bean 生命周期、依赖注入、循环依赖三级缓存、BeanFactoryPostProcessor 与扩展点。',
+     points:[['Bean 生命周期完整流程与扩展点','m'],['依赖注入三种方式与 @Autowired 解析','m'],['循环依赖与三级缓存解决原理','m'],['BeanFactoryPostProcessor 与 BeanPostProcessor','k'],['Bean 作用域与懒加载','k']]},
+    {id:'spring-aop',name:'Spring AOP',cat:'web',lv:'m',
+     desc:'JDK 动态代理与 CGLIB、切面与通知、代理失效场景；也是声明式事务的实现基础。',
+     points:[['JDK 动态代理与 CGLIB 的选用规则','m'],['切点表达式与五种通知类型','k'],['AOP 代理失效场景与自调用问题','m'],['@Transactional 传播行为与失效原因','m'],['AOP 与事务、缓存、日志的整合','k']]},
+    {id:'spring-mvc',name:'Spring MVC',cat:'web',lv:'k',
+     desc:'DispatcherServlet 九大组件、HandlerMapping、参数解析、全局异常与拦截器。',
+     points:[['DispatcherServlet 九大组件与请求流程','k'],['HandlerMapping 与 HandlerAdapter 匹配','k'],['参数解析器、返回值处理器与类型转换','k'],['拦截器 Interceptor 与 Filter 区别','k'],['全局异常处理 @ControllerAdvice','k']]},
+    {id:'spring-boot',name:'Spring Boot',cat:'web',lv:'m',
+     desc:'自动配置、Starter 机制、条件装配、内嵌容器与 Actuator；当代 Java 后端工程的事实标准脚手架。',
+     points:[['@SpringBootApplication 组合注解拆解','k'],['自动配置原理与 spring.factories / AutoConfiguration.imports','m'],['条件装配 @Conditional 系列注解','k'],['自定义 Starter 与配置元数据','k'],['Actuator 端点与健康检查','u']]},
+    {id:'mybatis',name:'MyBatis / MyBatis-Plus',cat:'web',lv:'m',
+     desc:'SQL 映射、动态 SQL、插件机制（分页/乐观锁）、一级二级缓存与逻辑删除。',
+     points:[['#{} 与 ${} 区别及 SQL 注入防范','m'],['动态 SQL 标签：if、choose、foreach','m'],['一级、二级缓存生效范围与坑','k'],['插件机制：Interceptor 与四大可拦截对象','k'],['MyBatis-Plus 条件构造器、逻辑删除、乐观锁','k']]},
+    {id:'jpa',name:'JPA / Hibernate',cat:'web',lv:'u',
+     desc:'ORM 规范、实体映射策略、一级/二级缓存、N+1 查询与懒加载陷阱。',
+     points:[['实体状态：瞬时、持久、脱管、删除','u'],['关联映射：@OneToMany、@ManyToOne、级联','k'],['N+1 查询问题与 fetch join 解决','k'],['一级缓存与二级缓存','u'],['懒加载与 Session 生命周期','u']]},
+    {id:'netty',name:'Netty',cat:'web',lv:'k',
+     desc:'主从 Reactor 模型、EventLoop、ByteBuf、编解码与粘包拆包；RPC 与网关的通信内核。',
+     points:[['主从 Reactor 线程模型','m'],['EventLoop、EventLoopGroup 与 ChannelPipeline','k'],['ByteBuf 与零拷贝、引用计数','k'],['粘包拆包与 LengthFieldBasedFrameDecoder','m'],['编解码器与心跳、空闲检测','k']]},
+    {id:'spring-security',name:'Spring Security',cat:'web',lv:'k',
+     desc:'过滤器链、认证与授权、方法级安全、会话与 Token 管理，安全体系的落地框架。',
+     points:[['SecurityFilterChain 过滤器链执行顺序','k'],['认证流程：AuthenticationManager 与 Provider','k'],['授权：URL 级、方法级 @PreAuthorize','k'],['会话管理与 JWT 无状态改造','k'],['密码编码器与 CSRF 防护','k']]},
+
+    {id:'mysql',name:'MySQL',cat:'db',lv:'m',
+     desc:'InnoDB 存储引擎、redo / undo / binlog 日志体系、主从复制、读写分离与高可用。',
+     points:[['InnoDB 与 MyISAM 存储引擎差异','k'],['redo log、undo log、binlog 三日志体系','m'],['两阶段提交与崩溃恢复','m'],['主从复制原理与延迟解决','k'],['读写分离、MHA / MGR 高可用方案','k']]},
+    {id:'postgres',name:'PostgreSQL',cat:'db',lv:'u',
+     desc:'更强的 SQL 能力、丰富索引类型与扩展体系，复杂查询、地理数据场景常选。',
+     points:[['MVCC 实现与事务快照','k'],['丰富索引：GIN、GiST、BRIN','u'],['窗口函数与 CTE 复杂查询','k'],['JSONB 半结构化存储','u'],['PostGIS 地理数据处理','u']]},
+    {id:'index',name:'索引与 B+ 树',cat:'db',lv:'m',
+     desc:'聚簇索引、回表、覆盖索引、最左前缀、索引下推；执行计划与慢 SQL 优化。',
+     points:[['B+ 树与 B 树、Hash 索引对比','m'],['聚簇索引与二级索引、回表代价','m'],['覆盖索引、联合索引最左前缀','m'],['索引下推 ICP 与索引失效场景','m'],['EXPLAIN 执行计划与慢 SQL 优化','m']]},
+    {id:'transaction',name:'事务与 MVCC',cat:'db',lv:'m',
+     desc:'ACID、隔离级别、快照读与当前读、间隙锁与临键锁、死锁分析与排查。',
+     points:[['ACID 四大特性与实现依赖','m'],['四种隔离级别与脏读、幻读','m'],['ReadView 与 MVCC 快照读','m'],['当前读、Next-Key Lock 与幻读解决','m'],['死锁成因与排查、加锁顺序优化','k']]},
+    {id:'sharding',name:'分库分表',cat:'db',lv:'k',
+     desc:'ShardingSphere、水平/垂直拆分、路由规则、全局 ID、跨库分页与平滑扩容。',
+     points:[['垂直拆分与水平拆分选型','k'],['分片键选择与路由算法','m'],['跨库分页、跨库 join 处理','k'],['全局唯一 ID 与雪花算法','k'],['平滑扩容与双写迁移方案','k']]},
+    {id:'connection-pool',name:'连接池',cat:'db',lv:'k',
+     desc:'HikariCP、Druid；连接泄漏排查、池大小与数据库承载能力的匹配。',
+     points:[['HikariCP 高性能原因：字节码优化、无锁','k'],['核心参数：maximumPoolSize、idleTimeout','k'],['连接泄漏检测与堆栈定位','m'],['池大小与数据库最大连接数匹配','k'],['Druid 监控与 SQL 防火墙','u']]},
+    {id:'redis',name:'Redis',cat:'db',lv:'m',
+     desc:'数据结构、持久化 RDB/AOF、过期与淘汰策略、Pipeline / Lua；分布式场景的瑞士军刀。',
+     points:[['五大基本类型与底层编码','m'],['RDB / AOF 持久化与混合持久化','k'],['过期删除策略与八种内存淘汰策略','k'],['Pipeline、Lua 脚本与原子性','k'],['单线程模型与 6.0 多线程 I/O','k']]},
+    {id:'mongodb',name:'MongoDB',cat:'db',lv:'u',
+     desc:'文档模型、聚合管道、副本集与分片集群，适合半结构化与快速迭代的数据。',
+     points:[['文档模型与嵌入式 / 引用式设计','k'],['聚合管道 $match / $group / $lookup','k'],['副本集与自动故障转移','u'],['分片键选择与均衡器','u'],['索引类型与查询优化','u']]},
+    {id:'elasticsearch',name:'Elasticsearch',cat:'db',lv:'k',
+     desc:'倒排索引、分片与副本、DSL 检索与聚合；搜索与日志分析的主力引擎。',
+     points:[['倒排索引与正排索引（doc_values）','k'],['分片、副本与集群健康状态','k'],['Query DSL：match、term、bool 组合','k'],['聚合分析与分页（from/size、scroll、search_after）','k'],['Mapping 设计与分词器','k']]},
+    {id:'hbase',name:'HBase',cat:'db',lv:'u',
+     desc:'LSM 树、Region 分裂与合并、RowKey 设计；海量稀疏数据的随机读写。',
+     points:[['LSM 树与写入、合并流程','k'],['Region 分裂、合并与负载均衡','u'],['RowKey 设计与热点问题','k'],['列族设计与 HFile 存储','u'],['读写路径与布隆过滤器','u']]},
+    {id:'clickhouse',name:'ClickHouse',cat:'db',lv:'u',
+     desc:'列式存储、向量化执行、MergeTree 引擎；OLAP 实时分析的高性能选择。',
+     points:[['列式存储与向量化执行引擎','k'],['MergeTree 家族与分区、排序键','k'],['物化视图与预聚合','u'],['分布式表与副本表','u'],['高吞吐写入与批量优化','u']]},
+
+    {id:'local-cache',name:'本地缓存',cat:'cache',lv:'k',
+     desc:'Caffeine / Guava，多级缓存的一级；纳秒级访问，但需处理节点间一致性代价。',
+     points:[['Caffeine W-TinyLFU 淘汰算法','k'],['本地缓存与分布式缓存的多级组合','m'],['节点间一致性失效（广播 / MQ 通知）','k'],['缓存容量与过期策略配置','k'],['热点探测与防击穿','k']]},
+    {id:'redis-cluster',name:'Redis 集群',cat:'cache',lv:'k',
+     desc:'主从复制、哨兵、Cluster 分片与槽迁移；高可用切换与容量横向扩展。',
+     points:[['主从复制全量 / 增量同步','k'],['哨兵选主与故障转移流程','k'],['Cluster 16384 槽与 MOVED / ASK','m'],['集群脑裂与 min-replicas 配置','k'],['槽迁移与扩容缩容','k']]},
+    {id:'cache-problems',name:'缓存三大问题',cat:'cache',lv:'m',
+     desc:'穿透（布隆过滤器 / 空值缓存）、击穿（互斥重建）、雪崩（过期打散 + 多级缓存）。',
+     points:[['穿透：布隆过滤器、空值缓存','m'],['击穿：互斥锁重建、逻辑过期','m'],['雪崩：过期时间打散、多级缓存','m'],['热点 Key 探测与本地缓存兜底','k'],['限流降级与缓存预热','k']]},
+    {id:'cache-consistency',name:'缓存一致性',cat:'cache',lv:'m',
+     desc:'Cache Aside、延迟双删、订阅 binlog（Canal）异步刷新；在一致性与性能间取舍。',
+     points:[['Cache Aside 先更新库还是先删缓存','m'],['延迟双删与最终一致性','m'],['订阅 binlog（Canal）异步刷新','k'],['读写锁保证强一致场景','u'],['允许短暂不一致的业务取舍','k']]},
+
+    {id:'kafka',name:'Kafka',cat:'mq',lv:'m',
+     desc:'分区与副本、ISR、顺序写 + 零拷贝；高吞吐日志管道与流处理的事实标准。',
+     points:[['Topic / Partition / Offset 模型','m'],['副本、ISR 与 HW、LEO','m'],['顺序写 + PageCache + 零拷贝','m'],['生产者 acks 与幂等、事务','k'],['消费者组 Rebalance 与位移提交','k']]},
+    {id:'rocketmq',name:'RocketMQ',cat:'mq',lv:'k',
+     desc:'NameServer、顺序消息、事务消息、延迟消息；电商交易与金融场景常用。',
+     points:[['NameServer、Broker、Topic 架构','k'],['事务消息两阶段与回查机制','k'],['顺序消息与 MessageQueue 选择','k'],['延迟消息与定时消息','k'],['消息重试、死信队列与积压处理','k']]},
+    {id:'rabbitmq',name:'RabbitMQ',cat:'mq',lv:'u',
+     desc:'Exchange / Queue / Binding 模型，路由灵活、延迟低，适合业务解耦。',
+     points:[['Exchange 四种类型：direct、topic、fanout、headers','k'],['Queue、Binding 与路由键','k'],['消息确认：publisher confirm、consumer ack','k'],['死信队列与延迟插件','u'],['镜像队列与高可用','u']]},
+    {id:'mq-patterns',name:'消息可靠性模式',cat:'mq',lv:'m',
+     desc:'顺序、幂等、事务消息、死信队列、消息积压与重复消费治理，是 MQ 落地的核心难题。',
+     points:[['消息丢失三个环节与防范','m'],['重复消费与幂等设计（唯一索引、去重表）','m'],['顺序消息的保证与局部有序','k'],['消息积压的扩容与降级处理','k'],['事务消息与本地消息表方案','m']]},
+
+    {id:'nacos',name:'Nacos',cat:'micro',lv:'k',
+     desc:'服务注册发现与配置中心，支持 AP/CP 切换、配置灰度与命名空间隔离。',
+     points:[['临时实例 AP 与持久实例 CP','k'],['服务注册、心跳与健康检查','k'],['配置动态刷新与监听机制','k'],['命名空间、Group、DataId 三级隔离','k'],['集群部署与数据一致性','u']]},
+    {id:'gateway',name:'API 网关',cat:'micro',lv:'k',
+     desc:'Spring Cloud Gateway：路由断言、过滤器链、统一鉴权、限流与灰度发布。',
+     points:[['Route、Predicate、Filter 三大概念','k'],['全局过滤器与局部过滤器执行顺序','k'],['统一鉴权与 Token 透传','k'],['限流（Redis + Lua）与熔断整合','k'],['灰度发布与动态路由','k']]},
+    {id:'feign',name:'OpenFeign / 服务调用',cat:'micro',lv:'k',
+     desc:'声明式 HTTP 调用、负载均衡、超时重试与降级熔断。',
+     points:[['@FeignClient 与动态代理生成','k'],['负载均衡 LoadBalancer 集成','k'],['超时、重试与幂等性风险','k'],['降级 fallback 与熔断配合','k'],['日志级别与请求拦截器','u']]},
+    {id:'dubbo',name:'Dubbo / gRPC',cat:'micro',lv:'k',
+     desc:'RPC 框架：序列化、动态代理、集群容错、长连接复用与性能优化。',
+     points:[['RPC 调用流程与动态代理','k'],['序列化协议：Hessian、Protobuf','k'],['集群容错：failover、failfast、forking','k'],['服务暴露、引用与 SPI 扩展','k'],['gRPC HTTP/2 与流式调用','k']]},
+    {id:'sentinel',name:'Sentinel 限流熔断',cat:'micro',lv:'k',
+     desc:'流量控制、熔断降级、系统自适应保护与热点参数限流，保障服务不被流量打死。',
+     points:[['流控模式：直接、关联、链路','k'],['流控效果：快速失败、Warm Up、排队等待','k'],['熔断降级：慢调用、异常比例、异常数','k'],['热点参数限流与系统自适应保护','u'],['规则持久化到 Nacos','k']]},
+    {id:'seata',name:'Seata 分布式事务',cat:'micro',lv:'k',
+     desc:'AT / TCC / Saga / XA 四种模式，跨服务数据一致性的工程化方案。',
+     points:[['TC、TM、RM 三大角色','k'],['AT 模式：undo_log 与全局锁','m'],['TCC：Try、Confirm、Cancel 三阶段','k'],['Saga 长事务与补偿','k'],['XA 与 AT 的取舍、隔离性分析','u']]},
+    {id:'dist-lock',name:'分布式锁',cat:'micro',lv:'m',
+     desc:'Redis（Redisson 看门狗续期）与 ZooKeeper 实现；锁粒度、可重入与误删问题。',
+     points:[['Redis SETNX + 过期时间的原子性','m'],['Redisson 看门狗续期与可重入','m'],['ZooKeeper 临时顺序节点实现','k'],['误删他人锁与 Lua 校验','m'],['锁粒度、超时与业务幂等结合','k']]},
+    {id:'dist-id',name:'分布式 ID',cat:'micro',lv:'k',
+     desc:'雪花算法、Leaf、号段模式；唯一性、趋势递增与时钟回拨的权衡。',
+     points:[['UUID、数据库自增、号段的优劣','k'],['雪花算法：时间戳 + 机器 + 序列','m'],['时钟回拨问题与解决方案','k'],['Leaf-segment 双 buffer 优化','u'],['业务可读 ID 与短链方案','u']]},
+    {id:'tracing',name:'链路追踪',cat:'micro',lv:'k',
+     desc:'Trace / Span 模型、埋点与上下文透传；SkyWalking、Zipkin 定位跨服务慢调用。',
+     points:[['Trace、Span、TraceId 传递模型','k'],['跨线程与跨服务上下文透传','k'],['采样率与埋点成本控制','k'],['SkyWalking 探针与拓扑图','k'],['与日志 TraceId 串联排障','k']]},
+    {id:'zookeeper',name:'ZooKeeper / etcd',cat:'micro',lv:'k',
+     desc:'ZAB / Raft 一致性协议，选主、配置同步、分布式协调与 Watch 机制。',
+     points:[['ZNode 类型与 Watch 机制','k'],['ZAB 协议：崩溃恢复与消息广播','k'],['Leader 选举与过半写','k'],['etcd Raft 与 lease 机制','u'],['典型应用：选主、配置、命名服务','k']]},
+
+    {id:'ddd',name:'领域驱动设计',cat:'arch',lv:'k',
+     desc:'限界上下文、聚合根、实体与值对象、领域事件；用业务语言切分系统边界。',
+     points:[['战略设计：限界上下文与上下文映射','m'],['战术设计：实体、值对象、聚合、领域服务','k'],['聚合根与一致性边界','k'],['领域事件与领域层解耦','k'],['贫血模型 vs 充血模型','k']]},
+    {id:'layered-arch',name:'分层与六边形架构',cat:'arch',lv:'k',
+     desc:'Controller / Service / Repository 分层，依赖倒置与端口适配器，保持业务内核纯净。',
+     points:[['经典四层架构与职责划分','k'],['依赖倒置与领域层零依赖','k'],['六边形架构：端口与适配器','k'],['DTO、VO、BO、DO 转换','k'],['防腐层与外部依赖隔离','k']]},
+    {id:'cqrs',name:'CQRS',cat:'arch',lv:'u',
+     desc:'读写模型分离，配合事件溯源应对复杂查询与高并发写入的冲突。',
+     points:[['命令模型与查询模型分离','k'],['读模型多种存储与投影','k'],['事件溯源与事件回放','k'],['最终一致性与同步延迟','k'],['适用场景与复杂度评估','u']]},
+    {id:'event-driven',name:'事件驱动架构',cat:'arch',lv:'k',
+     desc:'领域事件、事件总线、最终一致性；解耦服务、编排流程，天然适配异步与弹性。',
+     points:[['事件通知、事件携带状态转移、事件溯源','k'],['事件总线与发布订阅','k'],['编排 vs 协同','k'],['最终一致性与补偿','k'],['事件版本演进与兼容','u']]},
+    {id:'microservice-arch',name:'微服务架构',cat:'arch',lv:'m',
+     desc:'服务拆分、治理、可观测性、DevOps 四位一体；当代 Java 后端的主旋律架构。',
+     points:[['服务拆分原则与粒度','m'],['注册发现、配置、网关、调用治理','m'],['可观测性：日志、指标、链路','m'],['服务契约与版本兼容','k'],['分布式事务与最终一致性','k']]},
+    {id:'high-concurrency',name:'高并发设计',cat:'arch',lv:'m',
+     desc:'分层削峰、缓存、异步化、限流、降级、隔离；系统稳定性与容量规划的总纲。',
+     points:[['分层削峰：CDN、网关、MQ、线程池','m'],['缓存与多级缓存架构','m'],['异步化与响应式','k'],['限流、降级、熔断、隔离','m'],['容量评估、压测与全链路演练','k']]},
+
+    {id:'jwt-oauth',name:'JWT / OAuth2',cat:'security',lv:'m',
+     desc:'无状态 Token 认证、授权码模式、OIDC 单点登录、刷新令牌与注销方案。',
+     points:[['JWT 三段结构与签名验证','m'],['OAuth2 四种授权模式','k'],['授权码 + PKCE 与安全加固','k'],['刷新令牌与注销、黑名单','k'],['OIDC 单点登录与用户信息端点','k']]},
+    {id:'rbac',name:'RBAC 权限模型',cat:'security',lv:'k',
+     desc:'用户-角色-权限三层模型，数据权限与接口级鉴权设计。',
+     points:[['RBAC0~RBAC3 模型演进','k'],['用户-角色-权限表设计','k'],['接口级鉴权与注解实现','k'],['数据权限（部门、本人）过滤','k'],['权限缓存与动态刷新','u']]},
+    {id:'web-security',name:'Web 安全防护',cat:'security',lv:'m',
+     desc:'SQL 注入、XSS、CSRF、越权访问、敏感数据加密与 HTTPS 全站化。',
+     points:[['SQL 注入与参数化查询','m'],['XSS 存储型 / 反射型与输出转义','m'],['CSRF Token 与 SameSite Cookie','k'],['越权（水平 / 垂直）与接口鉴权','m'],['敏感数据脱敏与加密、HTTPS 全站','k']]},
+
+    {id:'junit',name:'JUnit5 / Mockito',cat:'test',lv:'k',
+     desc:'单元测试、参数化测试、Mock 与断言；保障重构安全的第一道防线。',
+     points:[['JUnit5 注解与生命周期','k'],['参数化测试与动态测试','k'],['Mockito 打桩、验证与 Spy','k'],['断言库 AssertJ 流式断言','k'],['测试覆盖率与 CI 集成','k']]},
+    {id:'testcontainers',name:'Testcontainers',cat:'test',lv:'u',
+     desc:'用真实容器做集成测试，保证环境一致性与可重复性，避免"本地能跑"。',
+     points:[['容器化中间件（MySQL、Redis、Kafka）','k'],['@Container 与生命周期管理','k'],['与 Spring Boot Test 集成','k'],['测试数据初始化与清理','k'],['CI 环境资源与并行优化','u']]},
+    {id:'performance-test',name:'性能测试',cat:'test',lv:'k',
+     desc:'JMeter / Gatling 压测；容量评估、瓶颈定位与调优效果验证。',
+     points:[['压测指标：TPS、RT、并发数、错误率','m'],['JMeter 脚本与分布式压测','k'],['梯度加压与拐点定位','k'],['全链路压测与数据隔离','k'],['瓶颈分析：CPU、IO、GC、DB','k']]},
+
+    {id:'maven',name:'Maven / Gradle',cat:'devops',lv:'k',
+     desc:'依赖管理、多模块构建、私服与版本发布规范，工程化的起点。',
+     points:[['依赖范围与传递、冲突仲裁','k'],['多模块聚合与继承','k'],['私服 Nexus 与发布流程','k'],['Maven vs Gradle 选型','u'],['版本管理与 SNAPSHOT 策略','u']]},
+    {id:'git',name:'Git',cat:'devops',lv:'k',
+     desc:'分支模型、代码评审、合并策略与版本管理规范，协作的基础设施。',
+     points:[['常用命令：rebase、cherry-pick、reset、revert','m'],['Git Flow / Trunk Based 分支模型','k'],['合并策略：merge 与 rebase 取舍','k'],['冲突解决与 Code Review 流程','k'],['大仓优化与 LFS','u']]},
+    {id:'cicd',name:'CI / CD',cat:'devops',lv:'k',
+     desc:'Jenkins / GitLab CI：自动化构建、测试、镜像打包与发布流水线。',
+     points:[['流水线阶段：构建、测试、镜像、部署','k'],['Jenkinsfile / .gitlab-ci.yml 编写','k'],['质量门禁与静态扫描（SonarQube）','k'],['制品仓库与版本化','u'],['蓝绿 / 金丝雀发布集成','u']]},
+    {id:'docker',name:'Docker',cat:'devops',lv:'m',
+     desc:'镜像分层、容器网络与存储；环境一致性的关键设施，云原生的入口。',
+     points:[['镜像分层与 UnionFS','k'],['Dockerfile 最佳实践与多阶段构建','m'],['容器网络：bridge、host、overlay','k'],['数据卷与持久化','k'],['资源限制与安全加固','k']]},
+    {id:'k8s',name:'Kubernetes',cat:'devops',lv:'k',
+     desc:'Pod / Deployment / Service、探针、HPA 弹性伸缩、滚动与灰度发布、资源配额。',
+     points:[['Pod、Deployment、StatefulSet、DaemonSet','m'],['Service、Ingress 与网络模型','m'],['探针：liveness、readiness、startup','m'],['HPA / VPA 弹性伸缩','k'],['配置、密钥、资源配额与调度','k']]},
+    {id:'monitoring',name:'监控告警',cat:'devops',lv:'k',
+     desc:'Prometheus + Grafana 指标采集、告警规则、容量看板与 SLO 管理。',
+     points:[['指标类型：Counter、Gauge、Histogram、Summary','k'],['Prometheus 拉取模型与 Exporter','k'],['PromQL 查询与告警规则','k'],['Grafana 看板与告警通知','k'],['SLO / SLI 与容量看板','u']]},
+    {id:'logging',name:'日志体系',cat:'devops',lv:'k',
+     desc:'ELK / Loki 采集检索、结构化日志规范与 TraceId 全链路串联。',
+     points:[['日志分级、结构化与格式规范','k'],['采集链路：Filebeat / Logstash / Fluentd','k'],['存储与检索：ES / Loki','k'],['TraceId 串联与上下文','k'],['日志脱敏、留存与成本控制','u']]},
+
+    {id:'service-mesh',name:'Service Mesh',cat:'cloud',lv:'u',
+     desc:'Istio + Envoy：把流量治理、mTLS、灰度能力下沉到 Sidecar，业务代码零侵入。',
+     points:[['数据面 Envoy 与控制面 Istiod','k'],['Sidecar 注入与流量劫持','k'],['流量治理：路由、重试、熔断、灰度','k'],['mTLS 与零信任安全','k'],['可观测性与 Mesh 性能开销','u']]},
+    {id:'opentelemetry',name:'OpenTelemetry',cat:'cloud',lv:'u',
+     desc:'统一的 Trace / Metrics / Logs 采集标准，厂商中立、可插拔的可观测性基座。',
+     points:[['Trace / Metrics / Logs 三大信号','k'],['SDK 埋点与自动探针','k'],['Collector 接收、处理、导出','k'],['上下文传播与 W3C 标准','k'],['对接 Jaeger、Prometheus、Loki','k']]},
+    {id:'serverless',name:'Serverless',cat:'cloud',lv:'u',
+     desc:'Knative / FaaS：按需伸缩与按量计费，事件驱动场景下的极致弹性。',
+     points:[['FaaS 与 BaaS 概念区分','k'],['冷启动问题与优化','k'],['Knative Serving / Eventing','u'],['事件驱动与自动扩缩容','k'],['适用场景与成本模型','u']]}
+  ];
+
+  const JAVA_LINKS = [
+    ['java-basics','collections'],['java-basics','io-nio'],['java-basics','generics'],
+    ['java-basics','functional'],['java-basics','new-features'],
+    ['generics','collections'],['functional','completable-future'],
+    ['new-features','virtual-thread'],['io-nio','netty'],['collections','juc'],
+    ['java-basics','jvm-memory'],['classloader','jvm-memory'],['jvm-memory','gc'],
+    ['jvm-memory','jmm'],['jit','jvm-memory'],['gc','jvm-tuning'],['jvm-tuning','jvm-memory'],
+    ['jmm','lock'],['jmm','cas-aqs'],['jvm-tuning','high-concurrency'],
+    ['thread','lock'],['thread','juc'],['lock','cas-aqs'],['cas-aqs','juc'],
+    ['thread','completable-future'],['virtual-thread','thread'],
+    ['thread','high-concurrency'],['juc','high-concurrency'],
+    ['servlet','spring-mvc'],['spring-ioc','spring-boot'],['spring-aop','spring-boot'],
+    ['spring-mvc','spring-boot'],['spring-boot','mybatis'],['spring-boot','jpa'],
+    ['spring-boot','spring-security'],['netty','dubbo'],['mybatis','connection-pool'],
+    ['jpa','connection-pool'],['spring-security','jwt-oauth'],['spring-aop','transaction'],
+    ['spring-boot','microservice-arch'],['spring-boot','docker'],
+    ['spring-ioc','spring-aop'],['spring-boot','spring-mvc'],
+    ['mysql','index'],['mysql','transaction'],['mysql','sharding'],['mysql','connection-pool'],
+    ['postgres','transaction'],['mybatis','mysql'],['jpa','mysql'],['index','sharding'],
+    ['sharding','dist-id'],['mysql','redis'],['redis','redis-cluster'],['redis','cache-problems'],
+    ['redis','local-cache'],['cache-problems','cache-consistency'],
+    ['redis-cluster','cache-consistency'],['mysql','elasticsearch'],['kafka','elasticsearch'],
+    ['elasticsearch','logging'],['mysql','cache-consistency'],['mongodb','sharding'],
+    ['hbase','sharding'],['clickhouse','kafka'],
+    ['local-cache','high-concurrency'],['cache-consistency','mq-patterns'],
+    ['redis-cluster','high-concurrency'],['cache-problems','high-concurrency'],
+    ['kafka','mq-patterns'],['rocketmq','mq-patterns'],['rabbitmq','mq-patterns'],
+    ['mq-patterns','event-driven'],['mq-patterns','seata'],['mq-patterns','high-concurrency'],
+    ['kafka','high-concurrency'],
+    ['nacos','feign'],['nacos','gateway'],['gateway','sentinel'],['feign','sentinel'],
+    ['feign','dubbo'],['seata','transaction'],['dist-lock','redis'],['dist-lock','zookeeper'],
+    ['nacos','zookeeper'],['tracing','opentelemetry'],['tracing','logging'],
+    ['microservice-arch','nacos'],['microservice-arch','gateway'],['microservice-arch','feign'],
+    ['microservice-arch','sentinel'],['microservice-arch','seata'],['microservice-arch','tracing'],
+    ['microservice-arch','service-mesh'],['gateway','web-security'],
+    ['ddd','layered-arch'],['ddd','microservice-arch'],['layered-arch','spring-boot'],
+    ['cqrs','event-driven'],['event-driven','microservice-arch'],
+    ['high-concurrency','microservice-arch'],['ddd','event-driven'],
+    ['jwt-oauth','rbac'],['rbac','spring-security'],['web-security','spring-security'],
+    ['jwt-oauth','web-security'],
+    ['junit','spring-boot'],['testcontainers','docker'],['performance-test','high-concurrency'],
+    ['junit','performance-test'],['junit','cicd'],
+    ['maven','cicd'],['git','cicd'],['cicd','docker'],['docker','k8s'],['k8s','service-mesh'],
+    ['monitoring','k8s'],['logging','k8s'],['monitoring','tracing'],['k8s','high-concurrency'],
+    ['service-mesh','microservice-arch'],['opentelemetry','tracing'],['serverless','k8s'],
+    ['serverless','event-driven'],['monitoring','opentelemetry']
+  ];
+
+  /* ==========================================================
+   * 3. Agent 数据
+   * ========================================================== */
+
+  const AGENT_CATS = {
+    foundation:{name:'基础与模型层',color:'#4FC3F7'},
+    pattern:{name:'设计模式',color:'#F06292'},
+    framework:{name:'编排框架',color:'#7DD87D'},
+    protocol:{name:'工具与协议',color:'#FFB74D'},
+    memory:{name:'记忆与检索',color:'#BA68C8'},
+    multi:{name:'多智能体',color:'#64B5F6'},
+    lowcode:{name:'低代码平台',color:'#FF8A65'},
+    obs:{name:'可观测与评估',color:'#4DD0E1'},
+    safety:{name:'安全与护栏',color:'#E57373'},
+    devops:{name:'工程化与部署',color:'#9575CD'}
+  };
+
+  const AGENT_NODES = [
+    {id:'llm-basics',name:'LLM 基础',cat:'foundation',lv:'m',
+     desc:'大语言模型的推理、生成与涌现能力，是一切 Agent 的决策内核。',
+     points:[['Transformer 与自注意力机制直觉','k'],['Token / 上下文窗口 / 生成长度限制','m'],['温度、Top-P、Top-K 采样参数影响','k'],['预训练、SFT、RLHF 训练阶段','k'],['模型能力边界与幻觉成因','m']]},
+    {id:'prompt-engineering',name:'提示词工程',cat:'foundation',lv:'m',
+     desc:'通过结构化提示引导模型输出，包括角色设定、少样本示例、思维链等技巧。',
+     points:[['System Prompt 与角色设定','m'],['Few-shot 示例与格式约束','m'],['Chain-of-Thought 思维链引导','m'],['结构化输出约束（JSON Schema）','m'],['提示词模板化与版本管理','k']]},
+    {id:'context-window',name:'上下文窗口',cat:'foundation',lv:'k',
+     desc:'模型单次可处理的 Token 上限，直接决定 Agent 能记住多少、能塞进多少工具定义。',
+     points:[['上下文窗口大小与成本关系','k'],['长上下文的能力衰减（Lost in Middle）','k'],['上下文压缩与摘要策略','m'],['工具定义占用的上下文开销','k'],['多轮对话的上下文膨胀问题','k']]},
+    {id:'function-calling',name:'Function Calling',cat:'foundation',lv:'m',
+     desc:'模型输出结构化函数名与参数，由运行时执行后返回结果——Agent 调用外部世界的能力基础。',
+     points:[['函数定义与 JSON Schema 参数约束','m'],['模型选择工具的决策机制','m'],['并行工具调用与结果合并','k'],['调用失败与参数错误的处理','m'],['工具数量过多导致的选错问题','k']]},
+    {id:'multimodal',name:'多模态能力',cat:'foundation',lv:'k',
+     desc:'模型对图像、音频、视频的理解与生成能力，让 Agent 能处理 GUI 截图、文档扫描件等输入。',
+     points:[['视觉理解与图像描述','k'],['GUI 截图解析与元素定位','k'],['语音输入输出与实时对话','k'],['文档 OCR 与版面理解','k'],['多模态输入的 Token 成本','u']]},
+    {id:'model-selection',name:'模型选型',cat:'foundation',lv:'k',
+     desc:'在能力、成本、延迟、私有化之间权衡。生产系统常用大小模型组合。',
+     points:[['闭源模型（GPT / Claude / Gemini）对比','k'],['开源模型（Llama / Qwen / DeepSeek）','k'],['小模型做分类路由、大模型做推理','m'],['延迟、成本、能力三角权衡','m'],['私有化部署与数据合规','k']]},
+    {id:'inference-opt',name:'推理优化',cat:'foundation',lv:'u',
+     desc:'通过量化、蒸馏、KV Cache 复用、批处理等手段降低推理成本与延迟。',
+     points:[['量化（INT8 / INT4）与精度损失','k'],['KV Cache 复用与 PagedAttention','k'],['连续批处理与吞吐优化','k'],['投机解码加速生成','u'],['推理框架：vLLM、SGLang、TensorRT-LLM','k']]},
+
+    {id:'agent-loop',name:'Agent 循环',cat:'pattern',lv:'m',
+     desc:'Agent 的原子执行单元：模型推理 → 采取行动 → 观察结果 → 循环，直到任务完成。',
+     points:[['推理-行动-观察的闭环结构','m'],['终止条件与最大迭代次数','m'],['状态在循环中的传递方式','k'],['循环中断与恢复机制','k'],['与单次调用的本质区别','m']]},
+    {id:'react',name:'ReAct 模式',cat:'pattern',lv:'m',
+     desc:'Thought → Action → Observation 交替循环，是 Agent 架构的理论基础。',
+     points:[['Thought 推理与 Action 选择交替','m'],['观察结果反馈到下一轮推理','m'],['与纯 CoT 的关键差异','m'],['适合工具调用密集的场景','m'],['容易陷入重复行动的陷阱','k']]},
+    {id:'plan-execute',name:'Plan-and-Execute',cat:'pattern',lv:'k',
+     desc:'先规划完整步骤列表，再逐步执行。适合需要全局视野的复杂多步骤任务。',
+     points:[['先规划后执行的分离架构','m'],['任务分解与依赖排序','m'],['执行中的计划动态调整','k'],['重规划（Replan）触发条件','k'],['与 ReAct 的适用场景对比','k']]},
+    {id:'reflection',name:'反思与自我修正',cat:'pattern',lv:'k',
+     desc:'Agent 对自身输出进行评估并修正。Reflexion 通过失败经验积累提升后续成功率。',
+     points:[['自我评估与错误识别','m'],['反思记忆的存储与复用','k'],['生成-批评-修正的迭代','m'],['代码生成场景的显著收益','k'],['反思轮次的成本控制','k']]},
+    {id:'tot',name:'Tree-of-Thoughts',cat:'pattern',lv:'u',
+     desc:'多路径探索推理树，评估各分支后选择最优解。适合推理密集型任务。',
+     points:[['思维树的节点扩展策略','k'],['分支评估与剪枝','k'],['广度优先与深度优先搜索','u'],['与 CoT 的计算成本对比','k'],['适合谜题、规划、数学推理','u']]},
+    {id:'router',name:'路由模式',cat:'pattern',lv:'k',
+     desc:'根据输入类型分发到不同的处理链或子 Agent。用小模型做路由可大幅降低成本。',
+     points:[['意图识别与分类路由','k'],['小模型路由的成本优势','k'],['多路兜底与默认路径','k'],['路由错误的处理策略','k'],['与工具选择的关系','u']]},
+    {id:'evaluator-optimizer',name:'评估-优化器模式',cat:'pattern',lv:'k',
+     desc:'一个 Agent 生成，另一个 Agent 评估并给出改进建议，循环直到达标。',
+     points:[['生成者与评估者角色分离','k'],['评估标准的显式定义','k'],['迭代终止的收敛条件','k'],['与 Reflection 的差异','u'],['适合翻译、写作、代码场景','k']]},
+
+    {id:'langchain',name:'LangChain',cat:'framework',lv:'k',
+     desc:'链式工作流开发的先行者，生态最丰富，适合简单线性流程与入门。',
+     points:[['Chain 与 LCEL 表达式语言','k'],['Prompt / Model / OutputParser 组件','k'],['丰富的文档加载与向量库集成','k'],['单向链路的局限性','k'],['作为 Agent 入门的最佳起点','k']]},
+    {id:'langgraph',name:'LangGraph',cat:'framework',lv:'m',
+     desc:'生产环境使用最广泛的 Agent 框架。将 Agent 建模为有向图，支持循环与自我纠错。',
+     points:[['StateGraph 与状态定义','m'],['节点、边与条件路由','m'],['循环与自我纠错的天然支持','m'],['Checkpointer 持久化与中断恢复','m'],['Human-in-the-Loop 原生集成','k']]},
+    {id:'llamaindex',name:'LlamaIndex',cat:'framework',lv:'k',
+     desc:'数据驱动型框架，拥有最强大的数据连接器与索引技术，RAG 场景首选。',
+     points:[['丰富的文档加载器与解析器','k'],['多种索引结构（Vector / Summary / Tree）','k'],['Query Engine 与检索接口','k'],['Agent 与 Workflow 抽象','k'],['在 RAG 场景的深度优势','m']]},
+    {id:'crewai',name:'CrewAI',cat:'framework',lv:'k',
+     desc:'以角色扮演为核心的多智能体框架。定义角色、目标与背景，框架像项目经理分配任务。',
+     points:[['Agent 角色定义：role、goal、backstory','k'],['Task 与 Process 编排','k'],['顺序执行与层级执行模式','k'],['工具共享与角色专长','k'],['快速搭建协作型 Agent 团队','k']]},
+    {id:'autogen',name:'AutoGen',cat:'framework',lv:'k',
+     desc:'对话驱动的多智能体框架，擅长处理复杂对话协商，如一个 Agent 写代码另一个找漏洞。',
+     points:[['ConversableAgent 与对话循环','k'],['GroupChat 多角色讨论','k'],['代码执行器与沙箱','k'],['人机混合参与的对话','k'],['适合研发、自动化编程场景','k']]},
+    {id:'openai-agents',name:'OpenAI Agents SDK',cat:'framework',lv:'k',
+     desc:'模型厂商官方原生 SDK，深度集成自有 API 特性。开发极快，但与厂商模型绑定。',
+     points:[['Agent、Handoff、Guardrail 三原语','k'],['原生 Function Calling 与结构化输出','k'],['Tracing 内置可观测性','k'],['与厂商模型能力的深度绑定','k'],['迁移成本与锁定风险','k']]},
+    {id:'google-adk',name:'Google ADK',cat:'framework',lv:'u',
+     desc:'Google 推出的 Agent Development Kit，与 Gemini 生态深度集成，支持多 Agent 编排。',
+     points:[['Agent 定义与 Sub-Agent 层级','k'],['工具与函数注册机制','k'],['与 Vertex AI 的部署集成','k'],['A2A 协议原生支持','k'],['多模态能力的充分利用','k']]},
+    {id:'semantic-kernel',name:'Semantic Kernel',cat:'framework',lv:'u',
+     desc:'微软推出的企业级框架，与 .NET / Azure 生态深度集成。',
+     points:[['Kernel 与 Plugin 抽象','k'],['Planner 自动规划能力','k'],['Memory 与向量存储集成','k'],['多语言支持（C# / Python / Java）','k'],['与 Azure OpenAI 的深度集成','k']]},
+
+    {id:'mcp',name:'MCP 协议',cat:'protocol',lv:'m',
+     desc:'Model Context Protocol，连接模型与外部工具的事实标准，一次开发多框架复用。',
+     points:[['MCP Server 与 Client 架构','m'],['Resources、Tools、Prompts 三类原语','m'],['Stdio / SSE / HTTP 传输方式','k'],['与 Function Calling 的关系','m'],['一次开发，多框架复用','m']]},
+    {id:'a2a',name:'A2A 协议',cat:'protocol',lv:'k',
+     desc:'Agent-to-Agent 协议，用于多智能体系统中的跨 Agent 协作。与 MCP 互补。',
+     points:[['Agent Card 能力声明','k'],['Task 与 Message 交互模型','k'],['与 MCP 的职责边界','k'],['跨厂商 Agent 互操作','k'],['流式与长任务支持','k']]},
+    {id:'tool-design',name:'工具设计',cat:'protocol',lv:'m',
+     desc:'工具命名、参数结构、错误信息的质量直接决定 Agent 调用成功率。',
+     points:[['工具命名的语义清晰度','m'],['参数结构扁平化与默认值','m'],['描述文本的歧义消除','m'],['错误信息可操作性设计','k'],['工具粒度：原子 vs 复合','k']]},
+    {id:'code-interpreter',name:'代码解释器',cat:'protocol',lv:'k',
+     desc:'让 Agent 生成并执行代码，用代码解决计算、数据处理、可视化问题。',
+     points:[['沙箱执行与资源限制','m'],['Python 生态的即用能力','m'],['执行结果与错误回传','k'],['代码生成质量与调试循环','k'],['安全风险与隔离策略','m']]},
+    {id:'computer-use',name:'Computer Use',cat:'protocol',lv:'u',
+     desc:'Agent 直接操作 GUI 界面，通过截图理解屏幕、通过鼠标键盘操作应用。',
+     points:[['截屏理解与元素定位','k'],['鼠标、键盘动作生成','k'],['操作反馈与状态校验','k'],['延迟与准确率的权衡','k'],['适用场景与风险控制','u']]},
+    {id:'browser-use',name:'Browser Use',cat:'protocol',lv:'u',
+     desc:'让 Agent 像人一样浏览网页：点击、输入、滚动、提取信息。',
+     points:[['DOM 解析与元素定位','k'],['点击、输入、滚动动作','k'],['多标签页与导航管理','u'],['反爬与稳定性问题','k'],['与 API 调用的选型权衡','k']]},
+    {id:'api-integration',name:'API 集成',cat:'protocol',lv:'m',
+     desc:'将外部 REST / GraphQL / RPC 接口封装为 Agent 工具，是最常见也最可靠的外部能力接入方式。',
+     points:[['接口封装为工具的标准流程','m'],['鉴权与凭证管理','m'],['幂等性对重试的影响','m'],['响应结果的结构化裁剪','k'],['限流与失败降级','k']]},
+
+    {id:'short-memory',name:'短期记忆',cat:'memory',lv:'m',
+     desc:'基于上下文窗口管理当前会话状态，配合滑动窗口、摘要压缩等策略处理超长对话。',
+     points:[['对话历史的存储与回放','m'],['滑动窗口保留最近 N 轮','m'],['摘要压缩与关键信息提取','m'],['工具调用结果的上下文占用','k'],['多轮状态的一致性维护','k']]},
+    {id:'long-memory',name:'长期记忆',cat:'memory',lv:'k',
+     desc:'跨会话的持久化信息，通常借助向量数据库存储历史行为与知识，按需检索注入上下文。',
+     points:[['用户偏好与画像的持久化','k'],['历史任务经验的存储','k'],['写入时机与去重策略','k'],['检索相关性阈值控制','k'],['遗忘机制与隐私合规','k']]},
+    {id:'context-mgmt',name:'上下文管理',cat:'memory',lv:'m',
+     desc:'在有限窗口内安排信息优先级：系统提示、工具定义、检索结果、对话历史各占多少预算。',
+     points:[['上下文预算的分配策略','m'],['信息优先级排序与裁剪','m'],['动态压缩与按需加载','k'],['缓存命中与 KV 复用','k'],['上下文膨胀导致的性能下降','m']]},
+    {id:'rag',name:'RAG',cat:'memory',lv:'m',
+     desc:'检索增强生成：检索 → 增强 → 生成。让 Agent 基于外部知识回答，缓解幻觉。',
+     points:[['文档加载、切分与向量化','m'],['相似度检索与 Top-K 选择','m'],['检索结果拼接与提示构造','m'],['引用溯源与答案可验证性','k'],['失败场景：检索不到、答非所问','k']]},
+    {id:'agentic-rag',name:'Agentic RAG',cat:'memory',lv:'k',
+     desc:'让 Agent 自主决定何时检索、检索什么，并验证检索结果的准确性。',
+     points:[['检索决策由 Agent 自主判断','m'],['多轮检索与查询改写','m'],['检索结果的相关性自评','k'],['不足时主动追问或换源','k'],['相比传统 RAG 的成本提升','k']]},
+    {id:'vector-db',name:'向量数据库',cat:'memory',lv:'k',
+     desc:'存储与检索高维向量的专用数据库，是语义检索的基础设施。',
+     points:[['主流选型：Milvus、Qdrant、Chroma、Pinecone','m'],['索引算法：HNSW、IVF、PQ','k'],['相似度度量：余弦、点积、欧氏','k'],['元数据过滤与混合查询','k'],['规模、延迟与运维成本权衡','k']]},
+    {id:'embedding',name:'Embedding 模型',cat:'memory',lv:'k',
+     desc:'将文本映射为高维向量，决定语义检索的质量上限。中文场景需特别关注语言适配。',
+     points:[['主流模型：OpenAI、BGE、M3E','k'],['中文语义适配与评测','m'],['向量维度与存储成本','k'],['对称与非对称检索的差异','k'],['微调 Embedding 提升领域效果','k']]},
+    {id:'rerank',name:'重排序',cat:'memory',lv:'k',
+     desc:'对初步检索结果二次精排，用交叉编码器换取更高精度，是提升 RAG 质量性价比最高的手段。',
+     points:[['粗排召回 + 精排重排的两阶段','m'],['交叉编码器与双塔模型差异','k'],['Top-K 截断与延迟权衡','k'],['主流 Rerank 模型（BGE-Reranker）','k'],['对最终答案质量的显著提升','m']]},
+    {id:'graphrag',name:'GraphRAG',cat:'memory',lv:'u',
+     desc:'用知识图谱组织实体与关系，支持多跳推理与全局性问题，弥补向量检索的短板。',
+     points:[['实体抽取与关系构建','k'],['社区检测与分层摘要','k'],['局部检索与全局检索','k'],['多跳推理能力优势','k'],['构建成本与更新维护','u']]},
+
+    {id:'multi-agent',name:'多智能体系统',cat:'multi',lv:'k',
+     desc:'将复杂任务拆解交由不同专长的 Agent 协作完成，实现"1+1>2"的集体智能。',
+     points:[['单体 Agent 与多 Agent 的取舍','m'],['任务拆解与角色分配','m'],['协作带来的协调开销','k'],['通信轮次与成本控制','k'],['适用场景：复杂、可并行、需多视角','k']]},
+    {id:'role-design',name:'角色设计',cat:'multi',lv:'k',
+     desc:'为每个 Agent 定义清晰的职责、目标与边界。角色重叠会导致重复劳动。',
+     points:[['角色职责的清晰定义','m'],['目标与背景故事的设定','k'],['角色间的能力互补','k'],['避免职责重叠与推诿','k'],['角色数量与系统复杂度','k']]},
+    {id:'orchestration-pattern',name:'协作编排模式',cat:'multi',lv:'k',
+     desc:'多 Agent 的组织方式：顺序流水线、层级管理、对等协商、黑板模式。',
+     points:[['顺序流水线：适合阶段明确的任务','m'],['层级模式：Manager 分配与汇总','m'],['对等协商：多角色平等讨论','k'],['黑板模式：共享状态异步协作','k'],['编排模式与任务的匹配','k']]},
+    {id:'agent-communication',name:'Agent 通信',cat:'multi',lv:'k',
+     desc:'Agent 之间如何传递信息：直接消息、共享内存、事件总线。',
+     points:[['直接消息传递与格式约定','k'],['共享状态与黑板机制','k'],['事件总线与发布订阅','k'],['通信轮次与死循环防范','k'],['A2A 协议标准化通信','k']]},
+    {id:'consensus',name:'共识与仲裁',cat:'multi',lv:'u',
+     desc:'多个 Agent 意见冲突时如何达成一致：投票、评审、仲裁者裁决。',
+     points:[['多数投票与加权投票','k'],['评审者模型裁决','k'],['仲裁 Agent 的引入','k'],['冲突检测与升级机制','u'],['共识成本与效率权衡','k']]},
+
+    {id:'dify',name:'Dify',cat:'lowcode',lv:'k',
+     desc:'适合在企业内部构建、管理和运维复杂 AI 应用，掌控感强，适合快速上线 MVP。',
+     points:[['可视化工作流编排','k'],['知识库与 RAG 开箱即用','k'],['多模型接入与切换','k'],['应用监控与日志','k'],['私有化部署能力','k']]},
+    {id:'coze',name:'Coze',cat:'lowcode',lv:'k',
+     desc:'最快、最简单创建功能丰富的 AI 聊天机器人，适合快速原型验证。',
+     points:[['拖拽式 Bot 搭建','k'],['插件生态与工具市场','k'],['多平台发布（飞书、微信等）','k'],['知识库与变量管理','k'],['适合快速验证想法','k']]},
+    {id:'fastgpt',name:'FastGPT',cat:'lowcode',lv:'k',
+     desc:'极度聚焦知识库问答，轻量、专注、开箱即用。',
+     points:[['知识库导入与自动切分','k'],['向量检索与问答流程','k'],['工作流编排能力','k'],['轻量部署与低资源占用','k'],['专注文档问答的深度优化','k']]},
+    {id:'n8n',name:'N8N',cat:'lowcode',lv:'u',
+     desc:'核心需求是连接和自动化各种业务系统，AI 调用只是自动化流程中的一环。',
+     points:[['数百个系统连接器','k'],['节点式自动化流程','k'],['AI 节点嵌入现有流程','k'],['定时与事件触发','k'],['适合业务系统集成场景','k']]},
+
+    {id:'tracing',name:'Trace 追踪',cat:'obs',lv:'m',
+     desc:'记录 Agent 每一步的思考与行动轨迹，是定位"在哪一步幻觉了"的唯一手段。',
+     points:[['每轮 Thought 与 Action 的完整记录','m'],['工具调用的输入输出快照','m'],['Token 消耗与延迟分解','k'],['可视化执行时间线','k'],['错误节点的快速定位','m']]},
+    {id:'langsmith',name:'LangSmith',cat:'obs',lv:'k',
+     desc:'LangChain 生态的可观测性平台，记录 Agent 每一步思考轨迹。',
+     points:[['与 LangChain / LangGraph 深度集成','k'],['Trace 可视化与对比','k'],['数据集与评估实验','k'],['提示词版本管理','k'],['生产监控与告警','k']]},
+    {id:'langfuse',name:'LangFuse',cat:'obs',lv:'k',
+     desc:'开源可观测性方案，支持 Trace 记录、评估与成本分析，可私有化部署。',
+     points:[['开源与私有化部署','k'],['Trace、Session、Score 模型','k'],['成本与 Token 统计分析','k'],['与主流框架的 SDK 集成','k'],['数据自主可控的合规优势','k']]},
+    {id:'eval',name:'评估体系',cat:'obs',lv:'m',
+     desc:'Agent 执行具有随机性，需要建立可量化的评估体系：正确性、工具选择准确率、步骤效率、成本。',
+     points:[['端到端成功率与任务完成度','m'],['工具选择准确率与参数正确率','m'],['步骤数与 Token 成本效率','k'],['LLM-as-Judge 自动评估','m'],['离线数据集与在线 A/B 结合','k']]},
+    {id:'agentrx',name:'AgentRx',cat:'obs',lv:'u',
+     desc:'专门用于自动定位 Agent 在长路径执行中的失败节点并给出修复建议的诊断工具。',
+     points:[['长路径执行的失败节点定位','k'],['根因分析与修复建议','k'],['与 Trace 数据的结合','k'],['自动化诊断降低调试成本','k'],['复杂 Agent 系统的运维利器','u']]},
+    {id:'ab-test',name:'A/B 测试',cat:'obs',lv:'u',
+     desc:'对比不同提示词、模型、编排策略的效果，用数据驱动 Agent 的迭代优化。',
+     points:[['变量隔离与对照组设计','k'],['样本量与统计显著性','k'],['在线指标与业务指标结合','k'],['灰度发布与回滚机制','k'],['持续迭代的实验流程','k']]},
+
+    {id:'guardrails',name:'Guardrails',cat:'safety',lv:'m',
+     desc:'在 Agent 输入输出两侧设置检查点，拦截不当内容、格式错误与越权操作。',
+     points:[['输入侧：内容过滤与意图校验','m'],['输出侧：格式校验与敏感词','m'],['工具调用前的权限检查','m'],['多层级护栏的编排','k'],['拦截日志与告警','k']]},
+    {id:'prompt-injection',name:'提示词注入防护',cat:'safety',lv:'m',
+     desc:'外部内容中嵌入的恶意指令可能劫持 Agent 行为，需要通过隔离、标注、校验等手段防范。',
+     points:[['直接注入与间接注入的区别','m'],['外部内容的隔离与标注','m'],['指令与数据的边界划分','m'],['输出行为的一致性校验','k'],['敏感操作的二次确认','m']]},
+    {id:'hitl',name:'Human-in-the-Loop',cat:'safety',lv:'k',
+     desc:'关键决策强制人类审批，在自动化效率与风险控制之间取得平衡。',
+     points:[['关键节点的审批中断','m'],['LangGraph 的 interrupt 机制','k'],['审批超时与默认策略','k'],['人工修改后的状态回传','k'],['审批粒度与效率权衡','k']]},
+    {id:'output-validation',name:'输出校验',cat:'safety',lv:'k',
+     desc:'用 JSON Schema、Pydantic 等强制约束模型输出结构，解析失败时自动重试或降级。',
+     points:[['JSON Schema 与 Pydantic 校验','m'],['解析失败的重试与修复','m'],['结构化输出的可靠性提升','k'],['字段级校验与业务规则','k'],['降级路径与兜底响应','k']]},
+    {id:'loop-detection',name:'死循环检测',cat:'safety',lv:'k',
+     desc:'Agent 可能陷入重复行动或无限循环，需要通过最大迭代、状态指纹、进度检测及时止损。',
+     points:[['最大迭代次数硬限制','m'],['重复行动的指纹检测','m'],['进度停滞的识别','k'],['超时与成本熔断','m'],['中断后的状态恢复','k']]},
+    {id:'permission',name:'权限控制',cat:'safety',lv:'k',
+     desc:'Agent 能调用哪些工具、能操作哪些数据，需要按最小权限原则严格控制。',
+     points:[['工具级与数据级权限','m'],['最小权限原则落地','m'],['敏感工具的白名单机制','k'],['操作审计与追溯','k'],['多租户场景的隔离','k']]},
+
+    {id:'streaming',name:'流式输出',cat:'devops',lv:'k',
+     desc:'Token 级流式返回让用户感知响应更快，同时需要在流式中处理工具调用、中断与错误。',
+     points:[['SSE / WebSocket 传输选型','k'],['Token 级增量渲染','m'],['流式中的工具调用处理','k'],['中断与取消机制','k'],['首字延迟与体验优化','k']]},
+    {id:'concurrency',name:'并发控制',cat:'devops',lv:'k',
+     desc:'多个用户或任务同时请求时，需要控制模型调用并发、工具执行并发与资源占用。',
+     points:[['模型调用的并发上限','m'],['工具执行的并发与隔离','k'],['请求队列与优先级','k'],['限流与降级策略','m'],['长任务与短请求的资源分配','k']]},
+    {id:'cost-control',name:'成本控制',cat:'devops',lv:'k',
+     desc:'Token 消耗是 Agent 的主要成本。通过缓存、模型分级、上下文压缩等手段把成本控制在预算内。',
+     points:[['Token 消耗的实时监控','m'],['提示词与结果缓存复用','m'],['大小模型分级路由','m'],['上下文压缩与裁剪','k'],['单任务成本预算与熔断','k']]},
+    {id:'deployment',name:'部署架构',cat:'devops',lv:'k',
+     desc:'Agent 服务的部署形态：同步 API、异步任务队列、长驻会话，根据任务时长与交互模式选择。',
+     points:[['同步 API 与异步任务队列','m'],['长驻会话与状态存储','k'],['无状态服务与水平扩展','k'],['容器化与 K8s 部署','k'],['多环境配置与灰度','k']]},
+    {id:'caching',name:'缓存策略',cat:'devops',lv:'k',
+     desc:'缓存模型响应、Embedding 结果、检索结果，在重复请求场景下可显著降低成本与延迟。',
+     points:[['精确匹配缓存与语义缓存','m'],['Embedding 结果缓存复用','k'],['检索结果的缓存策略','k'],['缓存失效与一致性','k'],['命中率监控与优化','k']]}
+  ];
+
+  const AGENT_LINKS = [
+    ['llm-basics','prompt-engineering'],['llm-basics','context-window'],
+    ['llm-basics','function-calling'],['llm-basics','multimodal'],
+    ['llm-basics','model-selection'],['llm-basics','inference-opt'],
+    ['prompt-engineering','react'],['function-calling','mcp'],
+    ['function-calling','tool-design'],['context-window','context-mgmt'],
+    ['model-selection','router'],['inference-opt','cost-control'],
+    ['agent-loop','react'],['agent-loop','plan-execute'],
+    ['agent-loop','reflection'],['react','tot'],
+    ['plan-execute','reflection'],['reflection','evaluator-optimizer'],
+    ['router','multi-agent'],['tot','plan-execute'],
+    ['agent-loop','langgraph'],['react','langchain'],
+    ['langchain','langgraph'],['langchain','llamaindex'],
+    ['langgraph','crewai'],['langgraph','autogen'],
+    ['langgraph','openai-agents'],['langgraph','google-adk'],
+    ['langchain','semantic-kernel'],['crewai','multi-agent'],
+    ['autogen','multi-agent'],['llamaindex','rag'],
+    ['openai-agents','function-calling'],['google-adk','a2a'],
+    ['langgraph','hitl'],['langgraph','tracing'],
+    ['mcp','tool-design'],['mcp','api-integration'],
+    ['a2a','agent-communication'],['tool-design','api-integration'],
+    ['code-interpreter','tool-design'],['computer-use','multimodal'],
+    ['browser-use','computer-use'],['mcp','langgraph'],
+    ['api-integration','function-calling'],
+    ['short-memory','context-mgmt'],['long-memory','vector-db'],
+    ['rag','vector-db'],['rag','embedding'],
+    ['agentic-rag','rag'],['rerank','rag'],
+    ['graphrag','rag'],['vector-db','embedding'],
+    ['rerank','vector-db'],['context-mgmt','short-memory'],
+    ['long-memory','short-memory'],['agentic-rag','agent-loop'],
+    ['rag','llamaindex'],
+    ['multi-agent','role-design'],['multi-agent','orchestration-pattern'],
+    ['multi-agent','agent-communication'],['multi-agent','consensus'],
+    ['role-design','crewai'],['orchestration-pattern','crewai'],
+    ['orchestration-pattern','autogen'],['agent-communication','a2a'],
+    ['consensus','agent-communication'],['multi-agent','router'],
+    ['dify','rag'],['dify','langgraph'],
+    ['coze','tool-design'],['fastgpt','rag'],
+    ['n8n','api-integration'],['dify','deployment'],
+    ['tracing','langsmith'],['tracing','langfuse'],
+    ['eval','tracing'],['eval','ab-test'],
+    ['agentrx','tracing'],['langsmith','langgraph'],
+    ['langfuse','tracing'],['eval','multi-agent'],
+    ['tracing','agent-loop'],['ab-test','eval'],
+    ['guardrails','prompt-injection'],['guardrails','output-validation'],
+    ['guardrails','permission'],['hitl','guardrails'],
+    ['loop-detection','agent-loop'],['output-validation','tool-design'],
+    ['prompt-injection','rag'],['permission','tool-design'],
+    ['hitl','langgraph'],['loop-detection','eval'],
+    ['streaming','deployment'],['concurrency','deployment'],
+    ['cost-control','caching'],['deployment','langgraph'],
+    ['caching','embedding'],['caching','llm-basics'],
+    ['cost-control','model-selection'],['concurrency','multi-agent'],
+    ['streaming','agent-loop'],['deployment','tracing'],
+    ['cost-control','eval'],['caching','rag']
+  ];
+
+  /* ==========================================================
+   * 4. 数据结构化
+   * ========================================================== */
+
+  const DATA = {
+    java: { cats: JAVA_CATS, nodes: JAVA_NODES, links: JAVA_LINKS, title:'Java 后端' },
+    agent: { cats: AGENT_CATS, nodes: AGENT_NODES, links: AGENT_LINKS, title:'Agent 开发' }
+  };
+
+  let currentTab = 'java';
+  let curCats = DATA.java.cats;
+  let curNodes = [];
+  let curLinks = [];
+  let nodeById = new Map();
+  let adj = new Map();
+  const CAT_ORDER = {};
+
+  const state = {
+    selected: null,
+    query: '',
+    levelFilter: 'all'   // 'all' | 'm' | 'm,k'
+  };
+
+  /* ==========================================================
+   * 5. DOM
+   * ========================================================== */
+
+  const content    = document.getElementById('content');
+  const chipsEl    = document.getElementById('chips');
+  const detailEl   = document.getElementById('detail');
+  const detailIn   = document.getElementById('detailInner');
+  const searchEl   = document.getElementById('search');
+  const searchWrap = document.getElementById('searchWrap');
+  const overlay    = document.getElementById('overlay');
+  const sheetHandle= document.getElementById('sheetHandle');
+  const backTop    = document.getElementById('backTop');
+  const tabsEl     = document.getElementById('tabs');
+  const levelFilterEl = document.getElementById('levelFilter');
+  const cntM = document.getElementById('cntM');
+  const cntK = document.getElementById('cntK');
+  const cntU = document.getElementById('cntU');
+
+  const mqMobile = window.matchMedia('(max-width: 768px)');
+  const isMobile = () => mqMobile.matches;
+
+  /* ==========================================================
+   * 6. 工具
+   * ========================================================== */
+
+  function hexA(hex, a){
+    const n = parseInt(hex.slice(1), 16);
+    return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+  }
+
+  function applyColorVars(el, color){
+    el.style.setProperty('--c', color);
+    el.style.setProperty('--ca05', hexA(color, .05));
+    el.style.setProperty('--ca11', hexA(color, .11));
+    el.style.setProperty('--ca14', hexA(color, .14));
+    el.style.setProperty('--ca15', hexA(color, .15));
+    el.style.setProperty('--ca32', hexA(color, .32));
+    el.style.setProperty('--ca55', hexA(color, .55));
+  }
+
+  function levelAllowed(lv){
+    if (state.levelFilter === 'all') return true;
+    return state.levelFilter.split(',').includes(lv);
+  }
+
+  /* ==========================================================
+   * 7. 切换数据源
+   * ========================================================== */
+
+  function switchTab(tab){
+    currentTab = tab;
+    curCats = DATA[tab].cats;
+    curNodes = DATA[tab].nodes;
+    curLinks = DATA[tab].links;
+
+    // 索引重建
+    nodeById = new Map();
+    adj = new Map();
+    Object.keys(CAT_ORDER).forEach(k => delete CAT_ORDER[k]);
+
+    curNodes.forEach(n => {
+      n.name_lc = n.name.toLowerCase();
+      n.kw_lc = (n.points || []).map(p => p[0]).join(' ').toLowerCase();
+      n.desc_lc = n.desc.toLowerCase();
+      nodeById.set(n.id, n);
+      adj.set(n.id, new Set());
+    });
+    curLinks.forEach(([a, b]) => {
+      if (nodeById.has(a) && nodeById.has(b)) {
+        adj.get(a).add(b);
+        adj.get(b).add(a);
+      }
+    });
+    Object.keys(curCats).forEach(k => { CAT_ORDER[k] = true; });
+
+    // 更新UI
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.tab === tab);
+    });
+
+    // 重置状态
+    state.selected = null;
+    state.query = '';
+    searchEl.value = '';
+    searchWrap.classList.remove('has-val');
+
+    updateCounters();
+    buildChips();
+    buildContent();
+    updateVisual();
+    renderDetail(null);
+  }
+
+  function updateCounters(){
+    let m = 0, k = 0, u = 0;
+    curNodes.forEach(n => {
+      if (n.lv === 'm') m++;
+      else if (n.lv === 'k') k++;
+      else u++;
+    });
+    cntM.textContent = m;
+    cntK.textContent = k;
+    cntU.textContent = u;
+  }
+
+  /* ==========================================================
+   * 8. 构建内容
+   * ========================================================== */
+
+  function buildChips(){
+    chipsEl.innerHTML = '';
+    Object.keys(curCats).forEach(key => {
+      const c = curCats[key];
+      const btn = document.createElement('button');
+      btn.className = 'chip';
+      btn.dataset.cat = key;
+      applyColorVars(btn, c.color);
+      btn.innerHTML = `<span class="cdot"></span>${c.name}`;
+      btn.addEventListener('click', () => {
+        const sec = content.querySelector(`.section[data-cat="${key}"]`);
+        if (sec) content.scrollTo({ top: sec.offsetTop - 4, behavior:'smooth' });
+      });
+      chipsEl.appendChild(btn);
+    });
+    const firstKey = Object.keys(curCats)[0];
+    setActiveChip(firstKey);
+  }
+
+  function setActiveChip(key){
+    chipsEl.querySelectorAll('.chip').forEach(el => {
+      el.classList.toggle('active', el.dataset.cat === key);
+    });
+  }
+
+  function buildContent(){
+    const frag = document.createDocumentFragment();
+
+    Object.keys(curCats).forEach(catKey => {
+      const cat = curCats[catKey];
+      const list = curNodes.filter(n => n.cat === catKey);
+      if (!list.length) return;
+
+      const sec = document.createElement('section');
+      sec.className = 'section';
+      sec.dataset.cat = catKey;
+      applyColorVars(sec, cat.color);
+
+      const head = document.createElement('div');
+      head.className = 'sec-head';
+      head.innerHTML = `
+        <span class="sdot"></span>
+        <h2>${cat.name}</h2>
+        <span class="scount">${list.length} 项</span>
+        <span class="sline"></span>`;
+      sec.appendChild(head);
+
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+
+      list.forEach(n => {
+        const relIds = [...adj.get(n.id)].map(id => nodeById.get(id));
+        relIds.sort((a, b) => a.cat.localeCompare(b.cat) || a.name.localeCompare(b.name));
+
+        const shown = relIds.slice(0, 2)
+          .map(r => `<span class="rtag">${r.name}</span>`).join('');
+        const more = relIds.length > 2
+          ? `<span class="rtag more">+${relIds.length - 2}</span>` : '';
+
+        // 知识点预览：显示前 3 条，但尊重级别筛选
+        const allPts = n.points || [];
+        const filtered = allPts.filter(p => levelAllowed(p[1]));
+        const visible = filtered.slice(0, 3);
+        const ptsHtml = visible.map((p, i) =>
+          `<div class="pt${i === 2 ? ' pt-extra' : ''}" data-lv="${p[1]}">${p[0]}</div>`
+        ).join('') + (filtered.length > 3
+          ? `<div class="pt-more">
+               <span class="pm-desk">还有 ${filtered.length - 3} 个知识点 · 点击查看</span>
+               <span class="pm-mob">还有 ${filtered.length - 2} 个知识点 · 点击查看</span>
+             </div>` : '');
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.id = n.id;
+        card.dataset.lv = n.lv;
+        card.innerHTML = `
+          <div class="card-top">
+            <span class="cdot"></span>
+            <h3>${n.name}</h3>
+            <span class="lv-badge" data-lv="${n.lv}">${LV[n.lv].name}</span>
+          </div>
+          <p class="card-desc">${n.desc}</p>
+          <div class="card-points">${ptsHtml}</div>
+          <div class="card-foot">${shown}${more}</div>`;
+
+        card.addEventListener('click', () => selectNode(n.id, false));
+        grid.appendChild(card);
+      });
+
+      sec.appendChild(grid);
+      frag.appendChild(sec);
+    });
+
+    content.innerHTML = '';
+    content.appendChild(frag);
+  }
+
+  /* ==========================================================
+   * 9. 选择 & 视觉
+   * ========================================================== */
+
+  function selectNode(id, scrollTo){
+    state.selected = (state.selected === id) ? null : id;
+    updateVisual();
+    renderDetail(state.selected);
+    if (state.selected && scrollTo){
+      const el = content.querySelector(`.card[data-id="${id}"]`);
+      if (el) el.scrollIntoView({
+        behavior:'smooth',
+        block: isMobile() ? 'start' : 'center'
+      });
+    }
+  }
+
+  function clearSelection(){
+    state.selected = null;
+    updateVisual();
+    renderDetail(null);
+  }
+
+  function matchNode(n, q){
+    if (!q) return true;
+    return n.name_lc.includes(q)
+        || n.id.includes(q)
+        || n.kw_lc.includes(q)
+        || n.desc_lc.includes(q);
+  }
+
+  function updateVisual(){
+    const q = state.query;
+    const sel = state.selected;
+    const rel = sel ? adj.get(sel) : null;
+    let visibleCount = 0;
+
+    document.querySelectorAll('.card').forEach(el => {
+      const id = el.dataset.id;
+      const node = nodeById.get(id);
+      let cls = 'card';
+
+      // 级别筛选优先
+      if (!levelAllowed(node.lv)){
+        cls += ' is-dim';
+      } else if (q){
+        if (matchNode(node, q)){ cls += ' is-match'; visibleCount++; }
+        else cls += ' is-dim';
+      } else if (sel){
+        if (id === sel) cls += ' is-selected';
+        else if (rel.has(id)) cls += ' is-related';
+        else cls += ' is-dim';
+      } else {
+        visibleCount++;
+      }
+
+      el.className = cls;
+    });
+
+    // 分组隐藏
+    document.querySelectorAll('.section').forEach(sec => {
+      const has = sec.querySelector('.card.is-match');
+      const hasVisible = sec.querySelector('.card:not(.is-dim)');
+      sec.style.display = ((q && !has) || (!q && !hasVisible)) ? 'none' : '';
+    });
+
+    let tip = content.querySelector('.no-result');
+    if (q && visibleCount === 0){
+      if (!tip){
+        tip = document.createElement('div');
+        tip.className = 'no-result';
+        tip.textContent = '没有匹配的技术点，试试其他关键词';
+        content.appendChild(tip);
+      }
+    } else if (tip) {
+      tip.remove();
+    }
+  }
+
+  /* ==========================================================
+   * 10. 详情面板
+   * ========================================================== */
+
+  function openSheet(){
+    if (isMobile()){
+      document.body.classList.add('sheet-open');
+      overlay.classList.add('show');
+    }
+  }
+  function closeSheet(){
+    document.body.classList.remove('sheet-open');
+    overlay.classList.remove('show');
+  }
+
+  function renderDetail(id){
+    if (!id){
+      detailEl.classList.remove('open');
+      closeSheet();
+      detailIn.innerHTML = `
+        <div class="d-empty">
+          <h3>使用提示</h3>
+          <ul>
+            <li>技术卡片与知识点均标注<b>重要程度</b>：核心 / 重点 / 了解</li>
+            <li>顶部工具栏可按级别<b>筛选</b>：只看核心 / 核心 + 重点</li>
+            <li>点击卡片，展开该技术的<b>完整知识点清单</b></li>
+            <li>搜索支持<b>技术名 / 关键词 / 知识点内容</b></li>
+            <li>点击详情中的关联标签可<b>逐级跳转</b></li>
+          </ul>
+        </div>`;
+      return;
+    }
+
+    const n = nodeById.get(id);
+    const cat = curCats[n.cat];
+    applyColorVars(detailIn, cat.color);
+
+    const relIds = [...adj.get(id)].map(i => nodeById.get(i));
+    relIds.sort((a, b) => a.cat.localeCompare(b.cat) || a.name.localeCompare(b.name));
+
+    const points = (n.points || []).filter(p => levelAllowed(p[1]));
+    // 详情里不隐藏被筛选掉的，但显示为淡化（可选：这里保持简单，只显示被允许的）
+    // 为方便学习，详情显示全部知识点，但用颜色区分
+    const allPoints = n.points || [];
+
+    detailIn.innerHTML = `
+      <div class="d-cat">
+        <span class="cdot"></span>${cat.name}
+      </div>
+      <div class="d-title">
+        <h2>${n.name}</h2>
+        <span class="lv-badge" data-lv="${n.lv}">${LV[n.lv].name}</span>
+      </div>
+      <p class="d-desc">${n.desc}</p>
+      <button class="tag kg-quiz-btn" data-id="${n.id}" style="margin:0 0 18px;">🔗 查看相关面试题</button>
+
+      <div class="d-label">核心知识点 <b>${allPoints.length}</b></div>
+      <div class="kp-list">
+        ${allPoints.map((p, i) => `
+          <div class="kp" data-lv="${p[1]}">
+            <span class="kp-idx">${i + 1}</span>
+            <span class="kp-text">${p[0]}</span>
+            <span class="kp-lv" data-lv="${p[1]}">${LV[p[1]].name}</span>
+          </div>`).join('')}
+      </div>
+
+      <div class="d-label">关联技术 <b>${relIds.length}</b></div>
+      <div class="d-tags">
+        ${relIds.map(r => `
+          <button class="tag" data-id="${r.id}"
+            style="--c:${curCats[r.cat].color};--ca11:${hexA(curCats[r.cat].color,.11)};--ca55:${hexA(curCats[r.cat].color,.55)}">
+            <span class="cdot"></span>${r.name}
+          </button>`).join('')}
+      </div>`;
+
+    detailIn.querySelectorAll('.tag').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.selected = btn.dataset.id;
+        updateVisual();
+        renderDetail(state.selected);
+        const el = content.querySelector(`.card[data-id="${state.selected}"]`);
+        if (el) el.scrollIntoView({
+          behavior:'smooth',
+          block: isMobile() ? 'start' : 'center'
+        });
+      });
+    });
+
+    detailEl.classList.add('open');
+    detailIn.scrollTop = 0;
+    openSheet();
+
+    const quizBtn = detailIn.querySelector('.kg-quiz-btn');
+    if (quizBtn){
+      quizBtn.addEventListener('click', () => {
+        window.parent.postMessage({type:'node-locate', graphTab: currentTab, nodeId: quizBtn.dataset.id}, '*');
+      });
+    }
+  }
+
+  /* ==========================================================
+   * 11. 搜索
+   * ========================================================== */
+
+  searchEl.addEventListener('input', () => {
+    state.query = searchEl.value.trim().toLowerCase();
+    searchWrap.classList.toggle('has-val', !!state.query);
+    // 搜索时自动切到全部级别，避免知识点被隐藏
+    if (state.query && state.levelFilter !== 'all'){
+      state.levelFilter = 'all';
+      levelFilterEl.querySelectorAll('.lf').forEach(b => {
+        b.classList.toggle('active', b.dataset.level === 'all');
+      });
+      buildContent();
+      // 重绑定：buildContent 已重新生成，不需要额外
+    }
+    updateVisual();
+  });
+
+  searchEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter'){
+      const hit = curNodes.find(n => levelAllowed(n.lv) && matchNode(n, state.query));
+      if (hit){
+        const el = content.querySelector(`.card[data-id="${hit.id}"]`);
+        if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
+      }
+      searchEl.blur();
+    }
+    if (e.key === 'Escape'){
+      searchEl.value = '';
+      state.query = '';
+      searchWrap.classList.remove('has-val');
+      updateVisual();
+      searchEl.blur();
+    }
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    searchEl.value = '';
+    state.query = '';
+    searchWrap.classList.remove('has-val');
+    updateVisual();
+    searchEl.focus();
+  });
+
+  document.getElementById('closeBtn').addEventListener('click', clearSelection);
+  overlay.addEventListener('click', clearSelection);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.activeElement !== searchEl) clearSelection();
+  });
+
+  /* ==========================================================
+   * 12. Tab 切换
+   * ========================================================== */
+
+  tabsEl.addEventListener('click', e => {
+    const btn = e.target.closest('.tab');
+    if (!btn || btn.dataset.tab === currentTab) return;
+    switchTab(btn.dataset.tab);
+  });
+
+  /* ==========================================================
+   * 13. 级别筛选
+   * ========================================================== */
+
+  levelFilterEl.addEventListener('click', e => {
+    const btn = e.target.closest('.lf');
+    if (!btn) return;
+    state.levelFilter = btn.dataset.level;
+    levelFilterEl.querySelectorAll('.lf').forEach(b => {
+      b.classList.toggle('active', b === btn);
+    });
+    buildContent();
+    updateVisual();
+    if (state.selected){
+      // 如果选中项不再符合筛选条件，清除
+      const node = nodeById.get(state.selected);
+      if (node && !levelAllowed(node.lv)) clearSelection();
+    }
+  });
+
+  /* ==========================================================
+   * 14. 底部抽屉拖拽
+   * ========================================================== */
+
+  let dragStartY = 0, dragCurY = 0, dragging = false;
+
+  sheetHandle.addEventListener('touchstart', e => {
+    if (!isMobile()) return;
+    dragging = true;
+    dragStartY = dragCurY = e.touches[0].clientY;
+    detailEl.style.transition = 'none';
+  }, { passive:true });
+
+  document.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    dragCurY = e.touches[0].clientY;
+    const dy = Math.max(0, dragCurY - dragStartY);
+    detailEl.style.transform = `translateY(${dy}px)`;
+  }, { passive:true });
+
+  document.addEventListener('touchend', () => {
+    if (!dragging) return;
+    dragging = false;
+    const dy = dragCurY - dragStartY;
+    detailEl.style.transition = 'transform .3s cubic-bezier(.32,.72,0,1)';
+
+    if (dy > 90){
+      detailEl.style.transform = 'translateY(100%)';
+      setTimeout(() => {
+        detailEl.style.transition = '';
+        detailEl.style.transform = '';
+        clearSelection();
+      }, 300);
+    } else {
+      detailEl.style.transform = 'translateY(0)';
+      setTimeout(() => {
+        detailEl.style.transition = '';
+        detailEl.style.transform = '';
+      }, 300);
+    }
+  }, { passive:true });
+
+  /* ==========================================================
+   * 15. 回到顶部
+   * ========================================================== */
+
+  content.addEventListener('scroll', () => {
+    backTop.classList.toggle('show', content.scrollTop > 420);
+  }, { passive:true });
+
+  backTop.addEventListener('click', () => {
+    content.scrollTo({ top: 0, behavior:'smooth' });
+  });
+
+  /* ==========================================================
+   * 16. 滚动同步导航
+   * ========================================================== */
+
+  let scrollTick = false;
+  content.addEventListener('scroll', () => {
+    if (scrollTick) return;
+    scrollTick = true;
+    requestAnimationFrame(() => {
+      scrollTick = false;
+      const contentTop = content.getBoundingClientRect().top;
+      let current = Object.keys(curCats)[0];
+
+      Object.keys(curCats).forEach(key => {
+        const sec = content.querySelector(`.section[data-cat="${key}"]`);
+        if (!sec || sec.style.display === 'none') return;
+        const r = sec.getBoundingClientRect();
+        if (r.top - contentTop <= 80) current = key;
+      });
+      setActiveChip(current);
+    });
+  }, { passive:true });
+
+  /* ==========================================================
+   * 17. 断点变化
+   * ========================================================== */
+
+  function syncBreakpoint(){
+    if (isMobile()){
+      searchEl.placeholder = '搜索技术 / 知识点';
+    } else {
+      searchEl.placeholder = '搜索技术 / 知识点 / 关键词';
+      detailEl.style.transition = '';
+      detailEl.style.transform = '';
+      closeSheet();
+    }
+  }
+
+  if (mqMobile.addEventListener){
+    mqMobile.addEventListener('change', () => { syncBreakpoint(); renderDetail(state.selected); });
+  } else if (mqMobile.addListener){
+    mqMobile.addListener(() => { syncBreakpoint(); renderDetail(state.selected); });
+  }
+
+  /* ==========================================================
+   * 18. 启动
+   * ========================================================== */
+
+  switchTab('java');
+  syncBreakpoint();
+
+  /* ================= 面试题联动（自动注入，单向：图谱 -> 题库） ================= */
+  let __kgToastEl = null;
+  function showKgToast(msg){
+    if(!__kgToastEl){
+      __kgToastEl = document.createElement('div');
+      __kgToastEl.style.cssText = 'position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:rgba(20,25,40,.92);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:999;pointer-events:none;transition:opacity .25s;opacity:0;max-width:80vw;text-align:center;';
+      document.body.appendChild(__kgToastEl);
+    }
+    __kgToastEl.textContent = msg;
+    __kgToastEl.style.opacity = '1';
+    clearTimeout(__kgToastEl.__t);
+    __kgToastEl.__t = setTimeout(() => { __kgToastEl.style.opacity = '0'; }, 2200);
+  }
+  window.addEventListener('message', (e) => {
+    const d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.type === 'kg-not-found'){
+      showKgToast('该知识点在题库中暂无标注的关联题目');
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
