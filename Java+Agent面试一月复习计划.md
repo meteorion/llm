@@ -55,15 +55,15 @@ Oct 6, 2026 · @meteorzhong
 
 目标：HashMap/CHM、线程池、AQS、JMM、GC 五个最高频点能不看资料讲 3 分钟；题库关联题约 217 道。
 
-| 日期 | 图谱节点 | 必须讲透的要点 | 题库题数 | 完成标准 |
-| --- | --- | --- | --- | --- |
-| 10/10 | ★Java 语言基础 ★集合框架 ☆泛型与注解 ☆函数式编程 | OOP 与设计原则；HashMap 结构、扰动函数、树化 8/6；CHM 1.8 CAS + synchronized + 协助扩容；泛型擦除与 PECS；Stream 惰性求值 | 18 | 闭卷画出 HashMap put 流程和 CHM 扩容示意 |
-| 10/11 | ★线程与线程池 ☆异步编排 ☆虚拟线程 | 七参数与提交流程、池大小估算与隔离监控；CompletableFuture 编排与超时；虚拟线程调度、适合 I/O 密集 | 29 | 手写带超时和兜底的 3 接口并行调用 |
-| 10/12 | ★锁机制 ★CAS 与 AQS ★JUC 并发容器 | 锁升级、死锁与 jstack；CAS 三大问题；AQS state + CLH；ReentrantLock / Semaphore / CountDownLatch；CopyOnWrite、BlockingQueue | 59 | 不看资料讲清 ReentrantLock 加锁与释放全流程 |
-| 10/13 | ★JMM 与可见性 ☆IO / NIO / AIO ☆Netty | happens-before、volatile 语义与内存屏障；Selector 多路复用与零拷贝；Netty 主从 Reactor、粘包拆包 | 47 | 口述 DCL 为什么要 volatile；画出 Netty 线程模型 |
-| 10/14 | ★JVM 内存结构 ★垃圾回收 ☆类加载机制 | 堆分区与对象分配；类加载五阶段、双亲委派与打破；GC Roots、三色标记与漏标、G1 Region / SATB / Mixed GC | 49 | 画运行时内存图并标 OOM 场景；各一句话对比 CMS / G1 / ZGC |
-| 10/15 | ★JVM 调优 | GC 参数与日志解读；Arthas dashboard / trace / jad；CPU 飙高、OOM、频繁 Full GC 排查路径 | 15 | 每类故障讲一个“现象 → 定位 → 解决”案例 |
-| 10/16 | 第 7 天：复盘 + 模拟面 | 卡壳题回炉；本阶段抽测 20 题；简历 v1 定稿、公司三档清单 | — | 抽测 ≥ 80%；30 min 模拟面录音 |
+| 日期    | 图谱节点                             | 必须讲透的要点                                                                                                      | 题库题数 | 完成标准                                   |
+| ----- | -------------------------------- | ------------------------------------------------------------------------------------------------------------ | ---- | -------------------------------------- |
+| 10/10 | ★Java 语言基础 ★集合框架 ☆泛型与注解 ☆函数式编程   | OOP 与设计原则；HashMap 结构、扰动函数、树化 8/6；CHM 1.8 CAS + synchronized + 协助扩容；泛型擦除与 PECS；Stream 惰性求值                    | 18   | 闭卷画出 HashMap put 流程和 CHM 扩容示意          |
+| 10/11 | ★线程与线程池 ☆异步编排 ☆虚拟线程              | 七参数与提交流程、池大小估算与隔离监控；CompletableFuture 编排与超时；虚拟线程调度、适合 I/O 密集                                                 | 29   | 手写带超时和兜底的 3 接口并行调用                     |
+| 10/12 | ★锁机制 ★CAS 与 AQS ★JUC 并发容器        | 锁升级、死锁与 jstack；CAS 三大问题；AQS state + CLH；ReentrantLock / Semaphore / CountDownLatch；CopyOnWrite、BlockingQueue | 59   | 不看资料讲清 ReentrantLock 加锁与释放全流程          |
+| 10/13 | ★JMM 与可见性 ☆IO / NIO / AIO ☆Netty | happens-before、volatile 语义与内存屏障；Selector 多路复用与零拷贝；Netty 主从 Reactor、粘包拆包                                      | 47   | 口述 DCL 为什么要 volatile；画出 Netty 线程模型     |
+| 10/14 | ★JVM 内存结构 ★垃圾回收 ☆类加载机制           | 堆分区与对象分配；类加载五阶段、双亲委派与打破；GC Roots、三色标记与漏标、G1 Region / SATB / Mixed GC                                         | 49   | 画运行时内存图并标 OOM 场景；各一句话对比 CMS / G1 / ZGC |
+| 10/15 | ★JVM 调优                          | GC 参数与日志解读；Arthas dashboard / trace / jad；CPU 飙高、OOM、频繁 Full GC 排查路径                                         | 15   | 每类故障讲一个“现象 → 定位 → 解决”案例                |
+| 10/16 | 第 7 天：复盘 + 模拟面                   | 卡壳题回炉；本阶段抽测 20 题；简历 v1 定稿、公司三档清单                                                                             | —    | 抽测 ≥ 80%；30 min 模拟面录音                  |
 
 ## 阶段 2：Spring + 存储 + 缓存 + 消息（10/17 – 10/23）
 
